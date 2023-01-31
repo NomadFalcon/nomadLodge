@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "157812576090",
+    "project_id": "nomad-lodge-a504e",
+    "storage_bucket": "nomad-lodge-a504e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:157812576090:android:c8d517cf2f7d162208ed63",
+        "android_client_info": {
+          "package_name": "com.nomadfalcon.nomadlodge"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "157812576090-gobs3fbl4vtpe42sp5chv1ptrco14tbk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIfaxcc4Lw-VzqSXiaD408Km5k2KheyYM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "157812576090-gobs3fbl4vtpe42sp5chv1ptrco14tbk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "157812576090-85qgtod3t9s0mo09nm9hqobls5d011hn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.nomadLodge"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
