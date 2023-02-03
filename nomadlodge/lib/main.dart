@@ -16,10 +16,10 @@ import 'decorations.dart';
 import 'firebase_options.dart';
 
 final actionCodeSettings = ActionCodeSettings(
-  url: 'https://flutterfire-e2e-tests.firebaseapp.com',
+  url: 'https://nomad-lodge-a504e.firebaseapp.com',
   handleCodeInApp: true,
   androidMinimumVersion: '1',
-  androidPackageName: 'io.flutter.plugins.firebase_ui.firebase_ui_example',
+  androidPackageName: 'com.nomadfalcon.nomadlodge',
   iOSBundleId: 'com.nomadfalcon.nomadlodge',
 );
 final emailLinkProviderConfig = EmailLinkAuthProvider(
@@ -29,11 +29,9 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  /*
   if (FirebaseAuth.instance.currentUser == null) {
     await FirebaseAuth.instance.signInAnonymously();
   }
-  */
 
   FirebaseUIAuth.configureProviders([
     EmailAuthProvider(),
@@ -48,7 +46,7 @@ Future<void> main() async {
     ),
   ]);
 
-  runApp(const FirebaseAuthUIExample());
+  runApp(const NomadLodgeApp());
 }
 
 // Overrides a label for en locale
@@ -61,8 +59,8 @@ class LabelOverrides extends DefaultLocalizations {
   String get emailInputLabel => 'Enter your email';
 }
 
-class FirebaseAuthUIExample extends StatelessWidget {
-  const FirebaseAuthUIExample({Key? key}) : super(key: key);
+class NomadLodgeApp extends StatelessWidget {
+  const NomadLodgeApp({Key? key}) : super(key: key);
 
   String get initialRoute {
     final auth = FirebaseAuth.instance;
@@ -128,11 +126,7 @@ class FirebaseAuthUIExample extends StatelessWidget {
                 Navigator.pushNamed(context, '/phone');
               }),
               AuthStateChangeAction<SignedIn>((context, state) {
-                if (!state.user!.emailVerified) {
-                  Navigator.pushNamed(context, '/verify-email');
-                } else {
-                  Navigator.pushReplacementNamed(context, '/profile');
-                }
+                Navigator.pushReplacementNamed(context, '/profile');
               }),
               AuthStateChangeAction<UserCreated>((context, state) {
                 if (!state.credential.user!.emailVerified) {
