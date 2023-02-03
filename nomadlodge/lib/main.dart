@@ -14,6 +14,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'config.dart';
 import 'decorations.dart';
 import 'firebase_options.dart';
+import 'helpers/user_helpers.dart';
 
 final actionCodeSettings = ActionCodeSettings(
   url: 'https://nomad-lodge-a504e.firebaseapp.com',
@@ -126,6 +127,7 @@ class NomadLodgeApp extends StatelessWidget {
                 Navigator.pushNamed(context, '/phone');
               }),
               AuthStateChangeAction<SignedIn>((context, state) {
+                UserHelpers.saveUser(state.user!, "client");
                 Navigator.pushReplacementNamed(context, '/profile');
               }),
               AuthStateChangeAction<UserCreated>((context, state) {
