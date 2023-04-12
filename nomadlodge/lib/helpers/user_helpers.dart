@@ -7,9 +7,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserHelpers {
-  static FirebaseFirestore _db = FirebaseFirestore.instance;
+  static final UserHelpers _singleton = UserHelpers._internal();
 
-  static saveUser(User user, String role) async {
+  factory UserHelpers() {
+    return _singleton;
+  }
+
+  UserHelpers._internal();
+  FirebaseFirestore _db = FirebaseFirestore.instance;
+
+  saveUser(User user) async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     int buildNumber = int.parse(packageInfo.buildNumber);
     Map<String, dynamic> userData = {
@@ -17,7 +24,6 @@ class UserHelpers {
       "email": user.email,
       "last_login": user.metadata.lastSignInTime!.millisecondsSinceEpoch,
       "created_at": user.metadata.creationTime!.millisecondsSinceEpoch,
-      "role": role,
       "build_number": buildNumber
     };
     final userRef = _db.collection("users").doc(user.uid);
@@ -32,7 +38,15 @@ class UserHelpers {
     saveDevice(user);
   }
 
-  static saveDevice(User user) async {
+  saveUserRole(String role) async {
+    User? currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null) {
+      final userRef = _db.collection("users").doc(currentUser.uid);
+      await userRef.update({"role": role});
+    }
+  }
+
+  saveDevice(User user) async {
     DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
     String deviceId;
     Map<String, dynamic> deviceData;
@@ -75,5 +89,44 @@ class UserHelpers {
         });
       }
     }
+  }
+
+  AppUser? currentAppUser;
+  getUserFromAuthUser(User user) async {
+    final userRef = _db.collection("users").doc(user.uid).withConverter(
+          fromFirestore: AppUser.fromFirestore,
+          toFirestore: (AppUser city, _) => city.toFirestore(),
+        );
+
+    final docSnap = await userRef.get();
+    currentAppUser = docSnap.data();
+  }
+}
+
+class AppUser {
+  String name;
+  String? role;
+  String email;
+
+  AppUser({required this.name, this.role, required this.email});
+
+  factory AppUser.fromFirestore(
+    DocumentSnapshot<Map<String, dynamic>> snapshot,
+    SnapshotOptions? options,
+  ) {
+    final data = snapshot.data();
+    return AppUser(
+      name: data?['name'],
+      role: data?['role'],
+      email: data?['email'],
+    );
+  }
+
+  Map<String, dynamic> toFirestore() {
+    return {
+      if (name != null) "name": name,
+      if (role != null) "role": role,
+      if (email != null) "email": email,
+    };
   }
 }

@@ -69,10 +69,16 @@ class NomadLodgeApp extends StatelessWidget {
     if (auth.currentUser == null || auth.currentUser!.isAnonymous) {
       return '/';
     }
-
+    UserHelpers().getUserFromAuthUser(auth.currentUser!);
+    if (UserHelpers().currentAppUser != null &&
+        UserHelpers().currentAppUser?.role != null) {
+      return '/choose-role';
+    }
+    /*
     if (!auth.currentUser!.emailVerified && auth.currentUser!.email != null) {
       return '/verify-email';
     }
+    */
 
     return '/profile';
   }
@@ -127,7 +133,7 @@ class NomadLodgeApp extends StatelessWidget {
                 Navigator.pushNamed(context, '/phone');
               }),
               AuthStateChangeAction<SignedIn>((context, state) {
-                UserHelpers.saveUser(state.user!, "client");
+                UserHelpers().saveUser(state.user!);
                 Navigator.pushReplacementNamed(context, '/profile');
               }),
               AuthStateChangeAction<UserCreated>((context, state) {
