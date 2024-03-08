@@ -1,0 +1,22 @@
+version: '3.7'
+
+services:
+  postgres:
+    image: postgres:14.1
+    ports:
+      - '8090:5432'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: nomadlodge_backend
+      POSTGRES_PASSWORD: "xDICwkoMXOsJPnX9IRSMATn6TWrKEBcI"
+    volumes:
+      - nomadlodge_backend_data:/var/lib/postgresql/data
+  redis:
+    image: redis:6.2.6
+    ports:
+      - '8091:6379'
+    command: redis-server --requirepass "SxFW-Wtg13HLasRdk-4wlVDTCvNJc0MV"
+    environment:
+      - REDIS_REPLICATION_MODE=master
+volumes:
+  nomadlodge_backend_data:

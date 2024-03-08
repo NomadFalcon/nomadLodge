@@ -50,6 +50,10 @@ dependencies:
   device_info: ^2.0.3
   package_info: ^2.0.2
 
+  serverpod_flutter: ^1.1.0
+  nomadlodge_backend_client:
+    path: nomadlodge_backend/nomadlodge_backend_client
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
