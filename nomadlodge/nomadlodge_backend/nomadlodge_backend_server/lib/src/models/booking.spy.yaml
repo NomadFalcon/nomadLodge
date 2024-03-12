@@ -4,8 +4,8 @@ fields:
   platform: String
   start: DateTime
   end: DateTime
-  user: User, relation
-  location: Location, relation
+  user: User?, relation
+  location: Location?, relation
 indexes:
   booking_user_unique_idx:
     fields: userId

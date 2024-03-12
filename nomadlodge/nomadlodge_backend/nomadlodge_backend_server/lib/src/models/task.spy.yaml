@@ -3,5 +3,5 @@ table: task
 fields:
   name: String
   description: String
-  isCompleted: bool = false
-  images: List<Media>, relation
+  isCompleted: bool
+  images: List<Media>?, relation

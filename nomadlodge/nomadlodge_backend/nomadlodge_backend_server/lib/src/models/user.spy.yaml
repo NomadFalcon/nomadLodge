@@ -6,5 +6,5 @@ fields:
   phone: String?
   country: String?
   userType: UserType
-  devices: List<UserDevices>, relation
+  devices: List<UserDevice>?, relation
 

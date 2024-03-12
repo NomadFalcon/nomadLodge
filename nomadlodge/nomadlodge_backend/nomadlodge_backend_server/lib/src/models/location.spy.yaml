@@ -6,13 +6,13 @@ fields:
   shortDescription: String
   website: String?
   rooms: int
-  medias: List<Media>, relation
-  user: User, relation
-  geoAddress: GeoAddress, relation
+  medias: List<Media>?, relation
+  user: User?, relation
+  geoAddress: GeoAddress?, relation
 indexes:
   location_user_unique_idx:
     fields: userId
     unique: true
   location_geoaddress_idx:
-    fields: geoaddressId
+    fields: geoAddressId
     unique: true

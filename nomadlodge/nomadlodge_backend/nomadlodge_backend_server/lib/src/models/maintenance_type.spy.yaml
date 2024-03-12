@@ -1,5 +1,5 @@
-class: MaintenanceType
-table: maintenance_type
+class: Maintenancetype
+table: maintenancetype
 fields:
   name: String
   description: String
