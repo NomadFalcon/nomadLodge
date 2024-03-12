@@ -1,0 +1,10 @@
+class: User 
+table: user
+fields:
+  name: String
+  email: String
+  phone: String?
+  country: String?
+  userType: UserType
+  devices: List<UserDevices>, relation
+

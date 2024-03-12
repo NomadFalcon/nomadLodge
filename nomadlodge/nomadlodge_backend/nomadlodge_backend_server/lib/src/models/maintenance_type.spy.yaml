@@ -1,0 +1,6 @@
+class: MaintenanceType
+table: maintenance_type
+fields:
+  name: String
+  description: String
+  icon: String?

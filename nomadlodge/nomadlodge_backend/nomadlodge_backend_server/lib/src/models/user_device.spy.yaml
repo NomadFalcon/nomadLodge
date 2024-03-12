@@ -1,0 +1,12 @@
+class: UserDevice 
+table: user_device
+fields:
+  toke: String
+  plaform: String
+  osVersion: String
+  deviceInfo: String?
+  user: User, relation
+indexes:
+  userdevice_user_unique_idx:
+    fields: userId
+    unique: true

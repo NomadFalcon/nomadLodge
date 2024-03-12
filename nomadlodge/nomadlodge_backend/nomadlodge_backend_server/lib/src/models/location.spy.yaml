@@ -1,0 +1,18 @@
+class: Location 
+table: location
+fields:
+  name: String
+  longDescription: String
+  shortDescription: String
+  website: String?
+  rooms: int
+  medias: List<Media>, relation
+  user: User, relation
+  geoAddress: GeoAddress, relation
+indexes:
+  location_user_unique_idx:
+    fields: userId
+    unique: true
+  location_geoaddress_idx:
+    fields: geoaddressId
+    unique: true
