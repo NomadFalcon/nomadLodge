@@ -15,19 +15,21 @@ import 'booking.dart' as _i3;
 import 'fee.dart' as _i4;
 import 'geo_address.dart' as _i5;
 import 'location.dart' as _i6;
-import 'maintenace.dart' as _i7;
-import 'maintenance_type.dart' as _i8;
-import 'media.dart' as _i9;
-import 'media_type.dart' as _i10;
-import 'task.dart' as _i11;
-import 'user.dart' as _i12;
-import 'user_device.dart' as _i13;
-import 'user_type.dart' as _i14;
-import 'protocol.dart' as _i15;
+import 'location_team.dart' as _i7;
+import 'maintenace.dart' as _i8;
+import 'maintenance_type.dart' as _i9;
+import 'media.dart' as _i10;
+import 'media_type.dart' as _i11;
+import 'task.dart' as _i12;
+import 'user.dart' as _i13;
+import 'user_device.dart' as _i14;
+import 'user_type.dart' as _i15;
+import 'protocol.dart' as _i16;
 export 'booking.dart';
 export 'fee.dart';
 export 'geo_address.dart';
 export 'location.dart';
+export 'location_team.dart';
 export 'maintenace.dart';
 export 'maintenance_type.dart';
 export 'media.dart';
@@ -374,6 +376,86 @@ class Protocol extends _i1.SerializationManagerServer {
             _i2.IndexElementDefinition(
               type: _i2.IndexElementDefinitionType.column,
               definition: 'geoAddressId',
+            )
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: false,
+        ),
+      ],
+      managed: true,
+    ),
+    _i2.TableDefinition(
+      name: 'location_team',
+      dartName: 'LocationTeam',
+      schema: 'public',
+      module: 'nomadlodge_backend',
+      columns: [
+        _i2.ColumnDefinition(
+          name: 'id',
+          columnType: _i2.ColumnType.integer,
+          isNullable: false,
+          dartType: 'int?',
+          columnDefault: 'nextval(\'location_team_id_seq\'::regclass)',
+        ),
+        _i2.ColumnDefinition(
+          name: 'name',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'description',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'users',
+          columnType: _i2.ColumnType.json,
+          isNullable: true,
+          dartType: 'List<protocol:User>?',
+        ),
+        _i2.ColumnDefinition(
+          name: 'locationId',
+          columnType: _i2.ColumnType.integer,
+          isNullable: false,
+          dartType: 'int',
+        ),
+      ],
+      foreignKeys: [
+        _i2.ForeignKeyDefinition(
+          constraintName: 'location_team_fk_0',
+          columns: ['locationId'],
+          referenceTable: 'location',
+          referenceTableSchema: 'public',
+          referenceColumns: ['id'],
+          onUpdate: _i2.ForeignKeyAction.noAction,
+          onDelete: _i2.ForeignKeyAction.noAction,
+          matchType: null,
+        )
+      ],
+      indexes: [
+        _i2.IndexDefinition(
+          indexName: 'location_team_pkey',
+          tableSpace: null,
+          elements: [
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'id',
+            )
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: true,
+        ),
+        _i2.IndexDefinition(
+          indexName: 'locationteam_location_unique_idx',
+          tableSpace: null,
+          elements: [
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'locationId',
             )
           ],
           type: 'btree',
@@ -932,29 +1014,32 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == _i6.Location) {
       return _i6.Location.fromJson(data, this) as T;
     }
-    if (t == _i7.Maintenance) {
-      return _i7.Maintenance.fromJson(data, this) as T;
+    if (t == _i7.LocationTeam) {
+      return _i7.LocationTeam.fromJson(data, this) as T;
     }
-    if (t == _i8.Maintenancetype) {
-      return _i8.Maintenancetype.fromJson(data, this) as T;
+    if (t == _i8.Maintenance) {
+      return _i8.Maintenance.fromJson(data, this) as T;
     }
-    if (t == _i9.Media) {
-      return _i9.Media.fromJson(data, this) as T;
+    if (t == _i9.Maintenancetype) {
+      return _i9.Maintenancetype.fromJson(data, this) as T;
     }
-    if (t == _i10.MediaType) {
-      return _i10.MediaType.fromJson(data) as T;
+    if (t == _i10.Media) {
+      return _i10.Media.fromJson(data, this) as T;
     }
-    if (t == _i11.Task) {
-      return _i11.Task.fromJson(data, this) as T;
+    if (t == _i11.MediaType) {
+      return _i11.MediaType.fromJson(data) as T;
     }
-    if (t == _i12.User) {
-      return _i12.User.fromJson(data, this) as T;
+    if (t == _i12.Task) {
+      return _i12.Task.fromJson(data, this) as T;
     }
-    if (t == _i13.UserDevice) {
-      return _i13.UserDevice.fromJson(data, this) as T;
+    if (t == _i13.User) {
+      return _i13.User.fromJson(data, this) as T;
     }
-    if (t == _i14.UserType) {
-      return _i14.UserType.fromJson(data) as T;
+    if (t == _i14.UserDevice) {
+      return _i14.UserDevice.fromJson(data, this) as T;
+    }
+    if (t == _i15.UserType) {
+      return _i15.UserType.fromJson(data) as T;
     }
     if (t == _i1.getType<_i3.Booking?>()) {
       return (data != null ? _i3.Booking.fromJson(data, this) : null) as T;
@@ -968,49 +1053,57 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == _i1.getType<_i6.Location?>()) {
       return (data != null ? _i6.Location.fromJson(data, this) : null) as T;
     }
-    if (t == _i1.getType<_i7.Maintenance?>()) {
-      return (data != null ? _i7.Maintenance.fromJson(data, this) : null) as T;
+    if (t == _i1.getType<_i7.LocationTeam?>()) {
+      return (data != null ? _i7.LocationTeam.fromJson(data, this) : null) as T;
     }
-    if (t == _i1.getType<_i8.Maintenancetype?>()) {
-      return (data != null ? _i8.Maintenancetype.fromJson(data, this) : null)
+    if (t == _i1.getType<_i8.Maintenance?>()) {
+      return (data != null ? _i8.Maintenance.fromJson(data, this) : null) as T;
+    }
+    if (t == _i1.getType<_i9.Maintenancetype?>()) {
+      return (data != null ? _i9.Maintenancetype.fromJson(data, this) : null)
           as T;
     }
-    if (t == _i1.getType<_i9.Media?>()) {
-      return (data != null ? _i9.Media.fromJson(data, this) : null) as T;
+    if (t == _i1.getType<_i10.Media?>()) {
+      return (data != null ? _i10.Media.fromJson(data, this) : null) as T;
     }
-    if (t == _i1.getType<_i10.MediaType?>()) {
-      return (data != null ? _i10.MediaType.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i11.MediaType?>()) {
+      return (data != null ? _i11.MediaType.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i11.Task?>()) {
-      return (data != null ? _i11.Task.fromJson(data, this) : null) as T;
+    if (t == _i1.getType<_i12.Task?>()) {
+      return (data != null ? _i12.Task.fromJson(data, this) : null) as T;
     }
-    if (t == _i1.getType<_i12.User?>()) {
-      return (data != null ? _i12.User.fromJson(data, this) : null) as T;
+    if (t == _i1.getType<_i13.User?>()) {
+      return (data != null ? _i13.User.fromJson(data, this) : null) as T;
     }
-    if (t == _i1.getType<_i13.UserDevice?>()) {
-      return (data != null ? _i13.UserDevice.fromJson(data, this) : null) as T;
+    if (t == _i1.getType<_i14.UserDevice?>()) {
+      return (data != null ? _i14.UserDevice.fromJson(data, this) : null) as T;
     }
-    if (t == _i1.getType<_i14.UserType?>()) {
-      return (data != null ? _i14.UserType.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i15.UserType?>()) {
+      return (data != null ? _i15.UserType.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<List<_i15.Media>?>()) {
+    if (t == _i1.getType<List<_i16.Media>?>()) {
       return (data != null
-          ? (data as List).map((e) => deserialize<_i15.Media>(e)).toList()
+          ? (data as List).map((e) => deserialize<_i16.Media>(e)).toList()
           : null) as dynamic;
     }
-    if (t == _i1.getType<List<_i15.Task>?>()) {
+    if (t == _i1.getType<List<_i16.User>?>()) {
       return (data != null
-          ? (data as List).map((e) => deserialize<_i15.Task>(e)).toList()
+          ? (data as List).map((e) => deserialize<_i16.User>(e)).toList()
           : null) as dynamic;
     }
-    if (t == _i1.getType<List<_i15.Media>?>()) {
+    if (t == _i1.getType<List<_i16.Task>?>()) {
       return (data != null
-          ? (data as List).map((e) => deserialize<_i15.Media>(e)).toList()
+          ? (data as List).map((e) => deserialize<_i16.Task>(e)).toList()
           : null) as dynamic;
     }
-    if (t == _i1.getType<List<_i15.UserDevice>?>()) {
+    if (t == _i1.getType<List<_i16.Media>?>()) {
       return (data != null
-          ? (data as List).map((e) => deserialize<_i15.UserDevice>(e)).toList()
+          ? (data as List).map((e) => deserialize<_i16.Media>(e)).toList()
+          : null) as dynamic;
+    }
+    if (t == _i1.getType<List<_i16.UserDevice>?>()) {
+      return (data != null
+          ? (data as List).map((e) => deserialize<_i16.UserDevice>(e)).toList()
           : null) as dynamic;
     }
     try {
@@ -1033,28 +1126,31 @@ class Protocol extends _i1.SerializationManagerServer {
     if (data is _i6.Location) {
       return 'Location';
     }
-    if (data is _i7.Maintenance) {
+    if (data is _i7.LocationTeam) {
+      return 'LocationTeam';
+    }
+    if (data is _i8.Maintenance) {
       return 'Maintenance';
     }
-    if (data is _i8.Maintenancetype) {
+    if (data is _i9.Maintenancetype) {
       return 'Maintenancetype';
     }
-    if (data is _i9.Media) {
+    if (data is _i10.Media) {
       return 'Media';
     }
-    if (data is _i10.MediaType) {
+    if (data is _i11.MediaType) {
       return 'MediaType';
     }
-    if (data is _i11.Task) {
+    if (data is _i12.Task) {
       return 'Task';
     }
-    if (data is _i12.User) {
+    if (data is _i13.User) {
       return 'User';
     }
-    if (data is _i13.UserDevice) {
+    if (data is _i14.UserDevice) {
       return 'UserDevice';
     }
-    if (data is _i14.UserType) {
+    if (data is _i15.UserType) {
       return 'UserType';
     }
     return super.getClassNameForObject(data);
@@ -1074,29 +1170,32 @@ class Protocol extends _i1.SerializationManagerServer {
     if (data['className'] == 'Location') {
       return deserialize<_i6.Location>(data['data']);
     }
+    if (data['className'] == 'LocationTeam') {
+      return deserialize<_i7.LocationTeam>(data['data']);
+    }
     if (data['className'] == 'Maintenance') {
-      return deserialize<_i7.Maintenance>(data['data']);
+      return deserialize<_i8.Maintenance>(data['data']);
     }
     if (data['className'] == 'Maintenancetype') {
-      return deserialize<_i8.Maintenancetype>(data['data']);
+      return deserialize<_i9.Maintenancetype>(data['data']);
     }
     if (data['className'] == 'Media') {
-      return deserialize<_i9.Media>(data['data']);
+      return deserialize<_i10.Media>(data['data']);
     }
     if (data['className'] == 'MediaType') {
-      return deserialize<_i10.MediaType>(data['data']);
+      return deserialize<_i11.MediaType>(data['data']);
     }
     if (data['className'] == 'Task') {
-      return deserialize<_i11.Task>(data['data']);
+      return deserialize<_i12.Task>(data['data']);
     }
     if (data['className'] == 'User') {
-      return deserialize<_i12.User>(data['data']);
+      return deserialize<_i13.User>(data['data']);
     }
     if (data['className'] == 'UserDevice') {
-      return deserialize<_i13.UserDevice>(data['data']);
+      return deserialize<_i14.UserDevice>(data['data']);
     }
     if (data['className'] == 'UserType') {
-      return deserialize<_i14.UserType>(data['data']);
+      return deserialize<_i15.UserType>(data['data']);
     }
     return super.deserializeByClassName(data);
   }
@@ -1118,18 +1217,20 @@ class Protocol extends _i1.SerializationManagerServer {
         return _i5.GeoAddress.t;
       case _i6.Location:
         return _i6.Location.t;
-      case _i7.Maintenance:
-        return _i7.Maintenance.t;
-      case _i8.Maintenancetype:
-        return _i8.Maintenancetype.t;
-      case _i9.Media:
-        return _i9.Media.t;
-      case _i11.Task:
-        return _i11.Task.t;
-      case _i12.User:
-        return _i12.User.t;
-      case _i13.UserDevice:
-        return _i13.UserDevice.t;
+      case _i7.LocationTeam:
+        return _i7.LocationTeam.t;
+      case _i8.Maintenance:
+        return _i8.Maintenance.t;
+      case _i9.Maintenancetype:
+        return _i9.Maintenancetype.t;
+      case _i10.Media:
+        return _i10.Media.t;
+      case _i12.Task:
+        return _i12.Task.t;
+      case _i13.User:
+        return _i13.User.t;
+      case _i14.UserDevice:
+        return _i14.UserDevice.t;
     }
     return null;
   }

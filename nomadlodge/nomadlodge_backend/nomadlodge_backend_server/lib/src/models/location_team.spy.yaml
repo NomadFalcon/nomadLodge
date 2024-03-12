@@ -1,0 +1,11 @@
+class: LocationTeam 
+table: location_team
+fields:
+  name: String
+  description: String
+  users: List<User>?
+  location: Location?, relation
+indexes:
+  locationteam_location_unique_idx:
+    fields: locationId
+    unique: true
