@@ -31,6 +31,12 @@ void run(List<String> args) async {
     '/*',
   );
 
+  // Add the authentication module.
+  auth.AuthConfig.set(
+    auth.AuthConfig(
+      firebaseServiceAccountKeyJson: 'config/firebase-service-account.json',
+    ),
+  );
   // Start the server.
   await pod.start();
 }

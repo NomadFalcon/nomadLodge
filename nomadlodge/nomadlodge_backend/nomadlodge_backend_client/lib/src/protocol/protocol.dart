@@ -24,7 +24,13 @@ import 'user.dart' as _i12;
 import 'user_device.dart' as _i13;
 import 'user_type.dart' as _i14;
 import 'protocol.dart' as _i15;
-import 'package:serverpod_auth_client/module.dart' as _i16;
+import 'package:nomadlodge_backend_client/src/protocol/location.dart' as _i16;
+import 'package:nomadlodge_backend_client/src/protocol/location_team.dart'
+    as _i17;
+import 'package:nomadlodge_backend_client/src/protocol/booking.dart' as _i18;
+import 'package:nomadlodge_backend_client/src/protocol/maintenace.dart' as _i19;
+import 'package:nomadlodge_backend_client/src/protocol/task.dart' as _i20;
+import 'package:serverpod_auth_client/module.dart' as _i21;
 export 'booking.dart';
 export 'fee.dart';
 export 'geo_address.dart';
@@ -162,8 +168,30 @@ class Protocol extends _i1.SerializationManager {
           ? (data as List).map((e) => deserialize<_i15.UserDevice>(e)).toList()
           : null) as dynamic;
     }
+    if (t == List<_i16.Location>) {
+      return (data as List).map((e) => deserialize<_i16.Location>(e)).toList()
+          as dynamic;
+    }
+    if (t == List<_i17.LocationTeam>) {
+      return (data as List)
+          .map((e) => deserialize<_i17.LocationTeam>(e))
+          .toList() as dynamic;
+    }
+    if (t == List<_i18.Booking>) {
+      return (data as List).map((e) => deserialize<_i18.Booking>(e)).toList()
+          as dynamic;
+    }
+    if (t == List<_i19.Maintenance>) {
+      return (data as List)
+          .map((e) => deserialize<_i19.Maintenance>(e))
+          .toList() as dynamic;
+    }
+    if (t == List<_i20.Task>) {
+      return (data as List).map((e) => deserialize<_i20.Task>(e)).toList()
+          as dynamic;
+    }
     try {
-      return _i16.Protocol().deserialize<T>(data, t);
+      return _i21.Protocol().deserialize<T>(data, t);
     } catch (_) {}
     return super.deserialize<T>(data, t);
   }
@@ -171,7 +199,7 @@ class Protocol extends _i1.SerializationManager {
   @override
   String? getClassNameForObject(Object data) {
     String? className;
-    className = _i16.Protocol().getClassNameForObject(data);
+    className = _i21.Protocol().getClassNameForObject(data);
     if (className != null) {
       return 'serverpod_auth.$className';
     }
@@ -221,7 +249,7 @@ class Protocol extends _i1.SerializationManager {
   dynamic deserializeByClassName(Map<String, dynamic> data) {
     if (data['className'].startsWith('serverpod_auth.')) {
       data['className'] = data['className'].substring(15);
-      return _i16.Protocol().deserializeByClassName(data);
+      return _i21.Protocol().deserializeByClassName(data);
     }
     if (data['className'] == 'Booking') {
       return deserialize<_i2.Booking>(data['data']);
