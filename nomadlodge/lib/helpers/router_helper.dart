@@ -4,8 +4,12 @@ import 'package:firebase_auth/firebase_auth.dart'
     hide PhoneAuthProvider, EmailAuthProvider;
 import 'user_helpers.dart';
 import '/../decorations.dart';
+import 'package:serverpod_client/serverpod_client.dart';
 
 class RouterHelper {
+  late final Client client;
+  late final SessionManager sessionManager;
+
   static Map<String, WidgetBuilder> getRoutes(
       BuildContext context,
       AuthStateChangeAction<MFARequired> mfaAction,
