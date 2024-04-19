@@ -42,6 +42,3 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
-
-
-nomadlodge/nomadlodge_backend/nomadlodge_backend_server/config/firebase-service-account.json
