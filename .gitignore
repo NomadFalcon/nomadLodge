@@ -1,3 +1,6 @@
 
 nomadlodge/nomadlodge_backend/nomadlodge_backend_server/config/firebase-service-account.json
 nomadlodge/nomadlodge_backend/nomadlodge_backend_server/config/firebase-service-account.json
+nomadlodge/ios/Runner/GoogleService-Info.plist
+nomadlodge/ios/firebase_app_id_file.json
+nomadlodge/android/app/google-services.json
