@@ -50,8 +50,9 @@ dependencies:
   device_info: ^2.0.3
   package_info: ^2.0.2
 
-  serverpod_flutter: ^1.1.0
-  serverpod_auth_shared_flutter: ^1.1.0
+  serverpod_flutter: 2.1.1
+  serverpod_auth_shared_flutter: 2.1.1
+  
   nomadlodge_backend_client:
     path: nomadlodge_backend/nomadlodge_backend_client
 
@@ -64,7 +65,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^2.0.0
+  flutter_lints: ^3.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
