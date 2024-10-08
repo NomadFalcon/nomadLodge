@@ -3,8 +3,11 @@ import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:device_info/device_info.dart';
 import 'package:package_info/package_info.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:nomadlodge_backend_client/nomadlodge_backend_client.dart';
+import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
+import 'package:serverpod_flutter/serverpod_flutter.dart';
 
 class UserHelpers {
   static final UserHelpers _singleton = UserHelpers._internal();
@@ -16,7 +19,49 @@ class UserHelpers {
   UserHelpers._internal();
   FirebaseFirestore _db = FirebaseFirestore.instance;
 
-  saveUser(User user) async {
+  authenticateUser(idToken) async {
+    Client client = Client(
+      'http://localhost:8080/',
+      authenticationKeyManager: FlutterAuthenticationKeyManager(),
+    )..connectivityMonitor = FlutterConnectivityMonitor();
+
+    SessionManager sessionManager = SessionManager(caller: client.modules.auth);
+    String? loginError;
+    try {
+      await sessionManager.initialize();
+
+      await Firebase.initializeApp();
+      final authenticationResponse =
+          await client.modules.auth.firebase.authenticate(idToken);
+
+      if (authenticationResponse.success) {
+        final userInfo = authenticationResponse.userInfo!;
+        final authenticationKeyId = authenticationResponse.keyId!;
+        final authenticationKey = authenticationResponse.key!;
+
+        // This is very important to have future calls to the client
+        // send the session of our logged in user
+        await sessionManager.registerSignedInUser(
+            userInfo, authenticationKeyId, authenticationKey);
+      }
+    } catch (e) {
+      loginError = e.toString();
+    }
+    return loginError;
+  }
+
+  convertUser(firebase_auth.User user, UserType type) {
+    return User(
+      //id: user.uid,
+      email: user.email!,
+      name: user.displayName!,
+      //photoURL: user.photoURL!,
+      phone: user.phoneNumber,
+      userType: type,
+    );
+  }
+
+  saveUser(firebase_auth.User user) async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     int buildNumber = int.parse(packageInfo.buildNumber);
     Map<String, dynamic> userData = {
@@ -39,14 +84,15 @@ class UserHelpers {
   }
 
   saveUserRole(String role) async {
-    User? currentUser = FirebaseAuth.instance.currentUser;
+    firebase_auth.User? currentUser =
+        firebase_auth.FirebaseAuth.instance.currentUser;
     if (currentUser != null) {
       final userRef = _db.collection("users").doc(currentUser.uid);
       await userRef.update({"role": role});
     }
   }
 
-  saveDevice(User user) async {
+  saveDevice(firebase_auth.User user) async {
     DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
     String deviceId;
     Map<String, dynamic> deviceData;
@@ -92,7 +138,7 @@ class UserHelpers {
   }
 
   AppUser? currentAppUser;
-  getUserFromAuthUser(User user) async {
+  getUserFromAuthUser(firebase_auth.User user) async {
     final userRef = _db.collection("users").doc(user.uid).withConverter(
           fromFirestore: AppUser.fromFirestore,
           toFirestore: (AppUser city, _) => city.toFirestore(),

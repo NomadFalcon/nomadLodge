@@ -2,14 +2,11 @@ import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart'
     hide PhoneAuthProvider, EmailAuthProvider;
+
 import 'user_helpers.dart';
 import '/../decorations.dart';
-import 'package:serverpod_client/serverpod_client.dart';
 
 class RouterHelper {
-  late final Client client;
-  late final SessionManager sessionManager;
-
   static Map<String, WidgetBuilder> getRoutes(
       BuildContext context,
       AuthStateChangeAction<MFARequired> mfaAction,
@@ -43,7 +40,16 @@ class RouterHelper {
             }),
             AuthStateChangeAction<SignedIn>((context, state) {
               UserHelpers().saveUser(state.user!);
-              Navigator.pushReplacementNamed(context, '/profile');
+              state.user!.getIdToken().then((idToken) {
+                UserHelpers().authenticateUser(idToken).then((loginError) {
+                  if (loginError != null) {
+                    print('Error: $loginError');
+                  } else {
+                    print('User authenticated');
+                    Navigator.pushReplacementNamed(context, '/profile');
+                  }
+                });
+              });
             }),
             AuthStateChangeAction<UserCreated>((context, state) {
               if (!state.credential.user!.emailVerified) {

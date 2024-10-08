@@ -1,17 +1,18 @@
 /* AUTOMATICALLY GENERATED CODE DO NOT MODIFY */
 /*   To generate run: "serverpod generate"    */
 
-// ignore_for_file: library_private_types_in_public_api
-// ignore_for_file: public_member_api_docs
 // ignore_for_file: implementation_imports
-// ignore_for_file: use_super_parameters
+// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: public_member_api_docs
 // ignore_for_file: type_literal_in_constant_pattern
+// ignore_for_file: use_super_parameters
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import 'protocol.dart' as _i2;
 
-abstract class Maintenance extends _i1.SerializableEntity {
+abstract class Maintenance implements _i1.SerializableModel {
   Maintenance._({
     this.id,
     required this.maintenancetypeId,
@@ -44,34 +45,37 @@ abstract class Maintenance extends _i1.SerializableEntity {
     _i2.Location? location,
   }) = _MaintenanceImpl;
 
-  factory Maintenance.fromJson(
-    Map<String, dynamic> jsonSerialization,
-    _i1.SerializationManager serializationManager,
-  ) {
+  factory Maintenance.fromJson(Map<String, dynamic> jsonSerialization) {
     return Maintenance(
-      id: serializationManager.deserialize<int?>(jsonSerialization['id']),
-      maintenancetypeId: serializationManager
-          .deserialize<int>(jsonSerialization['maintenancetypeId']),
-      maintenancetype: serializationManager.deserialize<_i2.Maintenancetype?>(
-          jsonSerialization['maintenancetype']),
-      start: serializationManager
-          .deserialize<DateTime>(jsonSerialization['start']),
-      end:
-          serializationManager.deserialize<DateTime?>(jsonSerialization['end']),
-      description: serializationManager
-          .deserialize<String>(jsonSerialization['description']),
-      tasks: serializationManager
-          .deserialize<List<_i2.Task>?>(jsonSerialization['tasks']),
-      userId:
-          serializationManager.deserialize<int>(jsonSerialization['userId']),
-      user: serializationManager
-          .deserialize<_i2.User?>(jsonSerialization['user']),
-      feeId: serializationManager.deserialize<int>(jsonSerialization['feeId']),
-      fee: serializationManager.deserialize<_i2.Fee?>(jsonSerialization['fee']),
-      locationId: serializationManager
-          .deserialize<int>(jsonSerialization['locationId']),
-      location: serializationManager
-          .deserialize<_i2.Location?>(jsonSerialization['location']),
+      id: jsonSerialization['id'] as int?,
+      maintenancetypeId: jsonSerialization['maintenancetypeId'] as int,
+      maintenancetype: jsonSerialization['maintenancetype'] == null
+          ? null
+          : _i2.Maintenancetype.fromJson(
+              (jsonSerialization['maintenancetype'] as Map<String, dynamic>)),
+      start: _i1.DateTimeJsonExtension.fromJson(jsonSerialization['start']),
+      end: jsonSerialization['end'] == null
+          ? null
+          : _i1.DateTimeJsonExtension.fromJson(jsonSerialization['end']),
+      description: jsonSerialization['description'] as String,
+      tasks: (jsonSerialization['tasks'] as List?)
+          ?.map((e) => _i2.Task.fromJson((e as Map<String, dynamic>)))
+          .toList(),
+      userId: jsonSerialization['userId'] as int,
+      user: jsonSerialization['user'] == null
+          ? null
+          : _i2.User.fromJson(
+              (jsonSerialization['user'] as Map<String, dynamic>)),
+      feeId: jsonSerialization['feeId'] as int,
+      fee: jsonSerialization['fee'] == null
+          ? null
+          : _i2.Fee.fromJson(
+              (jsonSerialization['fee'] as Map<String, dynamic>)),
+      locationId: jsonSerialization['locationId'] as int,
+      location: jsonSerialization['location'] == null
+          ? null
+          : _i2.Location.fromJson(
+              (jsonSerialization['location'] as Map<String, dynamic>)),
     );
   }
 
@@ -137,6 +141,11 @@ abstract class Maintenance extends _i1.SerializableEntity {
       if (location != null) 'location': location?.toJson(),
     };
   }
+
+  @override
+  String toString() {
+    return _i1.SerializationManager.encode(this);
+  }
 }
 
 class _Undefined {}
@@ -197,7 +206,9 @@ class _MaintenanceImpl extends Maintenance {
       start: start ?? this.start,
       end: end is DateTime? ? end : this.end,
       description: description ?? this.description,
-      tasks: tasks is List<_i2.Task>? ? tasks : this.tasks?.clone(),
+      tasks: tasks is List<_i2.Task>?
+          ? tasks
+          : this.tasks?.map((e0) => e0.copyWith()).toList(),
       userId: userId ?? this.userId,
       user: user is _i2.User? ? user : this.user?.copyWith(),
       feeId: feeId ?? this.feeId,

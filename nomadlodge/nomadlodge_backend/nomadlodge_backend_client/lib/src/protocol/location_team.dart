@@ -1,17 +1,18 @@
 /* AUTOMATICALLY GENERATED CODE DO NOT MODIFY */
 /*   To generate run: "serverpod generate"    */
 
-// ignore_for_file: library_private_types_in_public_api
-// ignore_for_file: public_member_api_docs
 // ignore_for_file: implementation_imports
-// ignore_for_file: use_super_parameters
+// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: public_member_api_docs
 // ignore_for_file: type_literal_in_constant_pattern
+// ignore_for_file: use_super_parameters
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import 'protocol.dart' as _i2;
 
-abstract class LocationTeam extends _i1.SerializableEntity {
+abstract class LocationTeam implements _i1.SerializableModel {
   LocationTeam._({
     this.id,
     required this.name,
@@ -30,21 +31,19 @@ abstract class LocationTeam extends _i1.SerializableEntity {
     _i2.Location? location,
   }) = _LocationTeamImpl;
 
-  factory LocationTeam.fromJson(
-    Map<String, dynamic> jsonSerialization,
-    _i1.SerializationManager serializationManager,
-  ) {
+  factory LocationTeam.fromJson(Map<String, dynamic> jsonSerialization) {
     return LocationTeam(
-      id: serializationManager.deserialize<int?>(jsonSerialization['id']),
-      name: serializationManager.deserialize<String>(jsonSerialization['name']),
-      description: serializationManager
-          .deserialize<String>(jsonSerialization['description']),
-      users: serializationManager
-          .deserialize<List<_i2.User>?>(jsonSerialization['users']),
-      locationId: serializationManager
-          .deserialize<int>(jsonSerialization['locationId']),
-      location: serializationManager
-          .deserialize<_i2.Location?>(jsonSerialization['location']),
+      id: jsonSerialization['id'] as int?,
+      name: jsonSerialization['name'] as String,
+      description: jsonSerialization['description'] as String,
+      users: (jsonSerialization['users'] as List?)
+          ?.map((e) => _i2.User.fromJson((e as Map<String, dynamic>)))
+          .toList(),
+      locationId: jsonSerialization['locationId'] as int,
+      location: jsonSerialization['location'] == null
+          ? null
+          : _i2.Location.fromJson(
+              (jsonSerialization['location'] as Map<String, dynamic>)),
     );
   }
 
@@ -82,6 +81,11 @@ abstract class LocationTeam extends _i1.SerializableEntity {
       if (location != null) 'location': location?.toJson(),
     };
   }
+
+  @override
+  String toString() {
+    return _i1.SerializationManager.encode(this);
+  }
 }
 
 class _Undefined {}
@@ -116,7 +120,9 @@ class _LocationTeamImpl extends LocationTeam {
       id: id is int? ? id : this.id,
       name: name ?? this.name,
       description: description ?? this.description,
-      users: users is List<_i2.User>? ? users : this.users?.clone(),
+      users: users is List<_i2.User>?
+          ? users
+          : this.users?.map((e0) => e0.copyWith()).toList(),
       locationId: locationId ?? this.locationId,
       location:
           location is _i2.Location? ? location : this.location?.copyWith(),

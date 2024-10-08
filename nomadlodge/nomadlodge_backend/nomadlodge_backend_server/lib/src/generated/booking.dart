@@ -1,18 +1,19 @@
 /* AUTOMATICALLY GENERATED CODE DO NOT MODIFY */
 /*   To generate run: "serverpod generate"    */
 
-// ignore_for_file: library_private_types_in_public_api
-// ignore_for_file: public_member_api_docs
 // ignore_for_file: implementation_imports
-// ignore_for_file: use_super_parameters
+// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: public_member_api_docs
 // ignore_for_file: type_literal_in_constant_pattern
+// ignore_for_file: use_super_parameters
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
 import 'protocol.dart' as _i2;
-import 'package:serverpod_serialization/serverpod_serialization.dart';
 
-abstract class Booking extends _i1.TableRow {
+abstract class Booking extends _i1.TableRow
+    implements _i1.ProtocolSerialization {
   Booking._({
     int? id,
     required this.platform,
@@ -35,25 +36,22 @@ abstract class Booking extends _i1.TableRow {
     _i2.Location? location,
   }) = _BookingImpl;
 
-  factory Booking.fromJson(
-    Map<String, dynamic> jsonSerialization,
-    _i1.SerializationManager serializationManager,
-  ) {
+  factory Booking.fromJson(Map<String, dynamic> jsonSerialization) {
     return Booking(
-      id: serializationManager.deserialize<int?>(jsonSerialization['id']),
-      platform: serializationManager
-          .deserialize<String>(jsonSerialization['platform']),
-      start: serializationManager
-          .deserialize<DateTime>(jsonSerialization['start']),
-      end: serializationManager.deserialize<DateTime>(jsonSerialization['end']),
-      userId:
-          serializationManager.deserialize<int>(jsonSerialization['userId']),
-      user: serializationManager
-          .deserialize<_i2.User?>(jsonSerialization['user']),
-      locationId: serializationManager
-          .deserialize<int>(jsonSerialization['locationId']),
-      location: serializationManager
-          .deserialize<_i2.Location?>(jsonSerialization['location']),
+      id: jsonSerialization['id'] as int?,
+      platform: jsonSerialization['platform'] as String,
+      start: _i1.DateTimeJsonExtension.fromJson(jsonSerialization['start']),
+      end: _i1.DateTimeJsonExtension.fromJson(jsonSerialization['end']),
+      userId: jsonSerialization['userId'] as int,
+      user: jsonSerialization['user'] == null
+          ? null
+          : _i2.User.fromJson(
+              (jsonSerialization['user'] as Map<String, dynamic>)),
+      locationId: jsonSerialization['locationId'] as int,
+      location: jsonSerialization['location'] == null
+          ? null
+          : _i2.Location.fromJson(
+              (jsonSerialization['location'] as Map<String, dynamic>)),
     );
   }
 
@@ -103,185 +101,17 @@ abstract class Booking extends _i1.TableRow {
   }
 
   @override
-  @Deprecated('Will be removed in 2.0.0')
-  Map<String, dynamic> toJsonForDatabase() {
-    return {
-      'id': id,
-      'platform': platform,
-      'start': start,
-      'end': end,
-      'userId': userId,
-      'locationId': locationId,
-    };
-  }
-
-  @override
-  Map<String, dynamic> allToJson() {
+  Map<String, dynamic> toJsonForProtocol() {
     return {
       if (id != null) 'id': id,
       'platform': platform,
       'start': start.toJson(),
       'end': end.toJson(),
       'userId': userId,
-      if (user != null) 'user': user?.allToJson(),
+      if (user != null) 'user': user?.toJsonForProtocol(),
       'locationId': locationId,
-      if (location != null) 'location': location?.allToJson(),
+      if (location != null) 'location': location?.toJsonForProtocol(),
     };
-  }
-
-  @override
-  @Deprecated('Will be removed in 2.0.0')
-  void setColumn(
-    String columnName,
-    value,
-  ) {
-    switch (columnName) {
-      case 'id':
-        id = value;
-        return;
-      case 'platform':
-        platform = value;
-        return;
-      case 'start':
-        start = value;
-        return;
-      case 'end':
-        end = value;
-        return;
-      case 'userId':
-        userId = value;
-        return;
-      case 'locationId':
-        locationId = value;
-        return;
-      default:
-        throw UnimplementedError();
-    }
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.find instead.')
-  static Future<List<Booking>> find(
-    _i1.Session session, {
-    _i1.WhereExpressionBuilder<BookingTable>? where,
-    int? limit,
-    int? offset,
-    _i1.Column? orderBy,
-    List<_i1.Order>? orderByList,
-    bool orderDescending = false,
-    bool useCache = true,
-    _i1.Transaction? transaction,
-    BookingInclude? include,
-  }) async {
-    return session.db.find<Booking>(
-      where: where != null ? where(Booking.t) : null,
-      limit: limit,
-      offset: offset,
-      orderBy: orderBy,
-      orderByList: orderByList,
-      orderDescending: orderDescending,
-      useCache: useCache,
-      transaction: transaction,
-      include: include,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.findRow instead.')
-  static Future<Booking?> findSingleRow(
-    _i1.Session session, {
-    _i1.WhereExpressionBuilder<BookingTable>? where,
-    int? offset,
-    _i1.Column? orderBy,
-    bool orderDescending = false,
-    bool useCache = true,
-    _i1.Transaction? transaction,
-    BookingInclude? include,
-  }) async {
-    return session.db.findSingleRow<Booking>(
-      where: where != null ? where(Booking.t) : null,
-      offset: offset,
-      orderBy: orderBy,
-      orderDescending: orderDescending,
-      useCache: useCache,
-      transaction: transaction,
-      include: include,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.findById instead.')
-  static Future<Booking?> findById(
-    _i1.Session session,
-    int id, {
-    BookingInclude? include,
-  }) async {
-    return session.db.findById<Booking>(
-      id,
-      include: include,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.deleteWhere instead.')
-  static Future<int> delete(
-    _i1.Session session, {
-    required _i1.WhereExpressionBuilder<BookingTable> where,
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.delete<Booking>(
-      where: where(Booking.t),
-      transaction: transaction,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.deleteRow instead.')
-  static Future<bool> deleteRow(
-    _i1.Session session,
-    Booking row, {
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.deleteRow(
-      row,
-      transaction: transaction,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.update instead.')
-  static Future<bool> update(
-    _i1.Session session,
-    Booking row, {
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.update(
-      row,
-      transaction: transaction,
-    );
-  }
-
-  @Deprecated(
-      'Will be removed in 2.0.0. Use: db.insert instead. Important note: In db.insert, the object you pass in is no longer modified, instead a new copy with the added row is returned which contains the inserted id.')
-  static Future<void> insert(
-    _i1.Session session,
-    Booking row, {
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.insert(
-      row,
-      transaction: transaction,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.count instead.')
-  static Future<int> count(
-    _i1.Session session, {
-    _i1.WhereExpressionBuilder<BookingTable>? where,
-    int? limit,
-    bool useCache = true,
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.count<Booking>(
-      where: where != null ? where(Booking.t) : null,
-      limit: limit,
-      useCache: useCache,
-      transaction: transaction,
-    );
   }
 
   static BookingInclude include({
@@ -312,6 +142,11 @@ abstract class Booking extends _i1.TableRow {
       orderByList: orderByList?.call(Booking.t),
       include: include,
     );
+  }
+
+  @override
+  String toString() {
+    return _i1.SerializationManager.encode(this);
   }
 }
 
@@ -449,9 +284,6 @@ class BookingTable extends _i1.Table {
   }
 }
 
-@Deprecated('Use BookingTable.t instead.')
-BookingTable tBooking = BookingTable();
-
 class BookingInclude extends _i1.IncludeObject {
   BookingInclude._({
     _i2.UserInclude? user,
@@ -511,7 +343,7 @@ class BookingRepository {
     _i1.Transaction? transaction,
     BookingInclude? include,
   }) async {
-    return session.dbNext.find<Booking>(
+    return session.db.find<Booking>(
       where: where?.call(Booking.t),
       orderBy: orderBy?.call(Booking.t),
       orderByList: orderByList?.call(Booking.t),
@@ -533,7 +365,7 @@ class BookingRepository {
     _i1.Transaction? transaction,
     BookingInclude? include,
   }) async {
-    return session.dbNext.findFirstRow<Booking>(
+    return session.db.findFirstRow<Booking>(
       where: where?.call(Booking.t),
       orderBy: orderBy?.call(Booking.t),
       orderByList: orderByList?.call(Booking.t),
@@ -550,7 +382,7 @@ class BookingRepository {
     _i1.Transaction? transaction,
     BookingInclude? include,
   }) async {
-    return session.dbNext.findById<Booking>(
+    return session.db.findById<Booking>(
       id,
       transaction: transaction,
       include: include,
@@ -562,7 +394,7 @@ class BookingRepository {
     List<Booking> rows, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.insert<Booking>(
+    return session.db.insert<Booking>(
       rows,
       transaction: transaction,
     );
@@ -573,7 +405,7 @@ class BookingRepository {
     Booking row, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.insertRow<Booking>(
+    return session.db.insertRow<Booking>(
       row,
       transaction: transaction,
     );
@@ -585,7 +417,7 @@ class BookingRepository {
     _i1.ColumnSelections<BookingTable>? columns,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.update<Booking>(
+    return session.db.update<Booking>(
       rows,
       columns: columns?.call(Booking.t),
       transaction: transaction,
@@ -598,41 +430,41 @@ class BookingRepository {
     _i1.ColumnSelections<BookingTable>? columns,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.updateRow<Booking>(
+    return session.db.updateRow<Booking>(
       row,
       columns: columns?.call(Booking.t),
       transaction: transaction,
     );
   }
 
-  Future<List<int>> delete(
+  Future<List<Booking>> delete(
     _i1.Session session,
     List<Booking> rows, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.delete<Booking>(
+    return session.db.delete<Booking>(
       rows,
       transaction: transaction,
     );
   }
 
-  Future<int> deleteRow(
+  Future<Booking> deleteRow(
     _i1.Session session,
     Booking row, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.deleteRow<Booking>(
+    return session.db.deleteRow<Booking>(
       row,
       transaction: transaction,
     );
   }
 
-  Future<List<int>> deleteWhere(
+  Future<List<Booking>> deleteWhere(
     _i1.Session session, {
     required _i1.WhereExpressionBuilder<BookingTable> where,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.deleteWhere<Booking>(
+    return session.db.deleteWhere<Booking>(
       where: where(Booking.t),
       transaction: transaction,
     );
@@ -644,7 +476,7 @@ class BookingRepository {
     int? limit,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.count<Booking>(
+    return session.db.count<Booking>(
       where: where?.call(Booking.t),
       limit: limit,
       transaction: transaction,
@@ -658,8 +490,9 @@ class BookingAttachRowRepository {
   Future<void> user(
     _i1.Session session,
     Booking booking,
-    _i2.User user,
-  ) async {
+    _i2.User user, {
+    _i1.Transaction? transaction,
+  }) async {
     if (booking.id == null) {
       throw ArgumentError.notNull('booking.id');
     }
@@ -668,17 +501,19 @@ class BookingAttachRowRepository {
     }
 
     var $booking = booking.copyWith(userId: user.id);
-    await session.dbNext.updateRow<Booking>(
+    await session.db.updateRow<Booking>(
       $booking,
       columns: [Booking.t.userId],
+      transaction: transaction,
     );
   }
 
   Future<void> location(
     _i1.Session session,
     Booking booking,
-    _i2.Location location,
-  ) async {
+    _i2.Location location, {
+    _i1.Transaction? transaction,
+  }) async {
     if (booking.id == null) {
       throw ArgumentError.notNull('booking.id');
     }
@@ -687,9 +522,10 @@ class BookingAttachRowRepository {
     }
 
     var $booking = booking.copyWith(locationId: location.id);
-    await session.dbNext.updateRow<Booking>(
+    await session.db.updateRow<Booking>(
       $booking,
       columns: [Booking.t.locationId],
+      transaction: transaction,
     );
   }
 }

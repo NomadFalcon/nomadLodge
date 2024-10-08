@@ -1,11 +1,12 @@
 /* AUTOMATICALLY GENERATED CODE DO NOT MODIFY */
 /*   To generate run: "serverpod generate"    */
 
-// ignore_for_file: library_private_types_in_public_api
-// ignore_for_file: public_member_api_docs
 // ignore_for_file: implementation_imports
-// ignore_for_file: use_super_parameters
+// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: public_member_api_docs
 // ignore_for_file: type_literal_in_constant_pattern
+// ignore_for_file: use_super_parameters
 
 library protocol; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
@@ -30,7 +31,7 @@ import 'package:nomadlodge_backend_client/src/protocol/location_team.dart'
 import 'package:nomadlodge_backend_client/src/protocol/booking.dart' as _i18;
 import 'package:nomadlodge_backend_client/src/protocol/maintenace.dart' as _i19;
 import 'package:nomadlodge_backend_client/src/protocol/task.dart' as _i20;
-import 'package:serverpod_auth_client/module.dart' as _i21;
+import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i21;
 export 'booking.dart';
 export 'fee.dart';
 export 'geo_address.dart';
@@ -51,8 +52,6 @@ class Protocol extends _i1.SerializationManager {
 
   factory Protocol() => _instance;
 
-  static final Map<Type, _i1.constructor> customConstructors = {};
-
   static final Protocol _instance = Protocol._();
 
   @override
@@ -61,84 +60,80 @@ class Protocol extends _i1.SerializationManager {
     Type? t,
   ]) {
     t ??= T;
-    if (customConstructors.containsKey(t)) {
-      return customConstructors[t]!(data, this) as T;
-    }
     if (t == _i2.Booking) {
-      return _i2.Booking.fromJson(data, this) as T;
+      return _i2.Booking.fromJson(data) as T;
     }
     if (t == _i3.Fee) {
-      return _i3.Fee.fromJson(data, this) as T;
+      return _i3.Fee.fromJson(data) as T;
     }
     if (t == _i4.GeoAddress) {
-      return _i4.GeoAddress.fromJson(data, this) as T;
+      return _i4.GeoAddress.fromJson(data) as T;
     }
     if (t == _i5.Location) {
-      return _i5.Location.fromJson(data, this) as T;
+      return _i5.Location.fromJson(data) as T;
     }
     if (t == _i6.LocationTeam) {
-      return _i6.LocationTeam.fromJson(data, this) as T;
+      return _i6.LocationTeam.fromJson(data) as T;
     }
     if (t == _i7.Maintenance) {
-      return _i7.Maintenance.fromJson(data, this) as T;
+      return _i7.Maintenance.fromJson(data) as T;
     }
     if (t == _i8.Maintenancetype) {
-      return _i8.Maintenancetype.fromJson(data, this) as T;
+      return _i8.Maintenancetype.fromJson(data) as T;
     }
     if (t == _i9.Media) {
-      return _i9.Media.fromJson(data, this) as T;
+      return _i9.Media.fromJson(data) as T;
     }
     if (t == _i10.MediaType) {
       return _i10.MediaType.fromJson(data) as T;
     }
     if (t == _i11.Task) {
-      return _i11.Task.fromJson(data, this) as T;
+      return _i11.Task.fromJson(data) as T;
     }
     if (t == _i12.User) {
-      return _i12.User.fromJson(data, this) as T;
+      return _i12.User.fromJson(data) as T;
     }
     if (t == _i13.UserDevice) {
-      return _i13.UserDevice.fromJson(data, this) as T;
+      return _i13.UserDevice.fromJson(data) as T;
     }
     if (t == _i14.UserType) {
       return _i14.UserType.fromJson(data) as T;
     }
     if (t == _i1.getType<_i2.Booking?>()) {
-      return (data != null ? _i2.Booking.fromJson(data, this) : null) as T;
+      return (data != null ? _i2.Booking.fromJson(data) : null) as T;
     }
     if (t == _i1.getType<_i3.Fee?>()) {
-      return (data != null ? _i3.Fee.fromJson(data, this) : null) as T;
+      return (data != null ? _i3.Fee.fromJson(data) : null) as T;
     }
     if (t == _i1.getType<_i4.GeoAddress?>()) {
-      return (data != null ? _i4.GeoAddress.fromJson(data, this) : null) as T;
+      return (data != null ? _i4.GeoAddress.fromJson(data) : null) as T;
     }
     if (t == _i1.getType<_i5.Location?>()) {
-      return (data != null ? _i5.Location.fromJson(data, this) : null) as T;
+      return (data != null ? _i5.Location.fromJson(data) : null) as T;
     }
     if (t == _i1.getType<_i6.LocationTeam?>()) {
-      return (data != null ? _i6.LocationTeam.fromJson(data, this) : null) as T;
+      return (data != null ? _i6.LocationTeam.fromJson(data) : null) as T;
     }
     if (t == _i1.getType<_i7.Maintenance?>()) {
-      return (data != null ? _i7.Maintenance.fromJson(data, this) : null) as T;
+      return (data != null ? _i7.Maintenance.fromJson(data) : null) as T;
     }
     if (t == _i1.getType<_i8.Maintenancetype?>()) {
-      return (data != null ? _i8.Maintenancetype.fromJson(data, this) : null)
-          as T;
+      return (data != null ? _i8.Maintenancetype.fromJson(data) : null) as T;
     }
     if (t == _i1.getType<_i9.Media?>()) {
-      return (data != null ? _i9.Media.fromJson(data, this) : null) as T;
+      return (data != null ? _i9.Media.fromJson(data) : null) as T;
     }
     if (t == _i1.getType<_i10.MediaType?>()) {
       return (data != null ? _i10.MediaType.fromJson(data) : null) as T;
     }
     if (t == _i1.getType<_i11.Task?>()) {
-      return (data != null ? _i11.Task.fromJson(data, this) : null) as T;
+      return (data != null ? _i11.Task.fromJson(data) : null) as T;
     }
     if (t == _i1.getType<_i12.User?>()) {
-      return (data != null ? _i12.User.fromJson(data, this) : null) as T;
+      return (data != null ? _i12.User.fromJson(data) : null) as T;
     }
     if (t == _i1.getType<_i13.UserDevice?>()) {
-      return (data != null ? _i13.UserDevice.fromJson(data, this) : null) as T;
+      return (data != null ? _i13.UserDevice.fromJson(data) : null) as T;
     }
     if (t == _i1.getType<_i14.UserType?>()) {
       return (data != null ? _i14.UserType.fromJson(data) : null) as T;
@@ -192,17 +187,14 @@ class Protocol extends _i1.SerializationManager {
     }
     try {
       return _i21.Protocol().deserialize<T>(data, t);
-    } catch (_) {}
+    } on _i1.DeserializationTypeNotFoundException catch (_) {}
     return super.deserialize<T>(data, t);
   }
 
   @override
-  String? getClassNameForObject(Object data) {
-    String? className;
-    className = _i21.Protocol().getClassNameForObject(data);
-    if (className != null) {
-      return 'serverpod_auth.$className';
-    }
+  String? getClassNameForObject(Object? data) {
+    String? className = super.getClassNameForObject(data);
+    if (className != null) return className;
     if (data is _i2.Booking) {
       return 'Booking';
     }
@@ -242,15 +234,15 @@ class Protocol extends _i1.SerializationManager {
     if (data is _i14.UserType) {
       return 'UserType';
     }
-    return super.getClassNameForObject(data);
+    className = _i21.Protocol().getClassNameForObject(data);
+    if (className != null) {
+      return 'serverpod_auth.$className';
+    }
+    return null;
   }
 
   @override
   dynamic deserializeByClassName(Map<String, dynamic> data) {
-    if (data['className'].startsWith('serverpod_auth.')) {
-      data['className'] = data['className'].substring(15);
-      return _i21.Protocol().deserializeByClassName(data);
-    }
     if (data['className'] == 'Booking') {
       return deserialize<_i2.Booking>(data['data']);
     }
@@ -289,6 +281,10 @@ class Protocol extends _i1.SerializationManager {
     }
     if (data['className'] == 'UserType') {
       return deserialize<_i14.UserType>(data['data']);
+    }
+    if (data['className'].startsWith('serverpod_auth.')) {
+      data['className'] = data['className'].substring(15);
+      return _i21.Protocol().deserializeByClassName(data);
     }
     return super.deserializeByClassName(data);
   }

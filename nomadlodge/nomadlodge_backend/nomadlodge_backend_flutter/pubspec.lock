@@ -53,18 +53,18 @@ packages:
     dependency: transitive
     description:
       name: connectivity_plus
-      sha256: "224a77051d52a11fbad53dd57827594d3bd24f945af28bd70bab376d68d437f0"
+      sha256: "2056db5241f96cdc0126bd94459fc4cdc13876753768fc7a31c425e50a7177d0"
       url: "https://pub.dev"
     source: hosted
-    version: "5.0.2"
+    version: "6.0.5"
   connectivity_plus_platform_interface:
     dependency: transitive
     description:
       name: connectivity_plus_platform_interface
-      sha256: cf1d1c28f4416f8c654d7dc3cd638ec586076255d407cef3ddbdaf178272a71a
+      sha256: "42657c1715d48b167930d5f34d00222ac100475f73d10162ddf43e714932f204"
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.4"
+    version: "2.0.1"
   crypto:
     dependency: transitive
     description:
@@ -152,14 +152,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.1.0"
-  js:
-    dependency: transitive
-    description:
-      name: js
-      sha256: f2c445dce49627136094980615a031419f7f3eb393237e4ecd97ac15dea343f3
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.6.7"
   leak_tracker:
     dependency: transitive
     description:
@@ -259,34 +251,34 @@ packages:
     dependency: transitive
     description:
       name: serverpod_auth_client
-      sha256: a169b0ed8492404e29ef2ac9dfdd481726440e770037950be484de0d44b18368
+      sha256: "928ef0f391db2ad79ff437cd460446876f8eaf11420eb48224b387288a990d47"
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.5"
+    version: "2.1.1"
   serverpod_client:
     dependency: transitive
     description:
       name: serverpod_client
-      sha256: fab1200137b18bc1f8a7cae79491245fe9391a931a0db13a56cab1a9116b56a1
+      sha256: "58488119fc7d5b3d182197f7cd14280587bcb4842b49e72567c4513cf908bee5"
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.5"
+    version: "2.1.1"
   serverpod_flutter:
     dependency: "direct main"
     description:
       name: serverpod_flutter
-      sha256: "5e117b028c669f159966c436483bd12670668d86e2bf0a5c8f4b4b0a84b1963d"
+      sha256: cb53f58e7d3c1f423d0e0a16a782a2a80976cb5a692ceee9bfc81f5e1b5be9b4
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.5"
+    version: "2.1.1"
   serverpod_serialization:
     dependency: transitive
     description:
       name: serverpod_serialization
-      sha256: b6a607a1431187b1d4e6f0f1f091d88e861c7c4ec28dc46e121dbe2757339f6e
+      sha256: "5233c6a40deeb3e83066d984fa8d7e8c8c3c74eef67a6cdd8f9371a66f1183d3"
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.5"
+    version: "2.1.1"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -414,4 +406,4 @@ packages:
     version: "3.1.2"
 sdks:
   dart: ">=3.4.0 <4.0.0"
-  flutter: ">=3.18.0-18.0.pre.54"
+  flutter: ">=3.19.0"

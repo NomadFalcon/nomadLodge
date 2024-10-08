@@ -1,17 +1,19 @@
 /* AUTOMATICALLY GENERATED CODE DO NOT MODIFY */
 /*   To generate run: "serverpod generate"    */
 
-// ignore_for_file: library_private_types_in_public_api
-// ignore_for_file: public_member_api_docs
 // ignore_for_file: implementation_imports
-// ignore_for_file: use_super_parameters
+// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: public_member_api_docs
 // ignore_for_file: type_literal_in_constant_pattern
+// ignore_for_file: use_super_parameters
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
 import 'protocol.dart' as _i2;
 
-abstract class UserDevice extends _i1.TableRow {
+abstract class UserDevice extends _i1.TableRow
+    implements _i1.ProtocolSerialization {
   UserDevice._({
     int? id,
     required this.toke,
@@ -32,23 +34,18 @@ abstract class UserDevice extends _i1.TableRow {
     _i2.User? user,
   }) = _UserDeviceImpl;
 
-  factory UserDevice.fromJson(
-    Map<String, dynamic> jsonSerialization,
-    _i1.SerializationManager serializationManager,
-  ) {
+  factory UserDevice.fromJson(Map<String, dynamic> jsonSerialization) {
     return UserDevice(
-      id: serializationManager.deserialize<int?>(jsonSerialization['id']),
-      toke: serializationManager.deserialize<String>(jsonSerialization['toke']),
-      plaform: serializationManager
-          .deserialize<String>(jsonSerialization['plaform']),
-      osVersion: serializationManager
-          .deserialize<String>(jsonSerialization['osVersion']),
-      deviceInfo: serializationManager
-          .deserialize<String?>(jsonSerialization['deviceInfo']),
-      userId:
-          serializationManager.deserialize<int>(jsonSerialization['userId']),
-      user: serializationManager
-          .deserialize<_i2.User?>(jsonSerialization['user']),
+      id: jsonSerialization['id'] as int?,
+      toke: jsonSerialization['toke'] as String,
+      plaform: jsonSerialization['plaform'] as String,
+      osVersion: jsonSerialization['osVersion'] as String,
+      deviceInfo: jsonSerialization['deviceInfo'] as String?,
+      userId: jsonSerialization['userId'] as int,
+      user: jsonSerialization['user'] == null
+          ? null
+          : _i2.User.fromJson(
+              (jsonSerialization['user'] as Map<String, dynamic>)),
     );
   }
 
@@ -92,25 +89,12 @@ abstract class UserDevice extends _i1.TableRow {
       if (deviceInfo != null) 'deviceInfo': deviceInfo,
       'userId': userId,
       if (user != null) 'user': user?.toJson(),
+      if (_userDevicesUserId != null) '_userDevicesUserId': _userDevicesUserId,
     };
   }
 
   @override
-  @Deprecated('Will be removed in 2.0.0')
-  Map<String, dynamic> toJsonForDatabase() {
-    return {
-      'id': id,
-      'toke': toke,
-      'plaform': plaform,
-      'osVersion': osVersion,
-      'deviceInfo': deviceInfo,
-      'userId': userId,
-      '_userDevicesUserId': _userDevicesUserId,
-    };
-  }
-
-  @override
-  Map<String, dynamic> allToJson() {
+  Map<String, dynamic> toJsonForProtocol() {
     return {
       if (id != null) 'id': id,
       'toke': toke,
@@ -118,167 +102,8 @@ abstract class UserDevice extends _i1.TableRow {
       'osVersion': osVersion,
       if (deviceInfo != null) 'deviceInfo': deviceInfo,
       'userId': userId,
-      if (user != null) 'user': user?.allToJson(),
-      if (_userDevicesUserId != null) '_userDevicesUserId': _userDevicesUserId,
+      if (user != null) 'user': user?.toJsonForProtocol(),
     };
-  }
-
-  @override
-  @Deprecated('Will be removed in 2.0.0')
-  void setColumn(
-    String columnName,
-    value,
-  ) {
-    switch (columnName) {
-      case 'id':
-        id = value;
-        return;
-      case 'toke':
-        toke = value;
-        return;
-      case 'plaform':
-        plaform = value;
-        return;
-      case 'osVersion':
-        osVersion = value;
-        return;
-      case 'deviceInfo':
-        deviceInfo = value;
-        return;
-      case 'userId':
-        userId = value;
-        return;
-      case '_userDevicesUserId':
-        _userDevicesUserId = value;
-        return;
-      default:
-        throw UnimplementedError();
-    }
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.find instead.')
-  static Future<List<UserDevice>> find(
-    _i1.Session session, {
-    _i1.WhereExpressionBuilder<UserDeviceTable>? where,
-    int? limit,
-    int? offset,
-    _i1.Column? orderBy,
-    List<_i1.Order>? orderByList,
-    bool orderDescending = false,
-    bool useCache = true,
-    _i1.Transaction? transaction,
-    UserDeviceInclude? include,
-  }) async {
-    return session.db.find<UserDevice>(
-      where: where != null ? where(UserDevice.t) : null,
-      limit: limit,
-      offset: offset,
-      orderBy: orderBy,
-      orderByList: orderByList,
-      orderDescending: orderDescending,
-      useCache: useCache,
-      transaction: transaction,
-      include: include,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.findRow instead.')
-  static Future<UserDevice?> findSingleRow(
-    _i1.Session session, {
-    _i1.WhereExpressionBuilder<UserDeviceTable>? where,
-    int? offset,
-    _i1.Column? orderBy,
-    bool orderDescending = false,
-    bool useCache = true,
-    _i1.Transaction? transaction,
-    UserDeviceInclude? include,
-  }) async {
-    return session.db.findSingleRow<UserDevice>(
-      where: where != null ? where(UserDevice.t) : null,
-      offset: offset,
-      orderBy: orderBy,
-      orderDescending: orderDescending,
-      useCache: useCache,
-      transaction: transaction,
-      include: include,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.findById instead.')
-  static Future<UserDevice?> findById(
-    _i1.Session session,
-    int id, {
-    UserDeviceInclude? include,
-  }) async {
-    return session.db.findById<UserDevice>(
-      id,
-      include: include,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.deleteWhere instead.')
-  static Future<int> delete(
-    _i1.Session session, {
-    required _i1.WhereExpressionBuilder<UserDeviceTable> where,
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.delete<UserDevice>(
-      where: where(UserDevice.t),
-      transaction: transaction,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.deleteRow instead.')
-  static Future<bool> deleteRow(
-    _i1.Session session,
-    UserDevice row, {
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.deleteRow(
-      row,
-      transaction: transaction,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.update instead.')
-  static Future<bool> update(
-    _i1.Session session,
-    UserDevice row, {
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.update(
-      row,
-      transaction: transaction,
-    );
-  }
-
-  @Deprecated(
-      'Will be removed in 2.0.0. Use: db.insert instead. Important note: In db.insert, the object you pass in is no longer modified, instead a new copy with the added row is returned which contains the inserted id.')
-  static Future<void> insert(
-    _i1.Session session,
-    UserDevice row, {
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.insert(
-      row,
-      transaction: transaction,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.count instead.')
-  static Future<int> count(
-    _i1.Session session, {
-    _i1.WhereExpressionBuilder<UserDeviceTable>? where,
-    int? limit,
-    bool useCache = true,
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.count<UserDevice>(
-      where: where != null ? where(UserDevice.t) : null,
-      limit: limit,
-      useCache: useCache,
-      transaction: transaction,
-    );
   }
 
   static UserDeviceInclude include({_i2.UserInclude? user}) {
@@ -303,6 +128,11 @@ abstract class UserDevice extends _i1.TableRow {
       orderByList: orderByList?.call(UserDevice.t),
       include: include,
     );
+  }
+
+  @override
+  String toString() {
+    return _i1.SerializationManager.encode(this);
   }
 }
 
@@ -388,8 +218,8 @@ class UserDeviceImplicit extends _UserDeviceImpl {
   int? $_userDevicesUserId;
 
   @override
-  Map<String, dynamic> allToJson() {
-    var jsonMap = super.allToJson();
+  Map<String, dynamic> toJson() {
+    var jsonMap = super.toJson();
     jsonMap.addAll({'_userDevicesUserId': $_userDevicesUserId});
     return jsonMap;
   }
@@ -470,9 +300,6 @@ class UserDeviceTable extends _i1.Table {
   }
 }
 
-@Deprecated('Use UserDeviceTable.t instead.')
-UserDeviceTable tUserDevice = UserDeviceTable();
-
 class UserDeviceInclude extends _i1.IncludeObject {
   UserDeviceInclude._({_i2.UserInclude? user}) {
     _user = user;
@@ -523,7 +350,7 @@ class UserDeviceRepository {
     _i1.Transaction? transaction,
     UserDeviceInclude? include,
   }) async {
-    return session.dbNext.find<UserDevice>(
+    return session.db.find<UserDevice>(
       where: where?.call(UserDevice.t),
       orderBy: orderBy?.call(UserDevice.t),
       orderByList: orderByList?.call(UserDevice.t),
@@ -545,7 +372,7 @@ class UserDeviceRepository {
     _i1.Transaction? transaction,
     UserDeviceInclude? include,
   }) async {
-    return session.dbNext.findFirstRow<UserDevice>(
+    return session.db.findFirstRow<UserDevice>(
       where: where?.call(UserDevice.t),
       orderBy: orderBy?.call(UserDevice.t),
       orderByList: orderByList?.call(UserDevice.t),
@@ -562,7 +389,7 @@ class UserDeviceRepository {
     _i1.Transaction? transaction,
     UserDeviceInclude? include,
   }) async {
-    return session.dbNext.findById<UserDevice>(
+    return session.db.findById<UserDevice>(
       id,
       transaction: transaction,
       include: include,
@@ -574,7 +401,7 @@ class UserDeviceRepository {
     List<UserDevice> rows, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.insert<UserDevice>(
+    return session.db.insert<UserDevice>(
       rows,
       transaction: transaction,
     );
@@ -585,7 +412,7 @@ class UserDeviceRepository {
     UserDevice row, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.insertRow<UserDevice>(
+    return session.db.insertRow<UserDevice>(
       row,
       transaction: transaction,
     );
@@ -597,7 +424,7 @@ class UserDeviceRepository {
     _i1.ColumnSelections<UserDeviceTable>? columns,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.update<UserDevice>(
+    return session.db.update<UserDevice>(
       rows,
       columns: columns?.call(UserDevice.t),
       transaction: transaction,
@@ -610,41 +437,41 @@ class UserDeviceRepository {
     _i1.ColumnSelections<UserDeviceTable>? columns,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.updateRow<UserDevice>(
+    return session.db.updateRow<UserDevice>(
       row,
       columns: columns?.call(UserDevice.t),
       transaction: transaction,
     );
   }
 
-  Future<List<int>> delete(
+  Future<List<UserDevice>> delete(
     _i1.Session session,
     List<UserDevice> rows, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.delete<UserDevice>(
+    return session.db.delete<UserDevice>(
       rows,
       transaction: transaction,
     );
   }
 
-  Future<int> deleteRow(
+  Future<UserDevice> deleteRow(
     _i1.Session session,
     UserDevice row, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.deleteRow<UserDevice>(
+    return session.db.deleteRow<UserDevice>(
       row,
       transaction: transaction,
     );
   }
 
-  Future<List<int>> deleteWhere(
+  Future<List<UserDevice>> deleteWhere(
     _i1.Session session, {
     required _i1.WhereExpressionBuilder<UserDeviceTable> where,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.deleteWhere<UserDevice>(
+    return session.db.deleteWhere<UserDevice>(
       where: where(UserDevice.t),
       transaction: transaction,
     );
@@ -656,7 +483,7 @@ class UserDeviceRepository {
     int? limit,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.count<UserDevice>(
+    return session.db.count<UserDevice>(
       where: where?.call(UserDevice.t),
       limit: limit,
       transaction: transaction,
@@ -670,8 +497,9 @@ class UserDeviceAttachRowRepository {
   Future<void> user(
     _i1.Session session,
     UserDevice userDevice,
-    _i2.User user,
-  ) async {
+    _i2.User user, {
+    _i1.Transaction? transaction,
+  }) async {
     if (userDevice.id == null) {
       throw ArgumentError.notNull('userDevice.id');
     }
@@ -680,9 +508,10 @@ class UserDeviceAttachRowRepository {
     }
 
     var $userDevice = userDevice.copyWith(userId: user.id);
-    await session.dbNext.updateRow<UserDevice>(
+    await session.db.updateRow<UserDevice>(
       $userDevice,
       columns: [UserDevice.t.userId],
+      transaction: transaction,
     );
   }
 }

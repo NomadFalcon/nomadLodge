@@ -1,16 +1,18 @@
 /* AUTOMATICALLY GENERATED CODE DO NOT MODIFY */
 /*   To generate run: "serverpod generate"    */
 
-// ignore_for_file: library_private_types_in_public_api
-// ignore_for_file: public_member_api_docs
 // ignore_for_file: implementation_imports
-// ignore_for_file: use_super_parameters
+// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: public_member_api_docs
 // ignore_for_file: type_literal_in_constant_pattern
+// ignore_for_file: use_super_parameters
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
 
-abstract class Maintenancetype extends _i1.TableRow {
+abstract class Maintenancetype extends _i1.TableRow
+    implements _i1.ProtocolSerialization {
   Maintenancetype._({
     int? id,
     required this.name,
@@ -25,17 +27,12 @@ abstract class Maintenancetype extends _i1.TableRow {
     String? icon,
   }) = _MaintenancetypeImpl;
 
-  factory Maintenancetype.fromJson(
-    Map<String, dynamic> jsonSerialization,
-    _i1.SerializationManager serializationManager,
-  ) {
+  factory Maintenancetype.fromJson(Map<String, dynamic> jsonSerialization) {
     return Maintenancetype(
-      id: serializationManager.deserialize<int?>(jsonSerialization['id']),
-      name: serializationManager.deserialize<String>(jsonSerialization['name']),
-      description: serializationManager
-          .deserialize<String>(jsonSerialization['description']),
-      icon:
-          serializationManager.deserialize<String?>(jsonSerialization['icon']),
+      id: jsonSerialization['id'] as int?,
+      name: jsonSerialization['name'] as String,
+      description: jsonSerialization['description'] as String,
+      icon: jsonSerialization['icon'] as String?,
     );
   }
 
@@ -69,165 +66,13 @@ abstract class Maintenancetype extends _i1.TableRow {
   }
 
   @override
-  @Deprecated('Will be removed in 2.0.0')
-  Map<String, dynamic> toJsonForDatabase() {
-    return {
-      'id': id,
-      'name': name,
-      'description': description,
-      'icon': icon,
-    };
-  }
-
-  @override
-  Map<String, dynamic> allToJson() {
+  Map<String, dynamic> toJsonForProtocol() {
     return {
       if (id != null) 'id': id,
       'name': name,
       'description': description,
       if (icon != null) 'icon': icon,
     };
-  }
-
-  @override
-  @Deprecated('Will be removed in 2.0.0')
-  void setColumn(
-    String columnName,
-    value,
-  ) {
-    switch (columnName) {
-      case 'id':
-        id = value;
-        return;
-      case 'name':
-        name = value;
-        return;
-      case 'description':
-        description = value;
-        return;
-      case 'icon':
-        icon = value;
-        return;
-      default:
-        throw UnimplementedError();
-    }
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.find instead.')
-  static Future<List<Maintenancetype>> find(
-    _i1.Session session, {
-    _i1.WhereExpressionBuilder<MaintenancetypeTable>? where,
-    int? limit,
-    int? offset,
-    _i1.Column? orderBy,
-    List<_i1.Order>? orderByList,
-    bool orderDescending = false,
-    bool useCache = true,
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.find<Maintenancetype>(
-      where: where != null ? where(Maintenancetype.t) : null,
-      limit: limit,
-      offset: offset,
-      orderBy: orderBy,
-      orderByList: orderByList,
-      orderDescending: orderDescending,
-      useCache: useCache,
-      transaction: transaction,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.findRow instead.')
-  static Future<Maintenancetype?> findSingleRow(
-    _i1.Session session, {
-    _i1.WhereExpressionBuilder<MaintenancetypeTable>? where,
-    int? offset,
-    _i1.Column? orderBy,
-    bool orderDescending = false,
-    bool useCache = true,
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.findSingleRow<Maintenancetype>(
-      where: where != null ? where(Maintenancetype.t) : null,
-      offset: offset,
-      orderBy: orderBy,
-      orderDescending: orderDescending,
-      useCache: useCache,
-      transaction: transaction,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.findById instead.')
-  static Future<Maintenancetype?> findById(
-    _i1.Session session,
-    int id,
-  ) async {
-    return session.db.findById<Maintenancetype>(id);
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.deleteWhere instead.')
-  static Future<int> delete(
-    _i1.Session session, {
-    required _i1.WhereExpressionBuilder<MaintenancetypeTable> where,
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.delete<Maintenancetype>(
-      where: where(Maintenancetype.t),
-      transaction: transaction,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.deleteRow instead.')
-  static Future<bool> deleteRow(
-    _i1.Session session,
-    Maintenancetype row, {
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.deleteRow(
-      row,
-      transaction: transaction,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.update instead.')
-  static Future<bool> update(
-    _i1.Session session,
-    Maintenancetype row, {
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.update(
-      row,
-      transaction: transaction,
-    );
-  }
-
-  @Deprecated(
-      'Will be removed in 2.0.0. Use: db.insert instead. Important note: In db.insert, the object you pass in is no longer modified, instead a new copy with the added row is returned which contains the inserted id.')
-  static Future<void> insert(
-    _i1.Session session,
-    Maintenancetype row, {
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.insert(
-      row,
-      transaction: transaction,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.count instead.')
-  static Future<int> count(
-    _i1.Session session, {
-    _i1.WhereExpressionBuilder<MaintenancetypeTable>? where,
-    int? limit,
-    bool useCache = true,
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.count<Maintenancetype>(
-      where: where != null ? where(Maintenancetype.t) : null,
-      limit: limit,
-      useCache: useCache,
-      transaction: transaction,
-    );
   }
 
   static MaintenancetypeInclude include() {
@@ -252,6 +97,11 @@ abstract class Maintenancetype extends _i1.TableRow {
       orderByList: orderByList?.call(Maintenancetype.t),
       include: include,
     );
+  }
+
+  @override
+  String toString() {
+    return _i1.SerializationManager.encode(this);
   }
 }
 
@@ -318,9 +168,6 @@ class MaintenancetypeTable extends _i1.Table {
       ];
 }
 
-@Deprecated('Use MaintenancetypeTable.t instead.')
-MaintenancetypeTable tMaintenancetype = MaintenancetypeTable();
-
 class MaintenancetypeInclude extends _i1.IncludeObject {
   MaintenancetypeInclude._();
 
@@ -364,7 +211,7 @@ class MaintenancetypeRepository {
     _i1.OrderByListBuilder<MaintenancetypeTable>? orderByList,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.find<Maintenancetype>(
+    return session.db.find<Maintenancetype>(
       where: where?.call(Maintenancetype.t),
       orderBy: orderBy?.call(Maintenancetype.t),
       orderByList: orderByList?.call(Maintenancetype.t),
@@ -384,7 +231,7 @@ class MaintenancetypeRepository {
     _i1.OrderByListBuilder<MaintenancetypeTable>? orderByList,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.findFirstRow<Maintenancetype>(
+    return session.db.findFirstRow<Maintenancetype>(
       where: where?.call(Maintenancetype.t),
       orderBy: orderBy?.call(Maintenancetype.t),
       orderByList: orderByList?.call(Maintenancetype.t),
@@ -399,7 +246,7 @@ class MaintenancetypeRepository {
     int id, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.findById<Maintenancetype>(
+    return session.db.findById<Maintenancetype>(
       id,
       transaction: transaction,
     );
@@ -410,7 +257,7 @@ class MaintenancetypeRepository {
     List<Maintenancetype> rows, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.insert<Maintenancetype>(
+    return session.db.insert<Maintenancetype>(
       rows,
       transaction: transaction,
     );
@@ -421,7 +268,7 @@ class MaintenancetypeRepository {
     Maintenancetype row, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.insertRow<Maintenancetype>(
+    return session.db.insertRow<Maintenancetype>(
       row,
       transaction: transaction,
     );
@@ -433,7 +280,7 @@ class MaintenancetypeRepository {
     _i1.ColumnSelections<MaintenancetypeTable>? columns,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.update<Maintenancetype>(
+    return session.db.update<Maintenancetype>(
       rows,
       columns: columns?.call(Maintenancetype.t),
       transaction: transaction,
@@ -446,41 +293,41 @@ class MaintenancetypeRepository {
     _i1.ColumnSelections<MaintenancetypeTable>? columns,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.updateRow<Maintenancetype>(
+    return session.db.updateRow<Maintenancetype>(
       row,
       columns: columns?.call(Maintenancetype.t),
       transaction: transaction,
     );
   }
 
-  Future<List<int>> delete(
+  Future<List<Maintenancetype>> delete(
     _i1.Session session,
     List<Maintenancetype> rows, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.delete<Maintenancetype>(
+    return session.db.delete<Maintenancetype>(
       rows,
       transaction: transaction,
     );
   }
 
-  Future<int> deleteRow(
+  Future<Maintenancetype> deleteRow(
     _i1.Session session,
     Maintenancetype row, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.deleteRow<Maintenancetype>(
+    return session.db.deleteRow<Maintenancetype>(
       row,
       transaction: transaction,
     );
   }
 
-  Future<List<int>> deleteWhere(
+  Future<List<Maintenancetype>> deleteWhere(
     _i1.Session session, {
     required _i1.WhereExpressionBuilder<MaintenancetypeTable> where,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.deleteWhere<Maintenancetype>(
+    return session.db.deleteWhere<Maintenancetype>(
       where: where(Maintenancetype.t),
       transaction: transaction,
     );
@@ -492,7 +339,7 @@ class MaintenancetypeRepository {
     int? limit,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.count<Maintenancetype>(
+    return session.db.count<Maintenancetype>(
       where: where?.call(Maintenancetype.t),
       limit: limit,
       transaction: transaction,

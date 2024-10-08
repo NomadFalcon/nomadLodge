@@ -1,17 +1,18 @@
 /* AUTOMATICALLY GENERATED CODE DO NOT MODIFY */
 /*   To generate run: "serverpod generate"    */
 
-// ignore_for_file: library_private_types_in_public_api
-// ignore_for_file: public_member_api_docs
 // ignore_for_file: implementation_imports
-// ignore_for_file: use_super_parameters
+// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: public_member_api_docs
 // ignore_for_file: type_literal_in_constant_pattern
+// ignore_for_file: use_super_parameters
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import 'protocol.dart' as _i2;
 
-abstract class UserDevice extends _i1.SerializableEntity {
+abstract class UserDevice implements _i1.SerializableModel {
   UserDevice._({
     this.id,
     required this.toke,
@@ -32,23 +33,18 @@ abstract class UserDevice extends _i1.SerializableEntity {
     _i2.User? user,
   }) = _UserDeviceImpl;
 
-  factory UserDevice.fromJson(
-    Map<String, dynamic> jsonSerialization,
-    _i1.SerializationManager serializationManager,
-  ) {
+  factory UserDevice.fromJson(Map<String, dynamic> jsonSerialization) {
     return UserDevice(
-      id: serializationManager.deserialize<int?>(jsonSerialization['id']),
-      toke: serializationManager.deserialize<String>(jsonSerialization['toke']),
-      plaform: serializationManager
-          .deserialize<String>(jsonSerialization['plaform']),
-      osVersion: serializationManager
-          .deserialize<String>(jsonSerialization['osVersion']),
-      deviceInfo: serializationManager
-          .deserialize<String?>(jsonSerialization['deviceInfo']),
-      userId:
-          serializationManager.deserialize<int>(jsonSerialization['userId']),
-      user: serializationManager
-          .deserialize<_i2.User?>(jsonSerialization['user']),
+      id: jsonSerialization['id'] as int?,
+      toke: jsonSerialization['toke'] as String,
+      plaform: jsonSerialization['plaform'] as String,
+      osVersion: jsonSerialization['osVersion'] as String,
+      deviceInfo: jsonSerialization['deviceInfo'] as String?,
+      userId: jsonSerialization['userId'] as int,
+      user: jsonSerialization['user'] == null
+          ? null
+          : _i2.User.fromJson(
+              (jsonSerialization['user'] as Map<String, dynamic>)),
     );
   }
 
@@ -89,6 +85,11 @@ abstract class UserDevice extends _i1.SerializableEntity {
       'userId': userId,
       if (user != null) 'user': user?.toJson(),
     };
+  }
+
+  @override
+  String toString() {
+    return _i1.SerializationManager.encode(this);
   }
 }
 

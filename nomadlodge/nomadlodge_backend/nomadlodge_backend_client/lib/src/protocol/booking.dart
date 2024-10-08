@@ -1,17 +1,18 @@
 /* AUTOMATICALLY GENERATED CODE DO NOT MODIFY */
 /*   To generate run: "serverpod generate"    */
 
-// ignore_for_file: library_private_types_in_public_api
-// ignore_for_file: public_member_api_docs
 // ignore_for_file: implementation_imports
-// ignore_for_file: use_super_parameters
+// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: public_member_api_docs
 // ignore_for_file: type_literal_in_constant_pattern
+// ignore_for_file: use_super_parameters
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import 'protocol.dart' as _i2;
 
-abstract class Booking extends _i1.SerializableEntity {
+abstract class Booking implements _i1.SerializableModel {
   Booking._({
     this.id,
     required this.platform,
@@ -34,25 +35,22 @@ abstract class Booking extends _i1.SerializableEntity {
     _i2.Location? location,
   }) = _BookingImpl;
 
-  factory Booking.fromJson(
-    Map<String, dynamic> jsonSerialization,
-    _i1.SerializationManager serializationManager,
-  ) {
+  factory Booking.fromJson(Map<String, dynamic> jsonSerialization) {
     return Booking(
-      id: serializationManager.deserialize<int?>(jsonSerialization['id']),
-      platform: serializationManager
-          .deserialize<String>(jsonSerialization['platform']),
-      start: serializationManager
-          .deserialize<DateTime>(jsonSerialization['start']),
-      end: serializationManager.deserialize<DateTime>(jsonSerialization['end']),
-      userId:
-          serializationManager.deserialize<int>(jsonSerialization['userId']),
-      user: serializationManager
-          .deserialize<_i2.User?>(jsonSerialization['user']),
-      locationId: serializationManager
-          .deserialize<int>(jsonSerialization['locationId']),
-      location: serializationManager
-          .deserialize<_i2.Location?>(jsonSerialization['location']),
+      id: jsonSerialization['id'] as int?,
+      platform: jsonSerialization['platform'] as String,
+      start: _i1.DateTimeJsonExtension.fromJson(jsonSerialization['start']),
+      end: _i1.DateTimeJsonExtension.fromJson(jsonSerialization['end']),
+      userId: jsonSerialization['userId'] as int,
+      user: jsonSerialization['user'] == null
+          ? null
+          : _i2.User.fromJson(
+              (jsonSerialization['user'] as Map<String, dynamic>)),
+      locationId: jsonSerialization['locationId'] as int,
+      location: jsonSerialization['location'] == null
+          ? null
+          : _i2.Location.fromJson(
+              (jsonSerialization['location'] as Map<String, dynamic>)),
     );
   }
 
@@ -97,6 +95,11 @@ abstract class Booking extends _i1.SerializableEntity {
       'locationId': locationId,
       if (location != null) 'location': location?.toJson(),
     };
+  }
+
+  @override
+  String toString() {
+    return _i1.SerializationManager.encode(this);
   }
 }
 

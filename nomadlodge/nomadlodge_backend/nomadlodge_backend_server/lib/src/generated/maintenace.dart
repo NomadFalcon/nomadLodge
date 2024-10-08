@@ -1,18 +1,19 @@
 /* AUTOMATICALLY GENERATED CODE DO NOT MODIFY */
 /*   To generate run: "serverpod generate"    */
 
-// ignore_for_file: library_private_types_in_public_api
-// ignore_for_file: public_member_api_docs
 // ignore_for_file: implementation_imports
-// ignore_for_file: use_super_parameters
+// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: public_member_api_docs
 // ignore_for_file: type_literal_in_constant_pattern
+// ignore_for_file: use_super_parameters
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
 import 'protocol.dart' as _i2;
-import 'package:serverpod_serialization/serverpod_serialization.dart';
 
-abstract class Maintenance extends _i1.TableRow {
+abstract class Maintenance extends _i1.TableRow
+    implements _i1.ProtocolSerialization {
   Maintenance._({
     int? id,
     required this.maintenancetypeId,
@@ -45,34 +46,37 @@ abstract class Maintenance extends _i1.TableRow {
     _i2.Location? location,
   }) = _MaintenanceImpl;
 
-  factory Maintenance.fromJson(
-    Map<String, dynamic> jsonSerialization,
-    _i1.SerializationManager serializationManager,
-  ) {
+  factory Maintenance.fromJson(Map<String, dynamic> jsonSerialization) {
     return Maintenance(
-      id: serializationManager.deserialize<int?>(jsonSerialization['id']),
-      maintenancetypeId: serializationManager
-          .deserialize<int>(jsonSerialization['maintenancetypeId']),
-      maintenancetype: serializationManager.deserialize<_i2.Maintenancetype?>(
-          jsonSerialization['maintenancetype']),
-      start: serializationManager
-          .deserialize<DateTime>(jsonSerialization['start']),
-      end:
-          serializationManager.deserialize<DateTime?>(jsonSerialization['end']),
-      description: serializationManager
-          .deserialize<String>(jsonSerialization['description']),
-      tasks: serializationManager
-          .deserialize<List<_i2.Task>?>(jsonSerialization['tasks']),
-      userId:
-          serializationManager.deserialize<int>(jsonSerialization['userId']),
-      user: serializationManager
-          .deserialize<_i2.User?>(jsonSerialization['user']),
-      feeId: serializationManager.deserialize<int>(jsonSerialization['feeId']),
-      fee: serializationManager.deserialize<_i2.Fee?>(jsonSerialization['fee']),
-      locationId: serializationManager
-          .deserialize<int>(jsonSerialization['locationId']),
-      location: serializationManager
-          .deserialize<_i2.Location?>(jsonSerialization['location']),
+      id: jsonSerialization['id'] as int?,
+      maintenancetypeId: jsonSerialization['maintenancetypeId'] as int,
+      maintenancetype: jsonSerialization['maintenancetype'] == null
+          ? null
+          : _i2.Maintenancetype.fromJson(
+              (jsonSerialization['maintenancetype'] as Map<String, dynamic>)),
+      start: _i1.DateTimeJsonExtension.fromJson(jsonSerialization['start']),
+      end: jsonSerialization['end'] == null
+          ? null
+          : _i1.DateTimeJsonExtension.fromJson(jsonSerialization['end']),
+      description: jsonSerialization['description'] as String,
+      tasks: (jsonSerialization['tasks'] as List?)
+          ?.map((e) => _i2.Task.fromJson((e as Map<String, dynamic>)))
+          .toList(),
+      userId: jsonSerialization['userId'] as int,
+      user: jsonSerialization['user'] == null
+          ? null
+          : _i2.User.fromJson(
+              (jsonSerialization['user'] as Map<String, dynamic>)),
+      feeId: jsonSerialization['feeId'] as int,
+      fee: jsonSerialization['fee'] == null
+          ? null
+          : _i2.Fee.fromJson(
+              (jsonSerialization['fee'] as Map<String, dynamic>)),
+      locationId: jsonSerialization['locationId'] as int,
+      location: jsonSerialization['location'] == null
+          ? null
+          : _i2.Location.fromJson(
+              (jsonSerialization['location'] as Map<String, dynamic>)),
     );
   }
 
@@ -142,200 +146,24 @@ abstract class Maintenance extends _i1.TableRow {
   }
 
   @override
-  @Deprecated('Will be removed in 2.0.0')
-  Map<String, dynamic> toJsonForDatabase() {
-    return {
-      'id': id,
-      'maintenancetypeId': maintenancetypeId,
-      'start': start,
-      'end': end,
-      'description': description,
-      'userId': userId,
-      'feeId': feeId,
-      'locationId': locationId,
-    };
-  }
-
-  @override
-  Map<String, dynamic> allToJson() {
+  Map<String, dynamic> toJsonForProtocol() {
     return {
       if (id != null) 'id': id,
       'maintenancetypeId': maintenancetypeId,
       if (maintenancetype != null)
-        'maintenancetype': maintenancetype?.allToJson(),
+        'maintenancetype': maintenancetype?.toJsonForProtocol(),
       'start': start.toJson(),
       if (end != null) 'end': end?.toJson(),
       'description': description,
       if (tasks != null)
-        'tasks': tasks?.toJson(valueToJson: (v) => v.allToJson()),
+        'tasks': tasks?.toJson(valueToJson: (v) => v.toJsonForProtocol()),
       'userId': userId,
-      if (user != null) 'user': user?.allToJson(),
+      if (user != null) 'user': user?.toJsonForProtocol(),
       'feeId': feeId,
-      if (fee != null) 'fee': fee?.allToJson(),
+      if (fee != null) 'fee': fee?.toJsonForProtocol(),
       'locationId': locationId,
-      if (location != null) 'location': location?.allToJson(),
+      if (location != null) 'location': location?.toJsonForProtocol(),
     };
-  }
-
-  @override
-  @Deprecated('Will be removed in 2.0.0')
-  void setColumn(
-    String columnName,
-    value,
-  ) {
-    switch (columnName) {
-      case 'id':
-        id = value;
-        return;
-      case 'maintenancetypeId':
-        maintenancetypeId = value;
-        return;
-      case 'start':
-        start = value;
-        return;
-      case 'end':
-        end = value;
-        return;
-      case 'description':
-        description = value;
-        return;
-      case 'userId':
-        userId = value;
-        return;
-      case 'feeId':
-        feeId = value;
-        return;
-      case 'locationId':
-        locationId = value;
-        return;
-      default:
-        throw UnimplementedError();
-    }
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.find instead.')
-  static Future<List<Maintenance>> find(
-    _i1.Session session, {
-    _i1.WhereExpressionBuilder<MaintenanceTable>? where,
-    int? limit,
-    int? offset,
-    _i1.Column? orderBy,
-    List<_i1.Order>? orderByList,
-    bool orderDescending = false,
-    bool useCache = true,
-    _i1.Transaction? transaction,
-    MaintenanceInclude? include,
-  }) async {
-    return session.db.find<Maintenance>(
-      where: where != null ? where(Maintenance.t) : null,
-      limit: limit,
-      offset: offset,
-      orderBy: orderBy,
-      orderByList: orderByList,
-      orderDescending: orderDescending,
-      useCache: useCache,
-      transaction: transaction,
-      include: include,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.findRow instead.')
-  static Future<Maintenance?> findSingleRow(
-    _i1.Session session, {
-    _i1.WhereExpressionBuilder<MaintenanceTable>? where,
-    int? offset,
-    _i1.Column? orderBy,
-    bool orderDescending = false,
-    bool useCache = true,
-    _i1.Transaction? transaction,
-    MaintenanceInclude? include,
-  }) async {
-    return session.db.findSingleRow<Maintenance>(
-      where: where != null ? where(Maintenance.t) : null,
-      offset: offset,
-      orderBy: orderBy,
-      orderDescending: orderDescending,
-      useCache: useCache,
-      transaction: transaction,
-      include: include,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.findById instead.')
-  static Future<Maintenance?> findById(
-    _i1.Session session,
-    int id, {
-    MaintenanceInclude? include,
-  }) async {
-    return session.db.findById<Maintenance>(
-      id,
-      include: include,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.deleteWhere instead.')
-  static Future<int> delete(
-    _i1.Session session, {
-    required _i1.WhereExpressionBuilder<MaintenanceTable> where,
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.delete<Maintenance>(
-      where: where(Maintenance.t),
-      transaction: transaction,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.deleteRow instead.')
-  static Future<bool> deleteRow(
-    _i1.Session session,
-    Maintenance row, {
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.deleteRow(
-      row,
-      transaction: transaction,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.update instead.')
-  static Future<bool> update(
-    _i1.Session session,
-    Maintenance row, {
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.update(
-      row,
-      transaction: transaction,
-    );
-  }
-
-  @Deprecated(
-      'Will be removed in 2.0.0. Use: db.insert instead. Important note: In db.insert, the object you pass in is no longer modified, instead a new copy with the added row is returned which contains the inserted id.')
-  static Future<void> insert(
-    _i1.Session session,
-    Maintenance row, {
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.insert(
-      row,
-      transaction: transaction,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.count instead.')
-  static Future<int> count(
-    _i1.Session session, {
-    _i1.WhereExpressionBuilder<MaintenanceTable>? where,
-    int? limit,
-    bool useCache = true,
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.count<Maintenance>(
-      where: where != null ? where(Maintenance.t) : null,
-      limit: limit,
-      useCache: useCache,
-      transaction: transaction,
-    );
   }
 
   static MaintenanceInclude include({
@@ -372,6 +200,11 @@ abstract class Maintenance extends _i1.TableRow {
       orderByList: orderByList?.call(Maintenance.t),
       include: include,
     );
+  }
+
+  @override
+  String toString() {
+    return _i1.SerializationManager.encode(this);
   }
 }
 
@@ -433,7 +266,9 @@ class _MaintenanceImpl extends Maintenance {
       start: start ?? this.start,
       end: end is DateTime? ? end : this.end,
       description: description ?? this.description,
-      tasks: tasks is List<_i2.Task>? ? tasks : this.tasks?.clone(),
+      tasks: tasks is List<_i2.Task>?
+          ? tasks
+          : this.tasks?.map((e0) => e0.copyWith()).toList(),
       userId: userId ?? this.userId,
       user: user is _i2.User? ? user : this.user?.copyWith(),
       feeId: feeId ?? this.feeId,
@@ -619,9 +454,6 @@ class MaintenanceTable extends _i1.Table {
   }
 }
 
-@Deprecated('Use MaintenanceTable.t instead.')
-MaintenanceTable tMaintenance = MaintenanceTable();
-
 class MaintenanceInclude extends _i1.IncludeObject {
   MaintenanceInclude._({
     _i2.MaintenancetypeInclude? maintenancetype,
@@ -702,7 +534,7 @@ class MaintenanceRepository {
     _i1.Transaction? transaction,
     MaintenanceInclude? include,
   }) async {
-    return session.dbNext.find<Maintenance>(
+    return session.db.find<Maintenance>(
       where: where?.call(Maintenance.t),
       orderBy: orderBy?.call(Maintenance.t),
       orderByList: orderByList?.call(Maintenance.t),
@@ -724,7 +556,7 @@ class MaintenanceRepository {
     _i1.Transaction? transaction,
     MaintenanceInclude? include,
   }) async {
-    return session.dbNext.findFirstRow<Maintenance>(
+    return session.db.findFirstRow<Maintenance>(
       where: where?.call(Maintenance.t),
       orderBy: orderBy?.call(Maintenance.t),
       orderByList: orderByList?.call(Maintenance.t),
@@ -741,7 +573,7 @@ class MaintenanceRepository {
     _i1.Transaction? transaction,
     MaintenanceInclude? include,
   }) async {
-    return session.dbNext.findById<Maintenance>(
+    return session.db.findById<Maintenance>(
       id,
       transaction: transaction,
       include: include,
@@ -753,7 +585,7 @@ class MaintenanceRepository {
     List<Maintenance> rows, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.insert<Maintenance>(
+    return session.db.insert<Maintenance>(
       rows,
       transaction: transaction,
     );
@@ -764,7 +596,7 @@ class MaintenanceRepository {
     Maintenance row, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.insertRow<Maintenance>(
+    return session.db.insertRow<Maintenance>(
       row,
       transaction: transaction,
     );
@@ -776,7 +608,7 @@ class MaintenanceRepository {
     _i1.ColumnSelections<MaintenanceTable>? columns,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.update<Maintenance>(
+    return session.db.update<Maintenance>(
       rows,
       columns: columns?.call(Maintenance.t),
       transaction: transaction,
@@ -789,41 +621,41 @@ class MaintenanceRepository {
     _i1.ColumnSelections<MaintenanceTable>? columns,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.updateRow<Maintenance>(
+    return session.db.updateRow<Maintenance>(
       row,
       columns: columns?.call(Maintenance.t),
       transaction: transaction,
     );
   }
 
-  Future<List<int>> delete(
+  Future<List<Maintenance>> delete(
     _i1.Session session,
     List<Maintenance> rows, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.delete<Maintenance>(
+    return session.db.delete<Maintenance>(
       rows,
       transaction: transaction,
     );
   }
 
-  Future<int> deleteRow(
+  Future<Maintenance> deleteRow(
     _i1.Session session,
     Maintenance row, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.deleteRow<Maintenance>(
+    return session.db.deleteRow<Maintenance>(
       row,
       transaction: transaction,
     );
   }
 
-  Future<List<int>> deleteWhere(
+  Future<List<Maintenance>> deleteWhere(
     _i1.Session session, {
     required _i1.WhereExpressionBuilder<MaintenanceTable> where,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.deleteWhere<Maintenance>(
+    return session.db.deleteWhere<Maintenance>(
       where: where(Maintenance.t),
       transaction: transaction,
     );
@@ -835,7 +667,7 @@ class MaintenanceRepository {
     int? limit,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.count<Maintenance>(
+    return session.db.count<Maintenance>(
       where: where?.call(Maintenance.t),
       limit: limit,
       transaction: transaction,
@@ -849,8 +681,9 @@ class MaintenanceAttachRepository {
   Future<void> tasks(
     _i1.Session session,
     Maintenance maintenance,
-    List<_i2.Task> task,
-  ) async {
+    List<_i2.Task> task, {
+    _i1.Transaction? transaction,
+  }) async {
     if (task.any((e) => e.id == null)) {
       throw ArgumentError.notNull('task.id');
     }
@@ -864,9 +697,10 @@ class MaintenanceAttachRepository {
               $_maintenanceTasksMaintenanceId: maintenance.id,
             ))
         .toList();
-    await session.dbNext.update<_i2.Task>(
+    await session.db.update<_i2.Task>(
       $task,
       columns: [_i2.Task.t.$_maintenanceTasksMaintenanceId],
+      transaction: transaction,
     );
   }
 }
@@ -877,8 +711,9 @@ class MaintenanceAttachRowRepository {
   Future<void> maintenancetype(
     _i1.Session session,
     Maintenance maintenance,
-    _i2.Maintenancetype maintenancetype,
-  ) async {
+    _i2.Maintenancetype maintenancetype, {
+    _i1.Transaction? transaction,
+  }) async {
     if (maintenance.id == null) {
       throw ArgumentError.notNull('maintenance.id');
     }
@@ -888,17 +723,19 @@ class MaintenanceAttachRowRepository {
 
     var $maintenance =
         maintenance.copyWith(maintenancetypeId: maintenancetype.id);
-    await session.dbNext.updateRow<Maintenance>(
+    await session.db.updateRow<Maintenance>(
       $maintenance,
       columns: [Maintenance.t.maintenancetypeId],
+      transaction: transaction,
     );
   }
 
   Future<void> user(
     _i1.Session session,
     Maintenance maintenance,
-    _i2.User user,
-  ) async {
+    _i2.User user, {
+    _i1.Transaction? transaction,
+  }) async {
     if (maintenance.id == null) {
       throw ArgumentError.notNull('maintenance.id');
     }
@@ -907,17 +744,19 @@ class MaintenanceAttachRowRepository {
     }
 
     var $maintenance = maintenance.copyWith(userId: user.id);
-    await session.dbNext.updateRow<Maintenance>(
+    await session.db.updateRow<Maintenance>(
       $maintenance,
       columns: [Maintenance.t.userId],
+      transaction: transaction,
     );
   }
 
   Future<void> fee(
     _i1.Session session,
     Maintenance maintenance,
-    _i2.Fee fee,
-  ) async {
+    _i2.Fee fee, {
+    _i1.Transaction? transaction,
+  }) async {
     if (maintenance.id == null) {
       throw ArgumentError.notNull('maintenance.id');
     }
@@ -926,17 +765,19 @@ class MaintenanceAttachRowRepository {
     }
 
     var $maintenance = maintenance.copyWith(feeId: fee.id);
-    await session.dbNext.updateRow<Maintenance>(
+    await session.db.updateRow<Maintenance>(
       $maintenance,
       columns: [Maintenance.t.feeId],
+      transaction: transaction,
     );
   }
 
   Future<void> location(
     _i1.Session session,
     Maintenance maintenance,
-    _i2.Location location,
-  ) async {
+    _i2.Location location, {
+    _i1.Transaction? transaction,
+  }) async {
     if (maintenance.id == null) {
       throw ArgumentError.notNull('maintenance.id');
     }
@@ -945,17 +786,19 @@ class MaintenanceAttachRowRepository {
     }
 
     var $maintenance = maintenance.copyWith(locationId: location.id);
-    await session.dbNext.updateRow<Maintenance>(
+    await session.db.updateRow<Maintenance>(
       $maintenance,
       columns: [Maintenance.t.locationId],
+      transaction: transaction,
     );
   }
 
   Future<void> tasks(
     _i1.Session session,
     Maintenance maintenance,
-    _i2.Task task,
-  ) async {
+    _i2.Task task, {
+    _i1.Transaction? transaction,
+  }) async {
     if (task.id == null) {
       throw ArgumentError.notNull('task.id');
     }
@@ -967,9 +810,10 @@ class MaintenanceAttachRowRepository {
       task,
       $_maintenanceTasksMaintenanceId: maintenance.id,
     );
-    await session.dbNext.updateRow<_i2.Task>(
+    await session.db.updateRow<_i2.Task>(
       $task,
       columns: [_i2.Task.t.$_maintenanceTasksMaintenanceId],
+      transaction: transaction,
     );
   }
 }
@@ -979,8 +823,9 @@ class MaintenanceDetachRepository {
 
   Future<void> tasks(
     _i1.Session session,
-    List<_i2.Task> task,
-  ) async {
+    List<_i2.Task> task, {
+    _i1.Transaction? transaction,
+  }) async {
     if (task.any((e) => e.id == null)) {
       throw ArgumentError.notNull('task.id');
     }
@@ -991,9 +836,10 @@ class MaintenanceDetachRepository {
               $_maintenanceTasksMaintenanceId: null,
             ))
         .toList();
-    await session.dbNext.update<_i2.Task>(
+    await session.db.update<_i2.Task>(
       $task,
       columns: [_i2.Task.t.$_maintenanceTasksMaintenanceId],
+      transaction: transaction,
     );
   }
 }
@@ -1003,8 +849,9 @@ class MaintenanceDetachRowRepository {
 
   Future<void> tasks(
     _i1.Session session,
-    _i2.Task task,
-  ) async {
+    _i2.Task task, {
+    _i1.Transaction? transaction,
+  }) async {
     if (task.id == null) {
       throw ArgumentError.notNull('task.id');
     }
@@ -1013,9 +860,10 @@ class MaintenanceDetachRowRepository {
       task,
       $_maintenanceTasksMaintenanceId: null,
     );
-    await session.dbNext.updateRow<_i2.Task>(
+    await session.db.updateRow<_i2.Task>(
       $task,
       columns: [_i2.Task.t.$_maintenanceTasksMaintenanceId],
+      transaction: transaction,
     );
   }
 }

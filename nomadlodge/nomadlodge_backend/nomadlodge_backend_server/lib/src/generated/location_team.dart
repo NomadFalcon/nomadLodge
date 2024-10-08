@@ -1,18 +1,19 @@
 /* AUTOMATICALLY GENERATED CODE DO NOT MODIFY */
 /*   To generate run: "serverpod generate"    */
 
-// ignore_for_file: library_private_types_in_public_api
-// ignore_for_file: public_member_api_docs
 // ignore_for_file: implementation_imports
-// ignore_for_file: use_super_parameters
+// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: public_member_api_docs
 // ignore_for_file: type_literal_in_constant_pattern
+// ignore_for_file: use_super_parameters
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
 import 'protocol.dart' as _i2;
-import 'package:serverpod_serialization/serverpod_serialization.dart';
 
-abstract class LocationTeam extends _i1.TableRow {
+abstract class LocationTeam extends _i1.TableRow
+    implements _i1.ProtocolSerialization {
   LocationTeam._({
     int? id,
     required this.name,
@@ -31,21 +32,19 @@ abstract class LocationTeam extends _i1.TableRow {
     _i2.Location? location,
   }) = _LocationTeamImpl;
 
-  factory LocationTeam.fromJson(
-    Map<String, dynamic> jsonSerialization,
-    _i1.SerializationManager serializationManager,
-  ) {
+  factory LocationTeam.fromJson(Map<String, dynamic> jsonSerialization) {
     return LocationTeam(
-      id: serializationManager.deserialize<int?>(jsonSerialization['id']),
-      name: serializationManager.deserialize<String>(jsonSerialization['name']),
-      description: serializationManager
-          .deserialize<String>(jsonSerialization['description']),
-      users: serializationManager
-          .deserialize<List<_i2.User>?>(jsonSerialization['users']),
-      locationId: serializationManager
-          .deserialize<int>(jsonSerialization['locationId']),
-      location: serializationManager
-          .deserialize<_i2.Location?>(jsonSerialization['location']),
+      id: jsonSerialization['id'] as int?,
+      name: jsonSerialization['name'] as String,
+      description: jsonSerialization['description'] as String,
+      users: (jsonSerialization['users'] as List?)
+          ?.map((e) => _i2.User.fromJson((e as Map<String, dynamic>)))
+          .toList(),
+      locationId: jsonSerialization['locationId'] as int,
+      location: jsonSerialization['location'] == null
+          ? null
+          : _i2.Location.fromJson(
+              (jsonSerialization['location'] as Map<String, dynamic>)),
     );
   }
 
@@ -87,180 +86,16 @@ abstract class LocationTeam extends _i1.TableRow {
   }
 
   @override
-  @Deprecated('Will be removed in 2.0.0')
-  Map<String, dynamic> toJsonForDatabase() {
-    return {
-      'id': id,
-      'name': name,
-      'description': description,
-      'users': users,
-      'locationId': locationId,
-    };
-  }
-
-  @override
-  Map<String, dynamic> allToJson() {
+  Map<String, dynamic> toJsonForProtocol() {
     return {
       if (id != null) 'id': id,
       'name': name,
       'description': description,
       if (users != null)
-        'users': users?.toJson(valueToJson: (v) => v.allToJson()),
+        'users': users?.toJson(valueToJson: (v) => v.toJsonForProtocol()),
       'locationId': locationId,
-      if (location != null) 'location': location?.allToJson(),
+      if (location != null) 'location': location?.toJsonForProtocol(),
     };
-  }
-
-  @override
-  @Deprecated('Will be removed in 2.0.0')
-  void setColumn(
-    String columnName,
-    value,
-  ) {
-    switch (columnName) {
-      case 'id':
-        id = value;
-        return;
-      case 'name':
-        name = value;
-        return;
-      case 'description':
-        description = value;
-        return;
-      case 'users':
-        users = value;
-        return;
-      case 'locationId':
-        locationId = value;
-        return;
-      default:
-        throw UnimplementedError();
-    }
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.find instead.')
-  static Future<List<LocationTeam>> find(
-    _i1.Session session, {
-    _i1.WhereExpressionBuilder<LocationTeamTable>? where,
-    int? limit,
-    int? offset,
-    _i1.Column? orderBy,
-    List<_i1.Order>? orderByList,
-    bool orderDescending = false,
-    bool useCache = true,
-    _i1.Transaction? transaction,
-    LocationTeamInclude? include,
-  }) async {
-    return session.db.find<LocationTeam>(
-      where: where != null ? where(LocationTeam.t) : null,
-      limit: limit,
-      offset: offset,
-      orderBy: orderBy,
-      orderByList: orderByList,
-      orderDescending: orderDescending,
-      useCache: useCache,
-      transaction: transaction,
-      include: include,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.findRow instead.')
-  static Future<LocationTeam?> findSingleRow(
-    _i1.Session session, {
-    _i1.WhereExpressionBuilder<LocationTeamTable>? where,
-    int? offset,
-    _i1.Column? orderBy,
-    bool orderDescending = false,
-    bool useCache = true,
-    _i1.Transaction? transaction,
-    LocationTeamInclude? include,
-  }) async {
-    return session.db.findSingleRow<LocationTeam>(
-      where: where != null ? where(LocationTeam.t) : null,
-      offset: offset,
-      orderBy: orderBy,
-      orderDescending: orderDescending,
-      useCache: useCache,
-      transaction: transaction,
-      include: include,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.findById instead.')
-  static Future<LocationTeam?> findById(
-    _i1.Session session,
-    int id, {
-    LocationTeamInclude? include,
-  }) async {
-    return session.db.findById<LocationTeam>(
-      id,
-      include: include,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.deleteWhere instead.')
-  static Future<int> delete(
-    _i1.Session session, {
-    required _i1.WhereExpressionBuilder<LocationTeamTable> where,
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.delete<LocationTeam>(
-      where: where(LocationTeam.t),
-      transaction: transaction,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.deleteRow instead.')
-  static Future<bool> deleteRow(
-    _i1.Session session,
-    LocationTeam row, {
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.deleteRow(
-      row,
-      transaction: transaction,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.update instead.')
-  static Future<bool> update(
-    _i1.Session session,
-    LocationTeam row, {
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.update(
-      row,
-      transaction: transaction,
-    );
-  }
-
-  @Deprecated(
-      'Will be removed in 2.0.0. Use: db.insert instead. Important note: In db.insert, the object you pass in is no longer modified, instead a new copy with the added row is returned which contains the inserted id.')
-  static Future<void> insert(
-    _i1.Session session,
-    LocationTeam row, {
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.insert(
-      row,
-      transaction: transaction,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.count instead.')
-  static Future<int> count(
-    _i1.Session session, {
-    _i1.WhereExpressionBuilder<LocationTeamTable>? where,
-    int? limit,
-    bool useCache = true,
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.count<LocationTeam>(
-      where: where != null ? where(LocationTeam.t) : null,
-      limit: limit,
-      useCache: useCache,
-      transaction: transaction,
-    );
   }
 
   static LocationTeamInclude include({_i2.LocationInclude? location}) {
@@ -285,6 +120,11 @@ abstract class LocationTeam extends _i1.TableRow {
       orderByList: orderByList?.call(LocationTeam.t),
       include: include,
     );
+  }
+
+  @override
+  String toString() {
+    return _i1.SerializationManager.encode(this);
   }
 }
 
@@ -320,7 +160,9 @@ class _LocationTeamImpl extends LocationTeam {
       id: id is int? ? id : this.id,
       name: name ?? this.name,
       description: description ?? this.description,
-      users: users is List<_i2.User>? ? users : this.users?.clone(),
+      users: users is List<_i2.User>?
+          ? users
+          : this.users?.map((e0) => e0.copyWith()).toList(),
       locationId: locationId ?? this.locationId,
       location:
           location is _i2.Location? ? location : this.location?.copyWith(),
@@ -389,9 +231,6 @@ class LocationTeamTable extends _i1.Table {
   }
 }
 
-@Deprecated('Use LocationTeamTable.t instead.')
-LocationTeamTable tLocationTeam = LocationTeamTable();
-
 class LocationTeamInclude extends _i1.IncludeObject {
   LocationTeamInclude._({_i2.LocationInclude? location}) {
     _location = location;
@@ -442,7 +281,7 @@ class LocationTeamRepository {
     _i1.Transaction? transaction,
     LocationTeamInclude? include,
   }) async {
-    return session.dbNext.find<LocationTeam>(
+    return session.db.find<LocationTeam>(
       where: where?.call(LocationTeam.t),
       orderBy: orderBy?.call(LocationTeam.t),
       orderByList: orderByList?.call(LocationTeam.t),
@@ -464,7 +303,7 @@ class LocationTeamRepository {
     _i1.Transaction? transaction,
     LocationTeamInclude? include,
   }) async {
-    return session.dbNext.findFirstRow<LocationTeam>(
+    return session.db.findFirstRow<LocationTeam>(
       where: where?.call(LocationTeam.t),
       orderBy: orderBy?.call(LocationTeam.t),
       orderByList: orderByList?.call(LocationTeam.t),
@@ -481,7 +320,7 @@ class LocationTeamRepository {
     _i1.Transaction? transaction,
     LocationTeamInclude? include,
   }) async {
-    return session.dbNext.findById<LocationTeam>(
+    return session.db.findById<LocationTeam>(
       id,
       transaction: transaction,
       include: include,
@@ -493,7 +332,7 @@ class LocationTeamRepository {
     List<LocationTeam> rows, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.insert<LocationTeam>(
+    return session.db.insert<LocationTeam>(
       rows,
       transaction: transaction,
     );
@@ -504,7 +343,7 @@ class LocationTeamRepository {
     LocationTeam row, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.insertRow<LocationTeam>(
+    return session.db.insertRow<LocationTeam>(
       row,
       transaction: transaction,
     );
@@ -516,7 +355,7 @@ class LocationTeamRepository {
     _i1.ColumnSelections<LocationTeamTable>? columns,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.update<LocationTeam>(
+    return session.db.update<LocationTeam>(
       rows,
       columns: columns?.call(LocationTeam.t),
       transaction: transaction,
@@ -529,41 +368,41 @@ class LocationTeamRepository {
     _i1.ColumnSelections<LocationTeamTable>? columns,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.updateRow<LocationTeam>(
+    return session.db.updateRow<LocationTeam>(
       row,
       columns: columns?.call(LocationTeam.t),
       transaction: transaction,
     );
   }
 
-  Future<List<int>> delete(
+  Future<List<LocationTeam>> delete(
     _i1.Session session,
     List<LocationTeam> rows, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.delete<LocationTeam>(
+    return session.db.delete<LocationTeam>(
       rows,
       transaction: transaction,
     );
   }
 
-  Future<int> deleteRow(
+  Future<LocationTeam> deleteRow(
     _i1.Session session,
     LocationTeam row, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.deleteRow<LocationTeam>(
+    return session.db.deleteRow<LocationTeam>(
       row,
       transaction: transaction,
     );
   }
 
-  Future<List<int>> deleteWhere(
+  Future<List<LocationTeam>> deleteWhere(
     _i1.Session session, {
     required _i1.WhereExpressionBuilder<LocationTeamTable> where,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.deleteWhere<LocationTeam>(
+    return session.db.deleteWhere<LocationTeam>(
       where: where(LocationTeam.t),
       transaction: transaction,
     );
@@ -575,7 +414,7 @@ class LocationTeamRepository {
     int? limit,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.count<LocationTeam>(
+    return session.db.count<LocationTeam>(
       where: where?.call(LocationTeam.t),
       limit: limit,
       transaction: transaction,
@@ -589,8 +428,9 @@ class LocationTeamAttachRowRepository {
   Future<void> location(
     _i1.Session session,
     LocationTeam locationTeam,
-    _i2.Location location,
-  ) async {
+    _i2.Location location, {
+    _i1.Transaction? transaction,
+  }) async {
     if (locationTeam.id == null) {
       throw ArgumentError.notNull('locationTeam.id');
     }
@@ -599,9 +439,10 @@ class LocationTeamAttachRowRepository {
     }
 
     var $locationTeam = locationTeam.copyWith(locationId: location.id);
-    await session.dbNext.updateRow<LocationTeam>(
+    await session.db.updateRow<LocationTeam>(
       $locationTeam,
       columns: [LocationTeam.t.locationId],
+      transaction: transaction,
     );
   }
 }

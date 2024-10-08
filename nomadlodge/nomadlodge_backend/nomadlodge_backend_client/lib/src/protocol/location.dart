@@ -1,17 +1,18 @@
 /* AUTOMATICALLY GENERATED CODE DO NOT MODIFY */
 /*   To generate run: "serverpod generate"    */
 
-// ignore_for_file: library_private_types_in_public_api
-// ignore_for_file: public_member_api_docs
 // ignore_for_file: implementation_imports
-// ignore_for_file: use_super_parameters
+// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: public_member_api_docs
 // ignore_for_file: type_literal_in_constant_pattern
+// ignore_for_file: use_super_parameters
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import 'protocol.dart' as _i2;
 
-abstract class Location extends _i1.SerializableEntity {
+abstract class Location implements _i1.SerializableModel {
   Location._({
     this.id,
     required this.name,
@@ -40,30 +41,27 @@ abstract class Location extends _i1.SerializableEntity {
     _i2.GeoAddress? geoAddress,
   }) = _LocationImpl;
 
-  factory Location.fromJson(
-    Map<String, dynamic> jsonSerialization,
-    _i1.SerializationManager serializationManager,
-  ) {
+  factory Location.fromJson(Map<String, dynamic> jsonSerialization) {
     return Location(
-      id: serializationManager.deserialize<int?>(jsonSerialization['id']),
-      name: serializationManager.deserialize<String>(jsonSerialization['name']),
-      longDescription: serializationManager
-          .deserialize<String>(jsonSerialization['longDescription']),
-      shortDescription: serializationManager
-          .deserialize<String>(jsonSerialization['shortDescription']),
-      website: serializationManager
-          .deserialize<String?>(jsonSerialization['website']),
-      rooms: serializationManager.deserialize<int>(jsonSerialization['rooms']),
-      medias: serializationManager
-          .deserialize<List<_i2.Media>?>(jsonSerialization['medias']),
-      userId:
-          serializationManager.deserialize<int>(jsonSerialization['userId']),
-      user: serializationManager
-          .deserialize<_i2.User?>(jsonSerialization['user']),
-      geoAddressId: serializationManager
-          .deserialize<int>(jsonSerialization['geoAddressId']),
-      geoAddress: serializationManager
-          .deserialize<_i2.GeoAddress?>(jsonSerialization['geoAddress']),
+      id: jsonSerialization['id'] as int?,
+      name: jsonSerialization['name'] as String,
+      longDescription: jsonSerialization['longDescription'] as String,
+      shortDescription: jsonSerialization['shortDescription'] as String,
+      website: jsonSerialization['website'] as String?,
+      rooms: jsonSerialization['rooms'] as int,
+      medias: (jsonSerialization['medias'] as List?)
+          ?.map((e) => _i2.Media.fromJson((e as Map<String, dynamic>)))
+          .toList(),
+      userId: jsonSerialization['userId'] as int,
+      user: jsonSerialization['user'] == null
+          ? null
+          : _i2.User.fromJson(
+              (jsonSerialization['user'] as Map<String, dynamic>)),
+      geoAddressId: jsonSerialization['geoAddressId'] as int,
+      geoAddress: jsonSerialization['geoAddress'] == null
+          ? null
+          : _i2.GeoAddress.fromJson(
+              (jsonSerialization['geoAddress'] as Map<String, dynamic>)),
     );
   }
 
@@ -122,6 +120,11 @@ abstract class Location extends _i1.SerializableEntity {
       if (geoAddress != null) 'geoAddress': geoAddress?.toJson(),
     };
   }
+
+  @override
+  String toString() {
+    return _i1.SerializationManager.encode(this);
+  }
 }
 
 class _Undefined {}
@@ -174,7 +177,9 @@ class _LocationImpl extends Location {
       shortDescription: shortDescription ?? this.shortDescription,
       website: website is String? ? website : this.website,
       rooms: rooms ?? this.rooms,
-      medias: medias is List<_i2.Media>? ? medias : this.medias?.clone(),
+      medias: medias is List<_i2.Media>?
+          ? medias
+          : this.medias?.map((e0) => e0.copyWith()).toList(),
       userId: userId ?? this.userId,
       user: user is _i2.User? ? user : this.user?.copyWith(),
       geoAddressId: geoAddressId ?? this.geoAddressId,

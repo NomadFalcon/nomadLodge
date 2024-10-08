@@ -1,18 +1,18 @@
 /* AUTOMATICALLY GENERATED CODE DO NOT MODIFY */
 /*   To generate run: "serverpod generate"    */
 
-// ignore_for_file: library_private_types_in_public_api
-// ignore_for_file: public_member_api_docs
 // ignore_for_file: implementation_imports
-// ignore_for_file: use_super_parameters
+// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: public_member_api_docs
 // ignore_for_file: type_literal_in_constant_pattern
+// ignore_for_file: use_super_parameters
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
 import 'protocol.dart' as _i2;
-import 'package:serverpod_serialization/serverpod_serialization.dart';
 
-abstract class Task extends _i1.TableRow {
+abstract class Task extends _i1.TableRow implements _i1.ProtocolSerialization {
   Task._({
     int? id,
     required this.name,
@@ -29,19 +29,15 @@ abstract class Task extends _i1.TableRow {
     List<_i2.Media>? images,
   }) = _TaskImpl;
 
-  factory Task.fromJson(
-    Map<String, dynamic> jsonSerialization,
-    _i1.SerializationManager serializationManager,
-  ) {
+  factory Task.fromJson(Map<String, dynamic> jsonSerialization) {
     return Task(
-      id: serializationManager.deserialize<int?>(jsonSerialization['id']),
-      name: serializationManager.deserialize<String>(jsonSerialization['name']),
-      description: serializationManager
-          .deserialize<String>(jsonSerialization['description']),
-      isCompleted: serializationManager
-          .deserialize<bool>(jsonSerialization['isCompleted']),
-      images: serializationManager
-          .deserialize<List<_i2.Media>?>(jsonSerialization['images']),
+      id: jsonSerialization['id'] as int?,
+      name: jsonSerialization['name'] as String,
+      description: jsonSerialization['description'] as String,
+      isCompleted: jsonSerialization['isCompleted'] as bool,
+      images: (jsonSerialization['images'] as List?)
+          ?.map((e) => _i2.Media.fromJson((e as Map<String, dynamic>)))
+          .toList(),
     );
   }
 
@@ -78,185 +74,21 @@ abstract class Task extends _i1.TableRow {
       'isCompleted': isCompleted,
       if (images != null)
         'images': images?.toJson(valueToJson: (v) => v.toJson()),
-    };
-  }
-
-  @override
-  @Deprecated('Will be removed in 2.0.0')
-  Map<String, dynamic> toJsonForDatabase() {
-    return {
-      'id': id,
-      'name': name,
-      'description': description,
-      'isCompleted': isCompleted,
-      '_maintenanceTasksMaintenanceId': _maintenanceTasksMaintenanceId,
-    };
-  }
-
-  @override
-  Map<String, dynamic> allToJson() {
-    return {
-      if (id != null) 'id': id,
-      'name': name,
-      'description': description,
-      'isCompleted': isCompleted,
-      if (images != null)
-        'images': images?.toJson(valueToJson: (v) => v.allToJson()),
       if (_maintenanceTasksMaintenanceId != null)
         '_maintenanceTasksMaintenanceId': _maintenanceTasksMaintenanceId,
     };
   }
 
   @override
-  @Deprecated('Will be removed in 2.0.0')
-  void setColumn(
-    String columnName,
-    value,
-  ) {
-    switch (columnName) {
-      case 'id':
-        id = value;
-        return;
-      case 'name':
-        name = value;
-        return;
-      case 'description':
-        description = value;
-        return;
-      case 'isCompleted':
-        isCompleted = value;
-        return;
-      case '_maintenanceTasksMaintenanceId':
-        _maintenanceTasksMaintenanceId = value;
-        return;
-      default:
-        throw UnimplementedError();
-    }
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.find instead.')
-  static Future<List<Task>> find(
-    _i1.Session session, {
-    _i1.WhereExpressionBuilder<TaskTable>? where,
-    int? limit,
-    int? offset,
-    _i1.Column? orderBy,
-    List<_i1.Order>? orderByList,
-    bool orderDescending = false,
-    bool useCache = true,
-    _i1.Transaction? transaction,
-    TaskInclude? include,
-  }) async {
-    return session.db.find<Task>(
-      where: where != null ? where(Task.t) : null,
-      limit: limit,
-      offset: offset,
-      orderBy: orderBy,
-      orderByList: orderByList,
-      orderDescending: orderDescending,
-      useCache: useCache,
-      transaction: transaction,
-      include: include,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.findRow instead.')
-  static Future<Task?> findSingleRow(
-    _i1.Session session, {
-    _i1.WhereExpressionBuilder<TaskTable>? where,
-    int? offset,
-    _i1.Column? orderBy,
-    bool orderDescending = false,
-    bool useCache = true,
-    _i1.Transaction? transaction,
-    TaskInclude? include,
-  }) async {
-    return session.db.findSingleRow<Task>(
-      where: where != null ? where(Task.t) : null,
-      offset: offset,
-      orderBy: orderBy,
-      orderDescending: orderDescending,
-      useCache: useCache,
-      transaction: transaction,
-      include: include,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.findById instead.')
-  static Future<Task?> findById(
-    _i1.Session session,
-    int id, {
-    TaskInclude? include,
-  }) async {
-    return session.db.findById<Task>(
-      id,
-      include: include,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.deleteWhere instead.')
-  static Future<int> delete(
-    _i1.Session session, {
-    required _i1.WhereExpressionBuilder<TaskTable> where,
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.delete<Task>(
-      where: where(Task.t),
-      transaction: transaction,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.deleteRow instead.')
-  static Future<bool> deleteRow(
-    _i1.Session session,
-    Task row, {
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.deleteRow(
-      row,
-      transaction: transaction,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.update instead.')
-  static Future<bool> update(
-    _i1.Session session,
-    Task row, {
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.update(
-      row,
-      transaction: transaction,
-    );
-  }
-
-  @Deprecated(
-      'Will be removed in 2.0.0. Use: db.insert instead. Important note: In db.insert, the object you pass in is no longer modified, instead a new copy with the added row is returned which contains the inserted id.')
-  static Future<void> insert(
-    _i1.Session session,
-    Task row, {
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.insert(
-      row,
-      transaction: transaction,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.count instead.')
-  static Future<int> count(
-    _i1.Session session, {
-    _i1.WhereExpressionBuilder<TaskTable>? where,
-    int? limit,
-    bool useCache = true,
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.count<Task>(
-      where: where != null ? where(Task.t) : null,
-      limit: limit,
-      useCache: useCache,
-      transaction: transaction,
-    );
+  Map<String, dynamic> toJsonForProtocol() {
+    return {
+      if (id != null) 'id': id,
+      'name': name,
+      'description': description,
+      'isCompleted': isCompleted,
+      if (images != null)
+        'images': images?.toJson(valueToJson: (v) => v.toJsonForProtocol()),
+    };
   }
 
   static TaskInclude include({_i2.MediaIncludeList? images}) {
@@ -281,6 +113,11 @@ abstract class Task extends _i1.TableRow {
       orderByList: orderByList?.call(Task.t),
       include: include,
     );
+  }
+
+  @override
+  String toString() {
+    return _i1.SerializationManager.encode(this);
   }
 }
 
@@ -314,7 +151,9 @@ class _TaskImpl extends Task {
       name: name ?? this.name,
       description: description ?? this.description,
       isCompleted: isCompleted ?? this.isCompleted,
-      images: images is List<_i2.Media>? ? images : this.images?.clone(),
+      images: images is List<_i2.Media>?
+          ? images
+          : this.images?.map((e0) => e0.copyWith()).toList(),
     );
   }
 }
@@ -352,8 +191,8 @@ class TaskImplicit extends _TaskImpl {
   int? $_maintenanceTasksMaintenanceId;
 
   @override
-  Map<String, dynamic> allToJson() {
-    var jsonMap = super.allToJson();
+  Map<String, dynamic> toJson() {
+    var jsonMap = super.toJson();
     jsonMap.addAll(
         {'_maintenanceTasksMaintenanceId': $_maintenanceTasksMaintenanceId});
     return jsonMap;
@@ -441,9 +280,6 @@ class TaskTable extends _i1.Table {
   }
 }
 
-@Deprecated('Use TaskTable.t instead.')
-TaskTable tTask = TaskTable();
-
 class TaskInclude extends _i1.IncludeObject {
   TaskInclude._({_i2.MediaIncludeList? images}) {
     _images = images;
@@ -500,7 +336,7 @@ class TaskRepository {
     _i1.Transaction? transaction,
     TaskInclude? include,
   }) async {
-    return session.dbNext.find<Task>(
+    return session.db.find<Task>(
       where: where?.call(Task.t),
       orderBy: orderBy?.call(Task.t),
       orderByList: orderByList?.call(Task.t),
@@ -522,7 +358,7 @@ class TaskRepository {
     _i1.Transaction? transaction,
     TaskInclude? include,
   }) async {
-    return session.dbNext.findFirstRow<Task>(
+    return session.db.findFirstRow<Task>(
       where: where?.call(Task.t),
       orderBy: orderBy?.call(Task.t),
       orderByList: orderByList?.call(Task.t),
@@ -539,7 +375,7 @@ class TaskRepository {
     _i1.Transaction? transaction,
     TaskInclude? include,
   }) async {
-    return session.dbNext.findById<Task>(
+    return session.db.findById<Task>(
       id,
       transaction: transaction,
       include: include,
@@ -551,7 +387,7 @@ class TaskRepository {
     List<Task> rows, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.insert<Task>(
+    return session.db.insert<Task>(
       rows,
       transaction: transaction,
     );
@@ -562,7 +398,7 @@ class TaskRepository {
     Task row, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.insertRow<Task>(
+    return session.db.insertRow<Task>(
       row,
       transaction: transaction,
     );
@@ -574,7 +410,7 @@ class TaskRepository {
     _i1.ColumnSelections<TaskTable>? columns,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.update<Task>(
+    return session.db.update<Task>(
       rows,
       columns: columns?.call(Task.t),
       transaction: transaction,
@@ -587,41 +423,41 @@ class TaskRepository {
     _i1.ColumnSelections<TaskTable>? columns,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.updateRow<Task>(
+    return session.db.updateRow<Task>(
       row,
       columns: columns?.call(Task.t),
       transaction: transaction,
     );
   }
 
-  Future<List<int>> delete(
+  Future<List<Task>> delete(
     _i1.Session session,
     List<Task> rows, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.delete<Task>(
+    return session.db.delete<Task>(
       rows,
       transaction: transaction,
     );
   }
 
-  Future<int> deleteRow(
+  Future<Task> deleteRow(
     _i1.Session session,
     Task row, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.deleteRow<Task>(
+    return session.db.deleteRow<Task>(
       row,
       transaction: transaction,
     );
   }
 
-  Future<List<int>> deleteWhere(
+  Future<List<Task>> deleteWhere(
     _i1.Session session, {
     required _i1.WhereExpressionBuilder<TaskTable> where,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.deleteWhere<Task>(
+    return session.db.deleteWhere<Task>(
       where: where(Task.t),
       transaction: transaction,
     );
@@ -633,7 +469,7 @@ class TaskRepository {
     int? limit,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.count<Task>(
+    return session.db.count<Task>(
       where: where?.call(Task.t),
       limit: limit,
       transaction: transaction,
@@ -647,8 +483,9 @@ class TaskAttachRepository {
   Future<void> images(
     _i1.Session session,
     Task task,
-    List<_i2.Media> media,
-  ) async {
+    List<_i2.Media> media, {
+    _i1.Transaction? transaction,
+  }) async {
     if (media.any((e) => e.id == null)) {
       throw ArgumentError.notNull('media.id');
     }
@@ -662,9 +499,10 @@ class TaskAttachRepository {
               $_taskImagesTaskId: task.id,
             ))
         .toList();
-    await session.dbNext.update<_i2.Media>(
+    await session.db.update<_i2.Media>(
       $media,
       columns: [_i2.Media.t.$_taskImagesTaskId],
+      transaction: transaction,
     );
   }
 }
@@ -675,8 +513,9 @@ class TaskAttachRowRepository {
   Future<void> images(
     _i1.Session session,
     Task task,
-    _i2.Media media,
-  ) async {
+    _i2.Media media, {
+    _i1.Transaction? transaction,
+  }) async {
     if (media.id == null) {
       throw ArgumentError.notNull('media.id');
     }
@@ -688,9 +527,10 @@ class TaskAttachRowRepository {
       media,
       $_taskImagesTaskId: task.id,
     );
-    await session.dbNext.updateRow<_i2.Media>(
+    await session.db.updateRow<_i2.Media>(
       $media,
       columns: [_i2.Media.t.$_taskImagesTaskId],
+      transaction: transaction,
     );
   }
 }
@@ -700,8 +540,9 @@ class TaskDetachRepository {
 
   Future<void> images(
     _i1.Session session,
-    List<_i2.Media> media,
-  ) async {
+    List<_i2.Media> media, {
+    _i1.Transaction? transaction,
+  }) async {
     if (media.any((e) => e.id == null)) {
       throw ArgumentError.notNull('media.id');
     }
@@ -712,9 +553,10 @@ class TaskDetachRepository {
               $_taskImagesTaskId: null,
             ))
         .toList();
-    await session.dbNext.update<_i2.Media>(
+    await session.db.update<_i2.Media>(
       $media,
       columns: [_i2.Media.t.$_taskImagesTaskId],
+      transaction: transaction,
     );
   }
 }
@@ -724,8 +566,9 @@ class TaskDetachRowRepository {
 
   Future<void> images(
     _i1.Session session,
-    _i2.Media media,
-  ) async {
+    _i2.Media media, {
+    _i1.Transaction? transaction,
+  }) async {
     if (media.id == null) {
       throw ArgumentError.notNull('media.id');
     }
@@ -734,9 +577,10 @@ class TaskDetachRowRepository {
       media,
       $_taskImagesTaskId: null,
     );
-    await session.dbNext.updateRow<_i2.Media>(
+    await session.db.updateRow<_i2.Media>(
       $media,
       columns: [_i2.Media.t.$_taskImagesTaskId],
+      transaction: transaction,
     );
   }
 }

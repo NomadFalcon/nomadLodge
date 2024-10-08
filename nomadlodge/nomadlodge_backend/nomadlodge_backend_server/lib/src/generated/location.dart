@@ -1,18 +1,19 @@
 /* AUTOMATICALLY GENERATED CODE DO NOT MODIFY */
 /*   To generate run: "serverpod generate"    */
 
-// ignore_for_file: library_private_types_in_public_api
-// ignore_for_file: public_member_api_docs
 // ignore_for_file: implementation_imports
-// ignore_for_file: use_super_parameters
+// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: public_member_api_docs
 // ignore_for_file: type_literal_in_constant_pattern
+// ignore_for_file: use_super_parameters
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
 import 'protocol.dart' as _i2;
-import 'package:serverpod_serialization/serverpod_serialization.dart';
 
-abstract class Location extends _i1.TableRow {
+abstract class Location extends _i1.TableRow
+    implements _i1.ProtocolSerialization {
   Location._({
     int? id,
     required this.name,
@@ -41,30 +42,27 @@ abstract class Location extends _i1.TableRow {
     _i2.GeoAddress? geoAddress,
   }) = _LocationImpl;
 
-  factory Location.fromJson(
-    Map<String, dynamic> jsonSerialization,
-    _i1.SerializationManager serializationManager,
-  ) {
+  factory Location.fromJson(Map<String, dynamic> jsonSerialization) {
     return Location(
-      id: serializationManager.deserialize<int?>(jsonSerialization['id']),
-      name: serializationManager.deserialize<String>(jsonSerialization['name']),
-      longDescription: serializationManager
-          .deserialize<String>(jsonSerialization['longDescription']),
-      shortDescription: serializationManager
-          .deserialize<String>(jsonSerialization['shortDescription']),
-      website: serializationManager
-          .deserialize<String?>(jsonSerialization['website']),
-      rooms: serializationManager.deserialize<int>(jsonSerialization['rooms']),
-      medias: serializationManager
-          .deserialize<List<_i2.Media>?>(jsonSerialization['medias']),
-      userId:
-          serializationManager.deserialize<int>(jsonSerialization['userId']),
-      user: serializationManager
-          .deserialize<_i2.User?>(jsonSerialization['user']),
-      geoAddressId: serializationManager
-          .deserialize<int>(jsonSerialization['geoAddressId']),
-      geoAddress: serializationManager
-          .deserialize<_i2.GeoAddress?>(jsonSerialization['geoAddress']),
+      id: jsonSerialization['id'] as int?,
+      name: jsonSerialization['name'] as String,
+      longDescription: jsonSerialization['longDescription'] as String,
+      shortDescription: jsonSerialization['shortDescription'] as String,
+      website: jsonSerialization['website'] as String?,
+      rooms: jsonSerialization['rooms'] as int,
+      medias: (jsonSerialization['medias'] as List?)
+          ?.map((e) => _i2.Media.fromJson((e as Map<String, dynamic>)))
+          .toList(),
+      userId: jsonSerialization['userId'] as int,
+      user: jsonSerialization['user'] == null
+          ? null
+          : _i2.User.fromJson(
+              (jsonSerialization['user'] as Map<String, dynamic>)),
+      geoAddressId: jsonSerialization['geoAddressId'] as int,
+      geoAddress: jsonSerialization['geoAddress'] == null
+          ? null
+          : _i2.GeoAddress.fromJson(
+              (jsonSerialization['geoAddress'] as Map<String, dynamic>)),
     );
   }
 
@@ -127,22 +125,7 @@ abstract class Location extends _i1.TableRow {
   }
 
   @override
-  @Deprecated('Will be removed in 2.0.0')
-  Map<String, dynamic> toJsonForDatabase() {
-    return {
-      'id': id,
-      'name': name,
-      'longDescription': longDescription,
-      'shortDescription': shortDescription,
-      'website': website,
-      'rooms': rooms,
-      'userId': userId,
-      'geoAddressId': geoAddressId,
-    };
-  }
-
-  @override
-  Map<String, dynamic> allToJson() {
+  Map<String, dynamic> toJsonForProtocol() {
     return {
       if (id != null) 'id': id,
       'name': name,
@@ -151,173 +134,12 @@ abstract class Location extends _i1.TableRow {
       if (website != null) 'website': website,
       'rooms': rooms,
       if (medias != null)
-        'medias': medias?.toJson(valueToJson: (v) => v.allToJson()),
+        'medias': medias?.toJson(valueToJson: (v) => v.toJsonForProtocol()),
       'userId': userId,
-      if (user != null) 'user': user?.allToJson(),
+      if (user != null) 'user': user?.toJsonForProtocol(),
       'geoAddressId': geoAddressId,
-      if (geoAddress != null) 'geoAddress': geoAddress?.allToJson(),
+      if (geoAddress != null) 'geoAddress': geoAddress?.toJsonForProtocol(),
     };
-  }
-
-  @override
-  @Deprecated('Will be removed in 2.0.0')
-  void setColumn(
-    String columnName,
-    value,
-  ) {
-    switch (columnName) {
-      case 'id':
-        id = value;
-        return;
-      case 'name':
-        name = value;
-        return;
-      case 'longDescription':
-        longDescription = value;
-        return;
-      case 'shortDescription':
-        shortDescription = value;
-        return;
-      case 'website':
-        website = value;
-        return;
-      case 'rooms':
-        rooms = value;
-        return;
-      case 'userId':
-        userId = value;
-        return;
-      case 'geoAddressId':
-        geoAddressId = value;
-        return;
-      default:
-        throw UnimplementedError();
-    }
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.find instead.')
-  static Future<List<Location>> find(
-    _i1.Session session, {
-    _i1.WhereExpressionBuilder<LocationTable>? where,
-    int? limit,
-    int? offset,
-    _i1.Column? orderBy,
-    List<_i1.Order>? orderByList,
-    bool orderDescending = false,
-    bool useCache = true,
-    _i1.Transaction? transaction,
-    LocationInclude? include,
-  }) async {
-    return session.db.find<Location>(
-      where: where != null ? where(Location.t) : null,
-      limit: limit,
-      offset: offset,
-      orderBy: orderBy,
-      orderByList: orderByList,
-      orderDescending: orderDescending,
-      useCache: useCache,
-      transaction: transaction,
-      include: include,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.findRow instead.')
-  static Future<Location?> findSingleRow(
-    _i1.Session session, {
-    _i1.WhereExpressionBuilder<LocationTable>? where,
-    int? offset,
-    _i1.Column? orderBy,
-    bool orderDescending = false,
-    bool useCache = true,
-    _i1.Transaction? transaction,
-    LocationInclude? include,
-  }) async {
-    return session.db.findSingleRow<Location>(
-      where: where != null ? where(Location.t) : null,
-      offset: offset,
-      orderBy: orderBy,
-      orderDescending: orderDescending,
-      useCache: useCache,
-      transaction: transaction,
-      include: include,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.findById instead.')
-  static Future<Location?> findById(
-    _i1.Session session,
-    int id, {
-    LocationInclude? include,
-  }) async {
-    return session.db.findById<Location>(
-      id,
-      include: include,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.deleteWhere instead.')
-  static Future<int> delete(
-    _i1.Session session, {
-    required _i1.WhereExpressionBuilder<LocationTable> where,
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.delete<Location>(
-      where: where(Location.t),
-      transaction: transaction,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.deleteRow instead.')
-  static Future<bool> deleteRow(
-    _i1.Session session,
-    Location row, {
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.deleteRow(
-      row,
-      transaction: transaction,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.update instead.')
-  static Future<bool> update(
-    _i1.Session session,
-    Location row, {
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.update(
-      row,
-      transaction: transaction,
-    );
-  }
-
-  @Deprecated(
-      'Will be removed in 2.0.0. Use: db.insert instead. Important note: In db.insert, the object you pass in is no longer modified, instead a new copy with the added row is returned which contains the inserted id.')
-  static Future<void> insert(
-    _i1.Session session,
-    Location row, {
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.insert(
-      row,
-      transaction: transaction,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.count instead.')
-  static Future<int> count(
-    _i1.Session session, {
-    _i1.WhereExpressionBuilder<LocationTable>? where,
-    int? limit,
-    bool useCache = true,
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.count<Location>(
-      where: where != null ? where(Location.t) : null,
-      limit: limit,
-      useCache: useCache,
-      transaction: transaction,
-    );
   }
 
   static LocationInclude include({
@@ -350,6 +172,11 @@ abstract class Location extends _i1.TableRow {
       orderByList: orderByList?.call(Location.t),
       include: include,
     );
+  }
+
+  @override
+  String toString() {
+    return _i1.SerializationManager.encode(this);
   }
 }
 
@@ -403,7 +230,9 @@ class _LocationImpl extends Location {
       shortDescription: shortDescription ?? this.shortDescription,
       website: website is String? ? website : this.website,
       rooms: rooms ?? this.rooms,
-      medias: medias is List<_i2.Media>? ? medias : this.medias?.clone(),
+      medias: medias is List<_i2.Media>?
+          ? medias
+          : this.medias?.map((e0) => e0.copyWith()).toList(),
       userId: userId ?? this.userId,
       user: user is _i2.User? ? user : this.user?.copyWith(),
       geoAddressId: geoAddressId ?? this.geoAddressId,
@@ -552,9 +381,6 @@ class LocationTable extends _i1.Table {
   }
 }
 
-@Deprecated('Use LocationTable.t instead.')
-LocationTable tLocation = LocationTable();
-
 class LocationInclude extends _i1.IncludeObject {
   LocationInclude._({
     _i2.MediaIncludeList? medias,
@@ -625,7 +451,7 @@ class LocationRepository {
     _i1.Transaction? transaction,
     LocationInclude? include,
   }) async {
-    return session.dbNext.find<Location>(
+    return session.db.find<Location>(
       where: where?.call(Location.t),
       orderBy: orderBy?.call(Location.t),
       orderByList: orderByList?.call(Location.t),
@@ -647,7 +473,7 @@ class LocationRepository {
     _i1.Transaction? transaction,
     LocationInclude? include,
   }) async {
-    return session.dbNext.findFirstRow<Location>(
+    return session.db.findFirstRow<Location>(
       where: where?.call(Location.t),
       orderBy: orderBy?.call(Location.t),
       orderByList: orderByList?.call(Location.t),
@@ -664,7 +490,7 @@ class LocationRepository {
     _i1.Transaction? transaction,
     LocationInclude? include,
   }) async {
-    return session.dbNext.findById<Location>(
+    return session.db.findById<Location>(
       id,
       transaction: transaction,
       include: include,
@@ -676,7 +502,7 @@ class LocationRepository {
     List<Location> rows, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.insert<Location>(
+    return session.db.insert<Location>(
       rows,
       transaction: transaction,
     );
@@ -687,7 +513,7 @@ class LocationRepository {
     Location row, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.insertRow<Location>(
+    return session.db.insertRow<Location>(
       row,
       transaction: transaction,
     );
@@ -699,7 +525,7 @@ class LocationRepository {
     _i1.ColumnSelections<LocationTable>? columns,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.update<Location>(
+    return session.db.update<Location>(
       rows,
       columns: columns?.call(Location.t),
       transaction: transaction,
@@ -712,41 +538,41 @@ class LocationRepository {
     _i1.ColumnSelections<LocationTable>? columns,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.updateRow<Location>(
+    return session.db.updateRow<Location>(
       row,
       columns: columns?.call(Location.t),
       transaction: transaction,
     );
   }
 
-  Future<List<int>> delete(
+  Future<List<Location>> delete(
     _i1.Session session,
     List<Location> rows, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.delete<Location>(
+    return session.db.delete<Location>(
       rows,
       transaction: transaction,
     );
   }
 
-  Future<int> deleteRow(
+  Future<Location> deleteRow(
     _i1.Session session,
     Location row, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.deleteRow<Location>(
+    return session.db.deleteRow<Location>(
       row,
       transaction: transaction,
     );
   }
 
-  Future<List<int>> deleteWhere(
+  Future<List<Location>> deleteWhere(
     _i1.Session session, {
     required _i1.WhereExpressionBuilder<LocationTable> where,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.deleteWhere<Location>(
+    return session.db.deleteWhere<Location>(
       where: where(Location.t),
       transaction: transaction,
     );
@@ -758,7 +584,7 @@ class LocationRepository {
     int? limit,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.count<Location>(
+    return session.db.count<Location>(
       where: where?.call(Location.t),
       limit: limit,
       transaction: transaction,
@@ -772,8 +598,9 @@ class LocationAttachRepository {
   Future<void> medias(
     _i1.Session session,
     Location location,
-    List<_i2.Media> media,
-  ) async {
+    List<_i2.Media> media, {
+    _i1.Transaction? transaction,
+  }) async {
     if (media.any((e) => e.id == null)) {
       throw ArgumentError.notNull('media.id');
     }
@@ -787,9 +614,10 @@ class LocationAttachRepository {
               $_locationMediasLocationId: location.id,
             ))
         .toList();
-    await session.dbNext.update<_i2.Media>(
+    await session.db.update<_i2.Media>(
       $media,
       columns: [_i2.Media.t.$_locationMediasLocationId],
+      transaction: transaction,
     );
   }
 }
@@ -800,8 +628,9 @@ class LocationAttachRowRepository {
   Future<void> user(
     _i1.Session session,
     Location location,
-    _i2.User user,
-  ) async {
+    _i2.User user, {
+    _i1.Transaction? transaction,
+  }) async {
     if (location.id == null) {
       throw ArgumentError.notNull('location.id');
     }
@@ -810,17 +639,19 @@ class LocationAttachRowRepository {
     }
 
     var $location = location.copyWith(userId: user.id);
-    await session.dbNext.updateRow<Location>(
+    await session.db.updateRow<Location>(
       $location,
       columns: [Location.t.userId],
+      transaction: transaction,
     );
   }
 
   Future<void> geoAddress(
     _i1.Session session,
     Location location,
-    _i2.GeoAddress geoAddress,
-  ) async {
+    _i2.GeoAddress geoAddress, {
+    _i1.Transaction? transaction,
+  }) async {
     if (location.id == null) {
       throw ArgumentError.notNull('location.id');
     }
@@ -829,17 +660,19 @@ class LocationAttachRowRepository {
     }
 
     var $location = location.copyWith(geoAddressId: geoAddress.id);
-    await session.dbNext.updateRow<Location>(
+    await session.db.updateRow<Location>(
       $location,
       columns: [Location.t.geoAddressId],
+      transaction: transaction,
     );
   }
 
   Future<void> medias(
     _i1.Session session,
     Location location,
-    _i2.Media media,
-  ) async {
+    _i2.Media media, {
+    _i1.Transaction? transaction,
+  }) async {
     if (media.id == null) {
       throw ArgumentError.notNull('media.id');
     }
@@ -851,9 +684,10 @@ class LocationAttachRowRepository {
       media,
       $_locationMediasLocationId: location.id,
     );
-    await session.dbNext.updateRow<_i2.Media>(
+    await session.db.updateRow<_i2.Media>(
       $media,
       columns: [_i2.Media.t.$_locationMediasLocationId],
+      transaction: transaction,
     );
   }
 }
@@ -863,8 +697,9 @@ class LocationDetachRepository {
 
   Future<void> medias(
     _i1.Session session,
-    List<_i2.Media> media,
-  ) async {
+    List<_i2.Media> media, {
+    _i1.Transaction? transaction,
+  }) async {
     if (media.any((e) => e.id == null)) {
       throw ArgumentError.notNull('media.id');
     }
@@ -875,9 +710,10 @@ class LocationDetachRepository {
               $_locationMediasLocationId: null,
             ))
         .toList();
-    await session.dbNext.update<_i2.Media>(
+    await session.db.update<_i2.Media>(
       $media,
       columns: [_i2.Media.t.$_locationMediasLocationId],
+      transaction: transaction,
     );
   }
 }
@@ -887,8 +723,9 @@ class LocationDetachRowRepository {
 
   Future<void> medias(
     _i1.Session session,
-    _i2.Media media,
-  ) async {
+    _i2.Media media, {
+    _i1.Transaction? transaction,
+  }) async {
     if (media.id == null) {
       throw ArgumentError.notNull('media.id');
     }
@@ -897,9 +734,10 @@ class LocationDetachRowRepository {
       media,
       $_locationMediasLocationId: null,
     );
-    await session.dbNext.updateRow<_i2.Media>(
+    await session.db.updateRow<_i2.Media>(
       $media,
       columns: [_i2.Media.t.$_locationMediasLocationId],
+      transaction: transaction,
     );
   }
 }

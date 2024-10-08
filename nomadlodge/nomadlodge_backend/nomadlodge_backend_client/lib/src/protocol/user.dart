@@ -1,17 +1,18 @@
 /* AUTOMATICALLY GENERATED CODE DO NOT MODIFY */
 /*   To generate run: "serverpod generate"    */
 
-// ignore_for_file: library_private_types_in_public_api
-// ignore_for_file: public_member_api_docs
 // ignore_for_file: implementation_imports
-// ignore_for_file: use_super_parameters
+// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: public_member_api_docs
 // ignore_for_file: type_literal_in_constant_pattern
+// ignore_for_file: use_super_parameters
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import 'protocol.dart' as _i2;
 
-abstract class User extends _i1.SerializableEntity {
+abstract class User implements _i1.SerializableModel {
   User._({
     this.id,
     required this.name,
@@ -32,23 +33,18 @@ abstract class User extends _i1.SerializableEntity {
     List<_i2.UserDevice>? devices,
   }) = _UserImpl;
 
-  factory User.fromJson(
-    Map<String, dynamic> jsonSerialization,
-    _i1.SerializationManager serializationManager,
-  ) {
+  factory User.fromJson(Map<String, dynamic> jsonSerialization) {
     return User(
-      id: serializationManager.deserialize<int?>(jsonSerialization['id']),
-      name: serializationManager.deserialize<String>(jsonSerialization['name']),
-      email:
-          serializationManager.deserialize<String>(jsonSerialization['email']),
-      phone:
-          serializationManager.deserialize<String?>(jsonSerialization['phone']),
-      country: serializationManager
-          .deserialize<String?>(jsonSerialization['country']),
-      userType: serializationManager
-          .deserialize<_i2.UserType>(jsonSerialization['userType']),
-      devices: serializationManager
-          .deserialize<List<_i2.UserDevice>?>(jsonSerialization['devices']),
+      id: jsonSerialization['id'] as int?,
+      name: jsonSerialization['name'] as String,
+      email: jsonSerialization['email'] as String,
+      phone: jsonSerialization['phone'] as String?,
+      country: jsonSerialization['country'] as String?,
+      userType:
+          _i2.UserType.fromJson((jsonSerialization['userType'] as String)),
+      devices: (jsonSerialization['devices'] as List?)
+          ?.map((e) => _i2.UserDevice.fromJson((e as Map<String, dynamic>)))
+          .toList(),
     );
   }
 
@@ -91,6 +87,11 @@ abstract class User extends _i1.SerializableEntity {
         'devices': devices?.toJson(valueToJson: (v) => v.toJson()),
     };
   }
+
+  @override
+  String toString() {
+    return _i1.SerializationManager.encode(this);
+  }
 }
 
 class _Undefined {}
@@ -131,8 +132,9 @@ class _UserImpl extends User {
       phone: phone is String? ? phone : this.phone,
       country: country is String? ? country : this.country,
       userType: userType ?? this.userType,
-      devices:
-          devices is List<_i2.UserDevice>? ? devices : this.devices?.clone(),
+      devices: devices is List<_i2.UserDevice>?
+          ? devices
+          : this.devices?.map((e0) => e0.copyWith()).toList(),
     );
   }
 }

@@ -1,16 +1,17 @@
 /* AUTOMATICALLY GENERATED CODE DO NOT MODIFY */
 /*   To generate run: "serverpod generate"    */
 
-// ignore_for_file: library_private_types_in_public_api
-// ignore_for_file: public_member_api_docs
 // ignore_for_file: implementation_imports
-// ignore_for_file: use_super_parameters
+// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: public_member_api_docs
 // ignore_for_file: type_literal_in_constant_pattern
+// ignore_for_file: use_super_parameters
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 
-abstract class Maintenancetype extends _i1.SerializableEntity {
+abstract class Maintenancetype implements _i1.SerializableModel {
   Maintenancetype._({
     this.id,
     required this.name,
@@ -25,17 +26,12 @@ abstract class Maintenancetype extends _i1.SerializableEntity {
     String? icon,
   }) = _MaintenancetypeImpl;
 
-  factory Maintenancetype.fromJson(
-    Map<String, dynamic> jsonSerialization,
-    _i1.SerializationManager serializationManager,
-  ) {
+  factory Maintenancetype.fromJson(Map<String, dynamic> jsonSerialization) {
     return Maintenancetype(
-      id: serializationManager.deserialize<int?>(jsonSerialization['id']),
-      name: serializationManager.deserialize<String>(jsonSerialization['name']),
-      description: serializationManager
-          .deserialize<String>(jsonSerialization['description']),
-      icon:
-          serializationManager.deserialize<String?>(jsonSerialization['icon']),
+      id: jsonSerialization['id'] as int?,
+      name: jsonSerialization['name'] as String,
+      description: jsonSerialization['description'] as String,
+      icon: jsonSerialization['icon'] as String?,
     );
   }
 
@@ -64,6 +60,11 @@ abstract class Maintenancetype extends _i1.SerializableEntity {
       'description': description,
       if (icon != null) 'icon': icon,
     };
+  }
+
+  @override
+  String toString() {
+    return _i1.SerializationManager.encode(this);
   }
 }
 

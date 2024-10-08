@@ -1,16 +1,17 @@
 /* AUTOMATICALLY GENERATED CODE DO NOT MODIFY */
 /*   To generate run: "serverpod generate"    */
 
-// ignore_for_file: library_private_types_in_public_api
-// ignore_for_file: public_member_api_docs
 // ignore_for_file: implementation_imports
-// ignore_for_file: use_super_parameters
+// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: public_member_api_docs
 // ignore_for_file: type_literal_in_constant_pattern
+// ignore_for_file: use_super_parameters
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
 
-abstract class Fee extends _i1.TableRow {
+abstract class Fee extends _i1.TableRow implements _i1.ProtocolSerialization {
   Fee._({
     int? id,
     required this.name,
@@ -25,17 +26,12 @@ abstract class Fee extends _i1.TableRow {
     required double value,
   }) = _FeeImpl;
 
-  factory Fee.fromJson(
-    Map<String, dynamic> jsonSerialization,
-    _i1.SerializationManager serializationManager,
-  ) {
+  factory Fee.fromJson(Map<String, dynamic> jsonSerialization) {
     return Fee(
-      id: serializationManager.deserialize<int?>(jsonSerialization['id']),
-      name: serializationManager.deserialize<String>(jsonSerialization['name']),
-      description: serializationManager
-          .deserialize<String>(jsonSerialization['description']),
-      value:
-          serializationManager.deserialize<double>(jsonSerialization['value']),
+      id: jsonSerialization['id'] as int?,
+      name: jsonSerialization['name'] as String,
+      description: jsonSerialization['description'] as String,
+      value: (jsonSerialization['value'] as num).toDouble(),
     );
   }
 
@@ -69,165 +65,13 @@ abstract class Fee extends _i1.TableRow {
   }
 
   @override
-  @Deprecated('Will be removed in 2.0.0')
-  Map<String, dynamic> toJsonForDatabase() {
-    return {
-      'id': id,
-      'name': name,
-      'description': description,
-      'value': value,
-    };
-  }
-
-  @override
-  Map<String, dynamic> allToJson() {
+  Map<String, dynamic> toJsonForProtocol() {
     return {
       if (id != null) 'id': id,
       'name': name,
       'description': description,
       'value': value,
     };
-  }
-
-  @override
-  @Deprecated('Will be removed in 2.0.0')
-  void setColumn(
-    String columnName,
-    value,
-  ) {
-    switch (columnName) {
-      case 'id':
-        id = value;
-        return;
-      case 'name':
-        name = value;
-        return;
-      case 'description':
-        description = value;
-        return;
-      case 'value':
-        value = value;
-        return;
-      default:
-        throw UnimplementedError();
-    }
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.find instead.')
-  static Future<List<Fee>> find(
-    _i1.Session session, {
-    _i1.WhereExpressionBuilder<FeeTable>? where,
-    int? limit,
-    int? offset,
-    _i1.Column? orderBy,
-    List<_i1.Order>? orderByList,
-    bool orderDescending = false,
-    bool useCache = true,
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.find<Fee>(
-      where: where != null ? where(Fee.t) : null,
-      limit: limit,
-      offset: offset,
-      orderBy: orderBy,
-      orderByList: orderByList,
-      orderDescending: orderDescending,
-      useCache: useCache,
-      transaction: transaction,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.findRow instead.')
-  static Future<Fee?> findSingleRow(
-    _i1.Session session, {
-    _i1.WhereExpressionBuilder<FeeTable>? where,
-    int? offset,
-    _i1.Column? orderBy,
-    bool orderDescending = false,
-    bool useCache = true,
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.findSingleRow<Fee>(
-      where: where != null ? where(Fee.t) : null,
-      offset: offset,
-      orderBy: orderBy,
-      orderDescending: orderDescending,
-      useCache: useCache,
-      transaction: transaction,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.findById instead.')
-  static Future<Fee?> findById(
-    _i1.Session session,
-    int id,
-  ) async {
-    return session.db.findById<Fee>(id);
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.deleteWhere instead.')
-  static Future<int> delete(
-    _i1.Session session, {
-    required _i1.WhereExpressionBuilder<FeeTable> where,
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.delete<Fee>(
-      where: where(Fee.t),
-      transaction: transaction,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.deleteRow instead.')
-  static Future<bool> deleteRow(
-    _i1.Session session,
-    Fee row, {
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.deleteRow(
-      row,
-      transaction: transaction,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.update instead.')
-  static Future<bool> update(
-    _i1.Session session,
-    Fee row, {
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.update(
-      row,
-      transaction: transaction,
-    );
-  }
-
-  @Deprecated(
-      'Will be removed in 2.0.0. Use: db.insert instead. Important note: In db.insert, the object you pass in is no longer modified, instead a new copy with the added row is returned which contains the inserted id.')
-  static Future<void> insert(
-    _i1.Session session,
-    Fee row, {
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.insert(
-      row,
-      transaction: transaction,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.count instead.')
-  static Future<int> count(
-    _i1.Session session, {
-    _i1.WhereExpressionBuilder<FeeTable>? where,
-    int? limit,
-    bool useCache = true,
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.count<Fee>(
-      where: where != null ? where(Fee.t) : null,
-      limit: limit,
-      useCache: useCache,
-      transaction: transaction,
-    );
   }
 
   static FeeInclude include() {
@@ -252,6 +96,11 @@ abstract class Fee extends _i1.TableRow {
       orderByList: orderByList?.call(Fee.t),
       include: include,
     );
+  }
+
+  @override
+  String toString() {
+    return _i1.SerializationManager.encode(this);
   }
 }
 
@@ -317,9 +166,6 @@ class FeeTable extends _i1.Table {
       ];
 }
 
-@Deprecated('Use FeeTable.t instead.')
-FeeTable tFee = FeeTable();
-
 class FeeInclude extends _i1.IncludeObject {
   FeeInclude._();
 
@@ -363,7 +209,7 @@ class FeeRepository {
     _i1.OrderByListBuilder<FeeTable>? orderByList,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.find<Fee>(
+    return session.db.find<Fee>(
       where: where?.call(Fee.t),
       orderBy: orderBy?.call(Fee.t),
       orderByList: orderByList?.call(Fee.t),
@@ -383,7 +229,7 @@ class FeeRepository {
     _i1.OrderByListBuilder<FeeTable>? orderByList,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.findFirstRow<Fee>(
+    return session.db.findFirstRow<Fee>(
       where: where?.call(Fee.t),
       orderBy: orderBy?.call(Fee.t),
       orderByList: orderByList?.call(Fee.t),
@@ -398,7 +244,7 @@ class FeeRepository {
     int id, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.findById<Fee>(
+    return session.db.findById<Fee>(
       id,
       transaction: transaction,
     );
@@ -409,7 +255,7 @@ class FeeRepository {
     List<Fee> rows, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.insert<Fee>(
+    return session.db.insert<Fee>(
       rows,
       transaction: transaction,
     );
@@ -420,7 +266,7 @@ class FeeRepository {
     Fee row, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.insertRow<Fee>(
+    return session.db.insertRow<Fee>(
       row,
       transaction: transaction,
     );
@@ -432,7 +278,7 @@ class FeeRepository {
     _i1.ColumnSelections<FeeTable>? columns,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.update<Fee>(
+    return session.db.update<Fee>(
       rows,
       columns: columns?.call(Fee.t),
       transaction: transaction,
@@ -445,41 +291,41 @@ class FeeRepository {
     _i1.ColumnSelections<FeeTable>? columns,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.updateRow<Fee>(
+    return session.db.updateRow<Fee>(
       row,
       columns: columns?.call(Fee.t),
       transaction: transaction,
     );
   }
 
-  Future<List<int>> delete(
+  Future<List<Fee>> delete(
     _i1.Session session,
     List<Fee> rows, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.delete<Fee>(
+    return session.db.delete<Fee>(
       rows,
       transaction: transaction,
     );
   }
 
-  Future<int> deleteRow(
+  Future<Fee> deleteRow(
     _i1.Session session,
     Fee row, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.deleteRow<Fee>(
+    return session.db.deleteRow<Fee>(
       row,
       transaction: transaction,
     );
   }
 
-  Future<List<int>> deleteWhere(
+  Future<List<Fee>> deleteWhere(
     _i1.Session session, {
     required _i1.WhereExpressionBuilder<FeeTable> where,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.deleteWhere<Fee>(
+    return session.db.deleteWhere<Fee>(
       where: where(Fee.t),
       transaction: transaction,
     );
@@ -491,7 +337,7 @@ class FeeRepository {
     int? limit,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.count<Fee>(
+    return session.db.count<Fee>(
       where: where?.call(Fee.t),
       limit: limit,
       transaction: transaction,

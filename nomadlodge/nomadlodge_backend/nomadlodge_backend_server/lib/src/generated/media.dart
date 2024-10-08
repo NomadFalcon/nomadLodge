@@ -1,17 +1,18 @@
 /* AUTOMATICALLY GENERATED CODE DO NOT MODIFY */
 /*   To generate run: "serverpod generate"    */
 
-// ignore_for_file: library_private_types_in_public_api
-// ignore_for_file: public_member_api_docs
 // ignore_for_file: implementation_imports
-// ignore_for_file: use_super_parameters
+// ignore_for_file: library_private_types_in_public_api
+// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: public_member_api_docs
 // ignore_for_file: type_literal_in_constant_pattern
+// ignore_for_file: use_super_parameters
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
 import 'protocol.dart' as _i2;
 
-abstract class Media extends _i1.TableRow {
+abstract class Media extends _i1.TableRow implements _i1.ProtocolSerialization {
   Media._({
     int? id,
     required this.url,
@@ -24,15 +25,12 @@ abstract class Media extends _i1.TableRow {
     required _i2.MediaType mediaType,
   }) = _MediaImpl;
 
-  factory Media.fromJson(
-    Map<String, dynamic> jsonSerialization,
-    _i1.SerializationManager serializationManager,
-  ) {
+  factory Media.fromJson(Map<String, dynamic> jsonSerialization) {
     return Media(
-      id: serializationManager.deserialize<int?>(jsonSerialization['id']),
-      url: serializationManager.deserialize<String>(jsonSerialization['url']),
-      mediaType: serializationManager
-          .deserialize<_i2.MediaType>(jsonSerialization['mediaType']),
+      id: jsonSerialization['id'] as int?,
+      url: jsonSerialization['url'] as String,
+      mediaType:
+          _i2.MediaType.fromJson((jsonSerialization['mediaType'] as String)),
     );
   }
 
@@ -62,27 +60,6 @@ abstract class Media extends _i1.TableRow {
       if (id != null) 'id': id,
       'url': url,
       'mediaType': mediaType.toJson(),
-    };
-  }
-
-  @override
-  @Deprecated('Will be removed in 2.0.0')
-  Map<String, dynamic> toJsonForDatabase() {
-    return {
-      'id': id,
-      'url': url,
-      'mediaType': mediaType,
-      '_locationMediasLocationId': _locationMediasLocationId,
-      '_taskImagesTaskId': _taskImagesTaskId,
-    };
-  }
-
-  @override
-  Map<String, dynamic> allToJson() {
-    return {
-      if (id != null) 'id': id,
-      'url': url,
-      'mediaType': mediaType.toJson(),
       if (_locationMediasLocationId != null)
         '_locationMediasLocationId': _locationMediasLocationId,
       if (_taskImagesTaskId != null) '_taskImagesTaskId': _taskImagesTaskId,
@@ -90,147 +67,12 @@ abstract class Media extends _i1.TableRow {
   }
 
   @override
-  @Deprecated('Will be removed in 2.0.0')
-  void setColumn(
-    String columnName,
-    value,
-  ) {
-    switch (columnName) {
-      case 'id':
-        id = value;
-        return;
-      case 'url':
-        url = value;
-        return;
-      case 'mediaType':
-        mediaType = value;
-        return;
-      case '_locationMediasLocationId':
-        _locationMediasLocationId = value;
-        return;
-      case '_taskImagesTaskId':
-        _taskImagesTaskId = value;
-        return;
-      default:
-        throw UnimplementedError();
-    }
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.find instead.')
-  static Future<List<Media>> find(
-    _i1.Session session, {
-    _i1.WhereExpressionBuilder<MediaTable>? where,
-    int? limit,
-    int? offset,
-    _i1.Column? orderBy,
-    List<_i1.Order>? orderByList,
-    bool orderDescending = false,
-    bool useCache = true,
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.find<Media>(
-      where: where != null ? where(Media.t) : null,
-      limit: limit,
-      offset: offset,
-      orderBy: orderBy,
-      orderByList: orderByList,
-      orderDescending: orderDescending,
-      useCache: useCache,
-      transaction: transaction,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.findRow instead.')
-  static Future<Media?> findSingleRow(
-    _i1.Session session, {
-    _i1.WhereExpressionBuilder<MediaTable>? where,
-    int? offset,
-    _i1.Column? orderBy,
-    bool orderDescending = false,
-    bool useCache = true,
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.findSingleRow<Media>(
-      where: where != null ? where(Media.t) : null,
-      offset: offset,
-      orderBy: orderBy,
-      orderDescending: orderDescending,
-      useCache: useCache,
-      transaction: transaction,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.findById instead.')
-  static Future<Media?> findById(
-    _i1.Session session,
-    int id,
-  ) async {
-    return session.db.findById<Media>(id);
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.deleteWhere instead.')
-  static Future<int> delete(
-    _i1.Session session, {
-    required _i1.WhereExpressionBuilder<MediaTable> where,
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.delete<Media>(
-      where: where(Media.t),
-      transaction: transaction,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.deleteRow instead.')
-  static Future<bool> deleteRow(
-    _i1.Session session,
-    Media row, {
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.deleteRow(
-      row,
-      transaction: transaction,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.update instead.')
-  static Future<bool> update(
-    _i1.Session session,
-    Media row, {
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.update(
-      row,
-      transaction: transaction,
-    );
-  }
-
-  @Deprecated(
-      'Will be removed in 2.0.0. Use: db.insert instead. Important note: In db.insert, the object you pass in is no longer modified, instead a new copy with the added row is returned which contains the inserted id.')
-  static Future<void> insert(
-    _i1.Session session,
-    Media row, {
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.insert(
-      row,
-      transaction: transaction,
-    );
-  }
-
-  @Deprecated('Will be removed in 2.0.0. Use: db.count instead.')
-  static Future<int> count(
-    _i1.Session session, {
-    _i1.WhereExpressionBuilder<MediaTable>? where,
-    int? limit,
-    bool useCache = true,
-    _i1.Transaction? transaction,
-  }) async {
-    return session.db.count<Media>(
-      where: where != null ? where(Media.t) : null,
-      limit: limit,
-      useCache: useCache,
-      transaction: transaction,
-    );
+  Map<String, dynamic> toJsonForProtocol() {
+    return {
+      if (id != null) 'id': id,
+      'url': url,
+      'mediaType': mediaType.toJson(),
+    };
   }
 
   static MediaInclude include() {
@@ -255,6 +97,11 @@ abstract class Media extends _i1.TableRow {
       orderByList: orderByList?.call(Media.t),
       include: include,
     );
+  }
+
+  @override
+  String toString() {
+    return _i1.SerializationManager.encode(this);
   }
 }
 
@@ -317,8 +164,8 @@ class MediaImplicit extends _MediaImpl {
   int? $_taskImagesTaskId;
 
   @override
-  Map<String, dynamic> allToJson() {
-    var jsonMap = super.allToJson();
+  Map<String, dynamic> toJson() {
+    var jsonMap = super.toJson();
     jsonMap.addAll({
       '_locationMediasLocationId': $_locationMediasLocationId,
       '_taskImagesTaskId': $_taskImagesTaskId
@@ -366,9 +213,6 @@ class MediaTable extends _i1.Table {
       ];
 }
 
-@Deprecated('Use MediaTable.t instead.')
-MediaTable tMedia = MediaTable();
-
 class MediaInclude extends _i1.IncludeObject {
   MediaInclude._();
 
@@ -412,7 +256,7 @@ class MediaRepository {
     _i1.OrderByListBuilder<MediaTable>? orderByList,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.find<Media>(
+    return session.db.find<Media>(
       where: where?.call(Media.t),
       orderBy: orderBy?.call(Media.t),
       orderByList: orderByList?.call(Media.t),
@@ -432,7 +276,7 @@ class MediaRepository {
     _i1.OrderByListBuilder<MediaTable>? orderByList,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.findFirstRow<Media>(
+    return session.db.findFirstRow<Media>(
       where: where?.call(Media.t),
       orderBy: orderBy?.call(Media.t),
       orderByList: orderByList?.call(Media.t),
@@ -447,7 +291,7 @@ class MediaRepository {
     int id, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.findById<Media>(
+    return session.db.findById<Media>(
       id,
       transaction: transaction,
     );
@@ -458,7 +302,7 @@ class MediaRepository {
     List<Media> rows, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.insert<Media>(
+    return session.db.insert<Media>(
       rows,
       transaction: transaction,
     );
@@ -469,7 +313,7 @@ class MediaRepository {
     Media row, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.insertRow<Media>(
+    return session.db.insertRow<Media>(
       row,
       transaction: transaction,
     );
@@ -481,7 +325,7 @@ class MediaRepository {
     _i1.ColumnSelections<MediaTable>? columns,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.update<Media>(
+    return session.db.update<Media>(
       rows,
       columns: columns?.call(Media.t),
       transaction: transaction,
@@ -494,41 +338,41 @@ class MediaRepository {
     _i1.ColumnSelections<MediaTable>? columns,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.updateRow<Media>(
+    return session.db.updateRow<Media>(
       row,
       columns: columns?.call(Media.t),
       transaction: transaction,
     );
   }
 
-  Future<List<int>> delete(
+  Future<List<Media>> delete(
     _i1.Session session,
     List<Media> rows, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.delete<Media>(
+    return session.db.delete<Media>(
       rows,
       transaction: transaction,
     );
   }
 
-  Future<int> deleteRow(
+  Future<Media> deleteRow(
     _i1.Session session,
     Media row, {
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.deleteRow<Media>(
+    return session.db.deleteRow<Media>(
       row,
       transaction: transaction,
     );
   }
 
-  Future<List<int>> deleteWhere(
+  Future<List<Media>> deleteWhere(
     _i1.Session session, {
     required _i1.WhereExpressionBuilder<MediaTable> where,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.deleteWhere<Media>(
+    return session.db.deleteWhere<Media>(
       where: where(Media.t),
       transaction: transaction,
     );
@@ -540,7 +384,7 @@ class MediaRepository {
     int? limit,
     _i1.Transaction? transaction,
   }) async {
-    return session.dbNext.count<Media>(
+    return session.db.count<Media>(
       where: where?.call(Media.t),
       limit: limit,
       transaction: transaction,
