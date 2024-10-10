@@ -21,6 +21,12 @@
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"
+        },
+        {
+            "name": "nomadlodge-backend (dev)",
+            "request": "launch",
+            "type": "dart",
+            "program" : "nomadlodge_backend/nomadlodge_backend_flutter/lib/main.dart"
         }
     ]
 }
