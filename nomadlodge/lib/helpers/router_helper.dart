@@ -2,6 +2,7 @@ import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart'
     hide PhoneAuthProvider, EmailAuthProvider;
+import 'package:nomadlodge/menu/dasboard.dart';
 
 import 'user_helpers.dart';
 import '/../decorations.dart';
@@ -46,7 +47,7 @@ class RouterHelper {
                     print('Error: $loginError');
                   } else {
                     print('User authenticated');
-                    Navigator.pushReplacementNamed(context, '/profile');
+                    Navigator.pushReplacementNamed(context, '/dashboard');
                   }
                 });
               });
@@ -55,14 +56,14 @@ class RouterHelper {
               if (!state.credential.user!.emailVerified) {
                 Navigator.pushNamed(context, '/verify-email');
               } else {
-                Navigator.pushReplacementNamed(context, '/profile');
+                Navigator.pushReplacementNamed(context, '/dashboard');
               }
             }),
             AuthStateChangeAction<CredentialLinked>((context, state) {
               if (!state.user.emailVerified) {
                 Navigator.pushNamed(context, '/verify-email');
               } else {
-                Navigator.pushReplacementNamed(context, '/profile');
+                Navigator.pushReplacementNamed(context, '/dashboard');
               }
             }),
             mfaAction,
@@ -107,7 +108,7 @@ class RouterHelper {
           actionCodeSettings: actionCodeSettings,
           actions: [
             EmailVerifiedAction(() {
-              Navigator.pushReplacementNamed(context, '/profile');
+              Navigator.pushReplacementNamed(context, '/dashboard');
             }),
             AuthCancelledAction((context) {
               FirebaseUIAuth.signOut(context: context);
@@ -141,7 +142,7 @@ class RouterHelper {
         return SMSCodeInputScreen(
           actions: [
             AuthStateChangeAction<SignedIn>((context, state) {
-              Navigator.of(context).pushReplacementNamed('/profile');
+              Navigator.of(context).pushReplacementNamed('/dashboard');
             })
           ],
           flowKey: arguments?['flowKey'],
@@ -188,6 +189,11 @@ class RouterHelper {
             }),
             mfaAction,
           ],
+        );
+      },
+      '/dashboard': (context) {
+        return const DashboardPage(
+          key: ValueKey(DashboardPage),
         );
       },
     };

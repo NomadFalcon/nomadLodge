@@ -73,7 +73,7 @@ class NomadLodgeApp extends StatelessWidget {
     UserHelpers().getUserFromAuthUser(auth.currentUser!);
     if (UserHelpers().currentAppUser != null &&
         UserHelpers().currentAppUser?.role != null) {
-      return '/choose-role';
+      return '/dashboard';
     }
     /*
     if (!auth.currentUser!.emailVerified && auth.currentUser!.email != null) {
@@ -81,7 +81,7 @@ class NomadLodgeApp extends StatelessWidget {
     }
     */
 
-    return '/profile';
+    return '/dashboard';
   }
 
   @override
@@ -102,7 +102,7 @@ class NomadLodgeApp extends StatelessWidget {
           context: context,
         );
 
-        nav.pushReplacementNamed('/profile');
+        nav.pushReplacementNamed('/dashboard');
       },
     );
 
