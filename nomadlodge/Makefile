@@ -59,3 +59,6 @@ upgrade_locks: upgrade clean dependency_validator analyze test
 
 splash_images:
 	@fvm flutter pub run flutter_native_splash:create
+
+start_server_dev:
+	cd nomadlodge_backend/nomadlodge_backend_server && docker compose up --build --detach && dart bin/main.dart --apply-migrations
