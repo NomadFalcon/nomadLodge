@@ -6,6 +6,7 @@ import 'src/generated/protocol.dart';
 import 'src/generated/endpoints.dart';
 
 import 'package:serverpod_auth_server/module.dart' as auth;
+import 'package:serverpod/protocol.dart';
 
 // This is the starting point of your Serverpod server. In most cases, you will
 // only need to make additions to this file if you add future calls,  are
