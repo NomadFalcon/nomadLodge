@@ -1,6 +1,3 @@
 type: server
 
 client_package_path: ../nomadlodge_backend_client
-modules:
-  serverpod_auth:
-    nickname: auth

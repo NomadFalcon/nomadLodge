@@ -1,7 +1,0 @@
-class: Task
-table: task 
-fields:
-  name: String
-  description: String
-  isCompleted: bool
-  images: List<Media>?, relation

@@ -1,5 +1,0 @@
-class: Media 
-table: media
-fields:
-  url: String
-  mediaType: MediaType

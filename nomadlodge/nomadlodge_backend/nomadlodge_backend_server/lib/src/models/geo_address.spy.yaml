@@ -1,7 +1,0 @@
-class: GeoAddress 
-table: geoaddress
-fields:
-  shortAddress: String
-  longAddress: String
-  latitude: double
-  longitude: double

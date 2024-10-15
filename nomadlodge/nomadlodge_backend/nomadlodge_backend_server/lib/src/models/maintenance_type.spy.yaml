@@ -1,6 +1,0 @@
-class: Maintenancetype
-table: maintenancetype
-fields:
-  name: String
-  description: String
-  icon: String?

@@ -1,7 +1,0 @@
-enum: MediaType
-serialized: byName
-values:
- - image
- - video
- - ar
- - other

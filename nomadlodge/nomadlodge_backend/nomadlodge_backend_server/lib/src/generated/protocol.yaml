@@ -1,15 +1,2 @@
 example:
   - hello:
-location:
-  - getAll:
-  - getById:
-  - getTeams:
-  - getBookings:
-maintenance:
-  - getAll:
-  - getByLocationId:
-  - getByUserId:
-  - getByMonthYear:
-tasks:
-  - getTasksByMaintenanceId:
-  - setTaskAsComplete:

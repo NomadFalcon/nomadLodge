@@ -1,6 +1,0 @@
-class: Fee
-table: fee 
-fields:
-  name: String
-  description: String
-  value: double

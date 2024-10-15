@@ -10,4 +10,6 @@ doc/api/
 
 # Passwords file
 config/passwords.yaml
-config/firebase-service-account.json
+
+# Firebase service account key for Firebase auth
+config/firebase_service_account_key.json

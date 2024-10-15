@@ -18,15 +18,18 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=3.0.0 <4.0.0"
-  flutter: ">=3.10.0"
+  sdk: '>=3.3.0 <4.0.0'
+  flutter: '>=3.19.0'
 
 dependencies:
   flutter:
     sdk: flutter
-  serverpod_flutter: 2.1.1
+  serverpod_flutter: 2.1.4
   nomadlodge_backend_client:
     path: ../nomadlodge_backend_client
+
+  serverpod_auth_email_flutter: 2.1.4
+  serverpod_auth_shared_flutter: 2.1.4
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -34,7 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.5
 
 dev_dependencies:
-  flutter_lints: ^3.0.0
+  flutter_lints: '>=3.0.0 <6.0.0'
   flutter_test:
     sdk: flutter
 
