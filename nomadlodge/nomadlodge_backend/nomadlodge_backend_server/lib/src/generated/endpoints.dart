@@ -14,7 +14,9 @@ import '../endpoints/example_endpoint.dart' as _i2;
 import '../endpoints/location_endpoint.dart' as _i3;
 import '../endpoints/maintenance_endpoint.dart' as _i4;
 import '../endpoints/tasks_endpoint.dart' as _i5;
-import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i6;
+import '../endpoints/user_endpoint.dart' as _i6;
+import 'package:nomadlodge_backend_server/src/generated/user.dart' as _i7;
+import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i8;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
@@ -42,6 +44,12 @@ class Endpoints extends _i1.EndpointDispatch {
         ..initialize(
           server,
           'tasks',
+          null,
+        ),
+      'user': _i6.UserEndpoint()
+        ..initialize(
+          server,
+          'user',
           null,
         ),
     };
@@ -258,6 +266,48 @@ class Endpoints extends _i1.EndpointDispatch {
         ),
       },
     );
-    modules['serverpod_auth'] = _i6.Endpoints()..initializeEndpoints(server);
+    connectors['user'] = _i1.EndpointConnector(
+      name: 'user',
+      endpoint: endpoints['user']!,
+      methodConnectors: {
+        'getUserByAuthIdentifier': _i1.MethodConnector(
+          name: 'getUserByAuthIdentifier',
+          params: {
+            'authIdentifier': _i1.ParameterDescription(
+              name: 'authIdentifier',
+              type: _i1.getType<String>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['user'] as _i6.UserEndpoint).getUserByAuthIdentifier(
+            session,
+            params['authIdentifier'],
+          ),
+        ),
+        'createUser': _i1.MethodConnector(
+          name: 'createUser',
+          params: {
+            'user': _i1.ParameterDescription(
+              name: 'user',
+              type: _i1.getType<_i7.User>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['user'] as _i6.UserEndpoint).createUser(
+            session,
+            params['user'],
+          ),
+        ),
+      },
+    );
+    modules['serverpod_auth'] = _i8.Endpoints()..initializeEndpoints(server);
   }
 }

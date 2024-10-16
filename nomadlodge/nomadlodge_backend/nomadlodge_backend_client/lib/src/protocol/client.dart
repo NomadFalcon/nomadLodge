@@ -17,8 +17,9 @@ import 'package:nomadlodge_backend_client/src/protocol/location_team.dart'
 import 'package:nomadlodge_backend_client/src/protocol/booking.dart' as _i5;
 import 'package:nomadlodge_backend_client/src/protocol/maintenace.dart' as _i6;
 import 'package:nomadlodge_backend_client/src/protocol/task.dart' as _i7;
-import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i8;
-import 'protocol.dart' as _i9;
+import 'package:nomadlodge_backend_client/src/protocol/user.dart' as _i8;
+import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i9;
+import 'protocol.dart' as _i10;
 
 /// {@category Endpoint}
 class EndpointExample extends _i1.EndpointRef {
@@ -134,12 +135,34 @@ class EndpointTasks extends _i1.EndpointRef {
       );
 }
 
+/// {@category Endpoint}
+class EndpointUser extends _i1.EndpointRef {
+  EndpointUser(_i1.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'user';
+
+  _i2.Future<_i8.User?> getUserByAuthIdentifier(String authIdentifier) =>
+      caller.callServerEndpoint<_i8.User?>(
+        'user',
+        'getUserByAuthIdentifier',
+        {'authIdentifier': authIdentifier},
+      );
+
+  _i2.Future<_i8.User> createUser(_i8.User user) =>
+      caller.callServerEndpoint<_i8.User>(
+        'user',
+        'createUser',
+        {'user': user},
+      );
+}
+
 class _Modules {
   _Modules(Client client) {
-    auth = _i8.Caller(client);
+    auth = _i9.Caller(client);
   }
 
-  late final _i8.Caller auth;
+  late final _i9.Caller auth;
 }
 
 class Client extends _i1.ServerpodClientShared {
@@ -158,7 +181,7 @@ class Client extends _i1.ServerpodClientShared {
     bool? disconnectStreamsOnLostInternetConnection,
   }) : super(
           host,
-          _i9.Protocol(),
+          _i10.Protocol(),
           securityContext: securityContext,
           authenticationKeyManager: authenticationKeyManager,
           streamingConnectionTimeout: streamingConnectionTimeout,
@@ -172,6 +195,7 @@ class Client extends _i1.ServerpodClientShared {
     location = EndpointLocation(this);
     maintenance = EndpointMaintenance(this);
     tasks = EndpointTasks(this);
+    user = EndpointUser(this);
     modules = _Modules(this);
   }
 
@@ -183,6 +207,8 @@ class Client extends _i1.ServerpodClientShared {
 
   late final EndpointTasks tasks;
 
+  late final EndpointUser user;
+
   late final _Modules modules;
 
   @override
@@ -191,6 +217,7 @@ class Client extends _i1.ServerpodClientShared {
         'location': location,
         'maintenance': maintenance,
         'tasks': tasks,
+        'user': user,
       };
 
   @override

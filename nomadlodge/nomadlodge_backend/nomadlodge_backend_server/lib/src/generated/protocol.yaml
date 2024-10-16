@@ -13,3 +13,6 @@ maintenance:
 tasks:
   - getTasksByMaintenanceId:
   - setTaskAsComplete:
+user:
+  - getUserByAuthIdentifier:
+  - createUser:

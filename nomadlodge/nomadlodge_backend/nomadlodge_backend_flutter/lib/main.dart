@@ -1,9 +1,8 @@
 import 'package:nomadlodge_backend_client/nomadlodge_backend_client.dart';
 import 'package:flutter/material.dart';
-import 'package:serverpod_flutter/serverpod_flutter.dart';
 import 'serverpod_client.dart';
-import 'widgets/sign_in_page.dart';
-import 'widgets/account_page.dart';
+
+import 'navigation/router_helper.dart';
 
 // Sets up a singleton client object that can be used to talk to the server from
 // anywhere in our app. The client is generated from your server code.
@@ -20,7 +19,14 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
+String get initialRoute {
+    final isSignedIn = sessionManager.isSignedIn;
+    if (!isSignedIn) {
+      return '/';
+    }
+    return '/dashboard';
+  }
+  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -28,40 +34,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Serverpod Example'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  MyHomePageState createState() => MyHomePageState();
-}
-
-class MyHomePageState extends State<MyHomePage> {
-  // These fields hold the last result or error message that we've received from
-  // the server or null if no result exists yet.
- @override
-  void initState() {
-    super.initState();
-
-    // Make sure that we rebuild the page if signed in status changes.
-    sessionManager.addListener(() {
-      setState(() {});
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
+      initialRoute: initialRoute,
+      routes: RouterHelper.getRoutes(
+        context,
       ),
-      body: sessionManager.isSignedIn ? const AccountPage() : const SignInPage(),);
+    );
   }
 }
 

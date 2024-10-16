@@ -8,10 +8,12 @@ import 'package:serverpod/serverpod.dart';
 
 // After adding or modifying an endpoint, you will need to run
 // `serverpod generate` to update the server and client code.
-class TasksEndpoint extends Endpoint {
+class UserEndpoint extends Endpoint {
   Future<User?> getUserByAuthIdentifier(
       Session session, String authIdentifier) async {
+        print("called getUserByAuthIdentifier with $authIdentifier");
     var user = await User.db.findFirstRow(session,  where: (t) => t.authUserIdentifier.equals(authIdentifier),);
+    print("got from getUserByAuthIdentifier a $user");
     return user;
   }
 

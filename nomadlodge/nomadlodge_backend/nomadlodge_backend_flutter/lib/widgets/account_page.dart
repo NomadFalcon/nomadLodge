@@ -4,8 +4,27 @@ import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart
 
 import '../serverpod_client.dart';
 
-class AccountPage extends StatelessWidget {
-  const AccountPage({Key? key}) : super(key: key);
+
+
+class AccountPage extends StatefulWidget {
+  const AccountPage({super.key});
+
+
+  @override
+  AccountPageState createState() => AccountPageState();
+}
+
+class AccountPageState extends State<AccountPage> {
+  // These fields hold the last result or error message that we've received from
+  // the server or null if no result exists yet.
+ @override
+  void initState() {
+    super.initState(); 
+    // Make sure that we rebuild the page if signed in status changes.
+    sessionManager.addListener(() {
+      setState(() {});
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,4 +52,7 @@ class AccountPage extends StatelessWidget {
       ],
     );
   }
+
 }
+
+
