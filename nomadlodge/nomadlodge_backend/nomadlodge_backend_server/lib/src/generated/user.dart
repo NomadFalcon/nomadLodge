@@ -17,6 +17,7 @@ abstract class User implements _i1.TableRow, _i1.ProtocolSerialization {
     this.id,
     required this.name,
     required this.email,
+    required this.authUserIdentifier,
     this.phone,
     this.country,
     required this.userType,
@@ -27,6 +28,7 @@ abstract class User implements _i1.TableRow, _i1.ProtocolSerialization {
     int? id,
     required String name,
     required String email,
+    required String authUserIdentifier,
     String? phone,
     String? country,
     required _i2.UserType userType,
@@ -38,6 +40,7 @@ abstract class User implements _i1.TableRow, _i1.ProtocolSerialization {
       id: jsonSerialization['id'] as int?,
       name: jsonSerialization['name'] as String,
       email: jsonSerialization['email'] as String,
+      authUserIdentifier: jsonSerialization['authUserIdentifier'] as String,
       phone: jsonSerialization['phone'] as String?,
       country: jsonSerialization['country'] as String?,
       userType:
@@ -59,6 +62,8 @@ abstract class User implements _i1.TableRow, _i1.ProtocolSerialization {
 
   String email;
 
+  String authUserIdentifier;
+
   String? phone;
 
   String? country;
@@ -74,6 +79,7 @@ abstract class User implements _i1.TableRow, _i1.ProtocolSerialization {
     int? id,
     String? name,
     String? email,
+    String? authUserIdentifier,
     String? phone,
     String? country,
     _i2.UserType? userType,
@@ -85,6 +91,7 @@ abstract class User implements _i1.TableRow, _i1.ProtocolSerialization {
       if (id != null) 'id': id,
       'name': name,
       'email': email,
+      'authUserIdentifier': authUserIdentifier,
       if (phone != null) 'phone': phone,
       if (country != null) 'country': country,
       'userType': userType.toJson(),
@@ -99,6 +106,7 @@ abstract class User implements _i1.TableRow, _i1.ProtocolSerialization {
       if (id != null) 'id': id,
       'name': name,
       'email': email,
+      'authUserIdentifier': authUserIdentifier,
       if (phone != null) 'phone': phone,
       if (country != null) 'country': country,
       'userType': userType.toJson(),
@@ -144,6 +152,7 @@ class _UserImpl extends User {
     int? id,
     required String name,
     required String email,
+    required String authUserIdentifier,
     String? phone,
     String? country,
     required _i2.UserType userType,
@@ -152,6 +161,7 @@ class _UserImpl extends User {
           id: id,
           name: name,
           email: email,
+          authUserIdentifier: authUserIdentifier,
           phone: phone,
           country: country,
           userType: userType,
@@ -163,6 +173,7 @@ class _UserImpl extends User {
     Object? id = _Undefined,
     String? name,
     String? email,
+    String? authUserIdentifier,
     Object? phone = _Undefined,
     Object? country = _Undefined,
     _i2.UserType? userType,
@@ -172,6 +183,7 @@ class _UserImpl extends User {
       id: id is int? ? id : this.id,
       name: name ?? this.name,
       email: email ?? this.email,
+      authUserIdentifier: authUserIdentifier ?? this.authUserIdentifier,
       phone: phone is String? ? phone : this.phone,
       country: country is String? ? country : this.country,
       userType: userType ?? this.userType,
@@ -192,6 +204,10 @@ class UserTable extends _i1.Table {
       'email',
       this,
     );
+    authUserIdentifier = _i1.ColumnString(
+      'authUserIdentifier',
+      this,
+    );
     phone = _i1.ColumnString(
       'phone',
       this,
@@ -210,6 +226,8 @@ class UserTable extends _i1.Table {
   late final _i1.ColumnString name;
 
   late final _i1.ColumnString email;
+
+  late final _i1.ColumnString authUserIdentifier;
 
   late final _i1.ColumnString phone;
 
@@ -257,6 +275,7 @@ class UserTable extends _i1.Table {
         id,
         name,
         email,
+        authUserIdentifier,
         phone,
         country,
         userType,
