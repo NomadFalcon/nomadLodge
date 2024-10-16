@@ -61,6 +61,8 @@ splash_images:
 	@flutter pub run flutter_native_splash:create
 
 start_server_dev:
-	cd nomadlodge_backend/nomadlodge_backend_server && docker compose up --build --detach && dart bin/main.dart --apply-migrations
+	cd nomadlodge_backend/nomadlodge_backend_server && docker compose up --build --detach && dart bin/main.dart 
 end_server_dev:
 	cd nomadlodge_backend/nomadlodge_backend_server && docker compose down -v
+run_backend:
+	cd nomadlodge_backend/nomadlodge_backend_flutter && flutter run
