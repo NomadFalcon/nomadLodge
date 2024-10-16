@@ -1,0 +1,24 @@
+class: Maintenance
+table: maintenance
+fields:
+  maintenancetype: Maintenancetype?, relation
+  start: DateTime
+  end: DateTime?
+  description: String
+  tasks: List<Task>?, relation
+  user: User?, relation
+  fee: Fee?, relation
+  location: Location?, relation
+indexes:
+  maintenance_maintenancetype_unique_idx:
+    fields: maintenancetypeId
+    unique: true
+  maintenance_user_unique_idx:
+    fields: userId
+    unique: true
+  maintenance_fee_idx:
+    fields: feeId
+    unique: true
+  maintenance_location_unique_idx:
+    fields: locationId
+    unique: true

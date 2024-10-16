@@ -33,7 +33,7 @@ void run(List<String> args) async {
   );
 
    auth.AuthConfig.set(auth.AuthConfig(
-    //firebaseServiceAccountKeyJson: 'config/firebase-service-account.json',
+    firebaseServiceAccountKeyJson: 'config/firebase-service-account.json',
     sendValidationEmail: (session, email, validationCode) async {
       // TODO: integrate with mail server
       print('Validation code: $validationCode');

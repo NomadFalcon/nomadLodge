@@ -1,0 +1,15 @@
+class: Booking 
+table: booking
+fields:
+  platform: String
+  start: DateTime
+  end: DateTime
+  user: User?, relation
+  location: Location?, relation
+indexes:
+  booking_user_unique_idx:
+    fields: userId
+    unique: true
+  booking_location_unique_idx:
+    fields: locationId
+    unique: true

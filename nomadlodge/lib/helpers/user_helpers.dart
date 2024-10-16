@@ -162,7 +162,7 @@ class AppUser {
   ) {
     final data = snapshot.data();
     return AppUser(
-      name: data?['name'],
+      name: "",//data?['name'],
       role: data?['role'],
       email: data?['email'],
     );
