@@ -1,0 +1,16 @@
+class: Product
+table: product
+fields:
+  start: DateTime?
+  end: DateTime?
+  description: String
+  medias: List<Media>?, relation
+  fee: Fee?, relation
+  location: Location?, relation
+indexes:
+  product_fee_idx:
+    fields: feeId
+    unique: true
+  product_location_unique_idx:
+    fields: locationId
+    unique: true

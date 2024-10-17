@@ -47,6 +47,8 @@ abstract class Media implements _i1.TableRow, _i1.ProtocolSerialization {
 
   int? _locationMediasLocationId;
 
+  int? _productMediasProductId;
+
   int? _taskImagesTaskId;
 
   @override
@@ -65,6 +67,8 @@ abstract class Media implements _i1.TableRow, _i1.ProtocolSerialization {
       'mediaType': mediaType.toJson(),
       if (_locationMediasLocationId != null)
         '_locationMediasLocationId': _locationMediasLocationId,
+      if (_productMediasProductId != null)
+        '_productMediasProductId': _productMediasProductId,
       if (_taskImagesTaskId != null) '_taskImagesTaskId': _taskImagesTaskId,
     };
   }
@@ -141,6 +145,7 @@ class MediaImplicit extends _MediaImpl {
     required String url,
     required _i2.MediaType mediaType,
     this.$_locationMediasLocationId,
+    this.$_productMediasProductId,
     this.$_taskImagesTaskId,
   }) : super(
           id: id,
@@ -151,6 +156,7 @@ class MediaImplicit extends _MediaImpl {
   factory MediaImplicit(
     Media media, {
     int? $_locationMediasLocationId,
+    int? $_productMediasProductId,
     int? $_taskImagesTaskId,
   }) {
     return MediaImplicit._(
@@ -158,11 +164,14 @@ class MediaImplicit extends _MediaImpl {
       url: media.url,
       mediaType: media.mediaType,
       $_locationMediasLocationId: $_locationMediasLocationId,
+      $_productMediasProductId: $_productMediasProductId,
       $_taskImagesTaskId: $_taskImagesTaskId,
     );
   }
 
   int? $_locationMediasLocationId;
+
+  int? $_productMediasProductId;
 
   int? $_taskImagesTaskId;
 
@@ -171,6 +180,7 @@ class MediaImplicit extends _MediaImpl {
     var jsonMap = super.toJson();
     jsonMap.addAll({
       '_locationMediasLocationId': $_locationMediasLocationId,
+      '_productMediasProductId': $_productMediasProductId,
       '_taskImagesTaskId': $_taskImagesTaskId
     });
     return jsonMap;
@@ -192,6 +202,10 @@ class MediaTable extends _i1.Table {
       '_locationMediasLocationId',
       this,
     );
+    $_productMediasProductId = _i1.ColumnInt(
+      '_productMediasProductId',
+      this,
+    );
     $_taskImagesTaskId = _i1.ColumnInt(
       '_taskImagesTaskId',
       this,
@@ -204,6 +218,8 @@ class MediaTable extends _i1.Table {
 
   late final _i1.ColumnInt $_locationMediasLocationId;
 
+  late final _i1.ColumnInt $_productMediasProductId;
+
   late final _i1.ColumnInt $_taskImagesTaskId;
 
   @override
@@ -212,6 +228,7 @@ class MediaTable extends _i1.Table {
         url,
         mediaType,
         $_locationMediasLocationId,
+        $_productMediasProductId,
         $_taskImagesTaskId,
       ];
 }

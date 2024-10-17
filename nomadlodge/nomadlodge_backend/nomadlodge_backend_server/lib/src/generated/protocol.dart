@@ -23,18 +23,19 @@ import 'maintenace.dart' as _i10;
 import 'maintenance_type.dart' as _i11;
 import 'media.dart' as _i12;
 import 'media_type.dart' as _i13;
-import 'task.dart' as _i14;
-import 'user.dart' as _i15;
-import 'user_device.dart' as _i16;
-import 'user_type.dart' as _i17;
-import 'protocol.dart' as _i18;
-import 'package:nomadlodge_backend_server/src/generated/booking.dart' as _i19;
-import 'package:nomadlodge_backend_server/src/generated/location.dart' as _i20;
+import 'product.dart' as _i14;
+import 'task.dart' as _i15;
+import 'user.dart' as _i16;
+import 'user_device.dart' as _i17;
+import 'user_type.dart' as _i18;
+import 'protocol.dart' as _i19;
+import 'package:nomadlodge_backend_server/src/generated/booking.dart' as _i20;
+import 'package:nomadlodge_backend_server/src/generated/location.dart' as _i21;
 import 'package:nomadlodge_backend_server/src/generated/location_team.dart'
-    as _i21;
-import 'package:nomadlodge_backend_server/src/generated/maintenace.dart'
     as _i22;
-import 'package:nomadlodge_backend_server/src/generated/task.dart' as _i23;
+import 'package:nomadlodge_backend_server/src/generated/maintenace.dart'
+    as _i23;
+import 'package:nomadlodge_backend_server/src/generated/task.dart' as _i24;
 export 'booking.dart';
 export 'example.dart';
 export 'fee.dart';
@@ -45,6 +46,7 @@ export 'maintenace.dart';
 export 'maintenance_type.dart';
 export 'media.dart';
 export 'media_type.dart';
+export 'product.dart';
 export 'task.dart';
 export 'user.dart';
 export 'user_device.dart';
@@ -723,6 +725,12 @@ class Protocol extends _i1.SerializationManagerServer {
           dartType: 'int?',
         ),
         _i2.ColumnDefinition(
+          name: '_productMediasProductId',
+          columnType: _i2.ColumnType.bigint,
+          isNullable: true,
+          dartType: 'int?',
+        ),
+        _i2.ColumnDefinition(
           name: '_taskImagesTaskId',
           columnType: _i2.ColumnType.bigint,
           isNullable: true,
@@ -742,6 +750,16 @@ class Protocol extends _i1.SerializationManagerServer {
         ),
         _i2.ForeignKeyDefinition(
           constraintName: 'media_fk_1',
+          columns: ['_productMediasProductId'],
+          referenceTable: 'product',
+          referenceTableSchema: 'public',
+          referenceColumns: ['id'],
+          onUpdate: _i2.ForeignKeyAction.noAction,
+          onDelete: _i2.ForeignKeyAction.noAction,
+          matchType: null,
+        ),
+        _i2.ForeignKeyDefinition(
+          constraintName: 'media_fk_2',
           columns: ['_taskImagesTaskId'],
           referenceTable: 'task',
           referenceTableSchema: 'public',
@@ -765,6 +783,115 @@ class Protocol extends _i1.SerializationManagerServer {
           isUnique: true,
           isPrimary: true,
         )
+      ],
+      managed: true,
+    ),
+    _i2.TableDefinition(
+      name: 'product',
+      dartName: 'Product',
+      schema: 'public',
+      module: 'nomadlodge_backend',
+      columns: [
+        _i2.ColumnDefinition(
+          name: 'id',
+          columnType: _i2.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int?',
+          columnDefault: 'nextval(\'product_id_seq\'::regclass)',
+        ),
+        _i2.ColumnDefinition(
+          name: 'start',
+          columnType: _i2.ColumnType.timestampWithoutTimeZone,
+          isNullable: true,
+          dartType: 'DateTime?',
+        ),
+        _i2.ColumnDefinition(
+          name: 'end',
+          columnType: _i2.ColumnType.timestampWithoutTimeZone,
+          isNullable: true,
+          dartType: 'DateTime?',
+        ),
+        _i2.ColumnDefinition(
+          name: 'description',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'feeId',
+          columnType: _i2.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int',
+        ),
+        _i2.ColumnDefinition(
+          name: 'locationId',
+          columnType: _i2.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int',
+        ),
+      ],
+      foreignKeys: [
+        _i2.ForeignKeyDefinition(
+          constraintName: 'product_fk_0',
+          columns: ['feeId'],
+          referenceTable: 'fee',
+          referenceTableSchema: 'public',
+          referenceColumns: ['id'],
+          onUpdate: _i2.ForeignKeyAction.noAction,
+          onDelete: _i2.ForeignKeyAction.noAction,
+          matchType: null,
+        ),
+        _i2.ForeignKeyDefinition(
+          constraintName: 'product_fk_1',
+          columns: ['locationId'],
+          referenceTable: 'location',
+          referenceTableSchema: 'public',
+          referenceColumns: ['id'],
+          onUpdate: _i2.ForeignKeyAction.noAction,
+          onDelete: _i2.ForeignKeyAction.noAction,
+          matchType: null,
+        ),
+      ],
+      indexes: [
+        _i2.IndexDefinition(
+          indexName: 'product_pkey',
+          tableSpace: null,
+          elements: [
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'id',
+            )
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: true,
+        ),
+        _i2.IndexDefinition(
+          indexName: 'product_fee_idx',
+          tableSpace: null,
+          elements: [
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'feeId',
+            )
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: false,
+        ),
+        _i2.IndexDefinition(
+          indexName: 'product_location_unique_idx',
+          tableSpace: null,
+          elements: [
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'locationId',
+            )
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: false,
+        ),
       ],
       managed: true,
     ),
@@ -1045,17 +1172,20 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == _i13.MediaType) {
       return _i13.MediaType.fromJson(data) as T;
     }
-    if (t == _i14.Task) {
-      return _i14.Task.fromJson(data) as T;
+    if (t == _i14.Product) {
+      return _i14.Product.fromJson(data) as T;
     }
-    if (t == _i15.User) {
-      return _i15.User.fromJson(data) as T;
+    if (t == _i15.Task) {
+      return _i15.Task.fromJson(data) as T;
     }
-    if (t == _i16.UserDevice) {
-      return _i16.UserDevice.fromJson(data) as T;
+    if (t == _i16.User) {
+      return _i16.User.fromJson(data) as T;
     }
-    if (t == _i17.UserType) {
-      return _i17.UserType.fromJson(data) as T;
+    if (t == _i17.UserDevice) {
+      return _i17.UserDevice.fromJson(data) as T;
+    }
+    if (t == _i18.UserType) {
+      return _i18.UserType.fromJson(data) as T;
     }
     if (t == _i1.getType<_i4.Booking?>()) {
       return (data != null ? _i4.Booking.fromJson(data) : null) as T;
@@ -1087,63 +1217,71 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == _i1.getType<_i13.MediaType?>()) {
       return (data != null ? _i13.MediaType.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i14.Task?>()) {
-      return (data != null ? _i14.Task.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i14.Product?>()) {
+      return (data != null ? _i14.Product.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i15.User?>()) {
-      return (data != null ? _i15.User.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i15.Task?>()) {
+      return (data != null ? _i15.Task.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i16.UserDevice?>()) {
-      return (data != null ? _i16.UserDevice.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i16.User?>()) {
+      return (data != null ? _i16.User.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i17.UserType?>()) {
-      return (data != null ? _i17.UserType.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i17.UserDevice?>()) {
+      return (data != null ? _i17.UserDevice.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<List<_i18.Media>?>()) {
+    if (t == _i1.getType<_i18.UserType?>()) {
+      return (data != null ? _i18.UserType.fromJson(data) : null) as T;
+    }
+    if (t == _i1.getType<List<_i19.Media>?>()) {
       return (data != null
-          ? (data as List).map((e) => deserialize<_i18.Media>(e)).toList()
+          ? (data as List).map((e) => deserialize<_i19.Media>(e)).toList()
           : null) as dynamic;
     }
-    if (t == _i1.getType<List<_i18.User>?>()) {
+    if (t == _i1.getType<List<_i19.User>?>()) {
       return (data != null
-          ? (data as List).map((e) => deserialize<_i18.User>(e)).toList()
+          ? (data as List).map((e) => deserialize<_i19.User>(e)).toList()
           : null) as dynamic;
     }
-    if (t == _i1.getType<List<_i18.Task>?>()) {
+    if (t == _i1.getType<List<_i19.Task>?>()) {
       return (data != null
-          ? (data as List).map((e) => deserialize<_i18.Task>(e)).toList()
+          ? (data as List).map((e) => deserialize<_i19.Task>(e)).toList()
           : null) as dynamic;
     }
-    if (t == _i1.getType<List<_i18.Media>?>()) {
+    if (t == _i1.getType<List<_i19.Media>?>()) {
       return (data != null
-          ? (data as List).map((e) => deserialize<_i18.Media>(e)).toList()
+          ? (data as List).map((e) => deserialize<_i19.Media>(e)).toList()
           : null) as dynamic;
     }
-    if (t == _i1.getType<List<_i18.UserDevice>?>()) {
+    if (t == _i1.getType<List<_i19.Media>?>()) {
       return (data != null
-          ? (data as List).map((e) => deserialize<_i18.UserDevice>(e)).toList()
+          ? (data as List).map((e) => deserialize<_i19.Media>(e)).toList()
           : null) as dynamic;
     }
-    if (t == List<_i19.Booking>) {
-      return (data as List).map((e) => deserialize<_i19.Booking>(e)).toList()
+    if (t == _i1.getType<List<_i19.UserDevice>?>()) {
+      return (data != null
+          ? (data as List).map((e) => deserialize<_i19.UserDevice>(e)).toList()
+          : null) as dynamic;
+    }
+    if (t == List<_i20.Booking>) {
+      return (data as List).map((e) => deserialize<_i20.Booking>(e)).toList()
           as dynamic;
     }
-    if (t == List<_i20.Location>) {
-      return (data as List).map((e) => deserialize<_i20.Location>(e)).toList()
+    if (t == List<_i21.Location>) {
+      return (data as List).map((e) => deserialize<_i21.Location>(e)).toList()
           as dynamic;
     }
-    if (t == List<_i21.LocationTeam>) {
+    if (t == List<_i22.LocationTeam>) {
       return (data as List)
-          .map((e) => deserialize<_i21.LocationTeam>(e))
+          .map((e) => deserialize<_i22.LocationTeam>(e))
           .toList() as dynamic;
     }
-    if (t == List<_i22.Maintenance>) {
+    if (t == List<_i23.Maintenance>) {
       return (data as List)
-          .map((e) => deserialize<_i22.Maintenance>(e))
+          .map((e) => deserialize<_i23.Maintenance>(e))
           .toList() as dynamic;
     }
-    if (t == List<_i23.Task>) {
-      return (data as List).map((e) => deserialize<_i23.Task>(e)).toList()
+    if (t == List<_i24.Task>) {
+      return (data as List).map((e) => deserialize<_i24.Task>(e)).toList()
           as dynamic;
     }
     try {
@@ -1189,16 +1327,19 @@ class Protocol extends _i1.SerializationManagerServer {
     if (data is _i13.MediaType) {
       return 'MediaType';
     }
-    if (data is _i14.Task) {
+    if (data is _i14.Product) {
+      return 'Product';
+    }
+    if (data is _i15.Task) {
       return 'Task';
     }
-    if (data is _i15.User) {
+    if (data is _i16.User) {
       return 'User';
     }
-    if (data is _i16.UserDevice) {
+    if (data is _i17.UserDevice) {
       return 'UserDevice';
     }
-    if (data is _i17.UserType) {
+    if (data is _i18.UserType) {
       return 'UserType';
     }
     className = _i2.Protocol().getClassNameForObject(data);
@@ -1244,17 +1385,20 @@ class Protocol extends _i1.SerializationManagerServer {
     if (data['className'] == 'MediaType') {
       return deserialize<_i13.MediaType>(data['data']);
     }
+    if (data['className'] == 'Product') {
+      return deserialize<_i14.Product>(data['data']);
+    }
     if (data['className'] == 'Task') {
-      return deserialize<_i14.Task>(data['data']);
+      return deserialize<_i15.Task>(data['data']);
     }
     if (data['className'] == 'User') {
-      return deserialize<_i15.User>(data['data']);
+      return deserialize<_i16.User>(data['data']);
     }
     if (data['className'] == 'UserDevice') {
-      return deserialize<_i16.UserDevice>(data['data']);
+      return deserialize<_i17.UserDevice>(data['data']);
     }
     if (data['className'] == 'UserType') {
-      return deserialize<_i17.UserType>(data['data']);
+      return deserialize<_i18.UserType>(data['data']);
     }
     if (data['className'].startsWith('serverpod.')) {
       data['className'] = data['className'].substring(10);
@@ -1298,12 +1442,14 @@ class Protocol extends _i1.SerializationManagerServer {
         return _i11.Maintenancetype.t;
       case _i12.Media:
         return _i12.Media.t;
-      case _i14.Task:
-        return _i14.Task.t;
-      case _i15.User:
-        return _i15.User.t;
-      case _i16.UserDevice:
-        return _i16.UserDevice.t;
+      case _i14.Product:
+        return _i14.Product.t;
+      case _i15.Task:
+        return _i15.Task.t;
+      case _i16.User:
+        return _i16.User.t;
+      case _i17.UserDevice:
+        return _i17.UserDevice.t;
     }
     return null;
   }

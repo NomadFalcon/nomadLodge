@@ -36,19 +36,7 @@ class EntryPageState extends State<EntryPage> {
     if (userIdentier != null){
       final user = await client.user.getUserByAuthIdentifier(userIdentier);
       if(user == null){
-        /*
-        WoltModalSheet.show(
-            context: context,
-            pageListBuilder: (bottomSheetContext) => [
-              WoltModalSheetPage(
-                child: UserCreation(),
-                )
-            ],
-          );
-          */
         Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  UserCreation()));
-        //needsToSetupUser = true;
-        //setState(() {});
       }
     }
   }

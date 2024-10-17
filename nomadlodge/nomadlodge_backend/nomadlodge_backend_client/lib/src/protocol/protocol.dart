@@ -21,18 +21,19 @@ import 'maintenace.dart' as _i8;
 import 'maintenance_type.dart' as _i9;
 import 'media.dart' as _i10;
 import 'media_type.dart' as _i11;
-import 'task.dart' as _i12;
-import 'user.dart' as _i13;
-import 'user_device.dart' as _i14;
-import 'user_type.dart' as _i15;
-import 'protocol.dart' as _i16;
-import 'package:nomadlodge_backend_client/src/protocol/booking.dart' as _i17;
-import 'package:nomadlodge_backend_client/src/protocol/location.dart' as _i18;
+import 'product.dart' as _i12;
+import 'task.dart' as _i13;
+import 'user.dart' as _i14;
+import 'user_device.dart' as _i15;
+import 'user_type.dart' as _i16;
+import 'protocol.dart' as _i17;
+import 'package:nomadlodge_backend_client/src/protocol/booking.dart' as _i18;
+import 'package:nomadlodge_backend_client/src/protocol/location.dart' as _i19;
 import 'package:nomadlodge_backend_client/src/protocol/location_team.dart'
-    as _i19;
-import 'package:nomadlodge_backend_client/src/protocol/maintenace.dart' as _i20;
-import 'package:nomadlodge_backend_client/src/protocol/task.dart' as _i21;
-import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i22;
+    as _i20;
+import 'package:nomadlodge_backend_client/src/protocol/maintenace.dart' as _i21;
+import 'package:nomadlodge_backend_client/src/protocol/task.dart' as _i22;
+import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i23;
 export 'booking.dart';
 export 'example.dart';
 export 'fee.dart';
@@ -43,6 +44,7 @@ export 'maintenace.dart';
 export 'maintenance_type.dart';
 export 'media.dart';
 export 'media_type.dart';
+export 'product.dart';
 export 'task.dart';
 export 'user.dart';
 export 'user_device.dart';
@@ -92,17 +94,20 @@ class Protocol extends _i1.SerializationManager {
     if (t == _i11.MediaType) {
       return _i11.MediaType.fromJson(data) as T;
     }
-    if (t == _i12.Task) {
-      return _i12.Task.fromJson(data) as T;
+    if (t == _i12.Product) {
+      return _i12.Product.fromJson(data) as T;
     }
-    if (t == _i13.User) {
-      return _i13.User.fromJson(data) as T;
+    if (t == _i13.Task) {
+      return _i13.Task.fromJson(data) as T;
     }
-    if (t == _i14.UserDevice) {
-      return _i14.UserDevice.fromJson(data) as T;
+    if (t == _i14.User) {
+      return _i14.User.fromJson(data) as T;
     }
-    if (t == _i15.UserType) {
-      return _i15.UserType.fromJson(data) as T;
+    if (t == _i15.UserDevice) {
+      return _i15.UserDevice.fromJson(data) as T;
+    }
+    if (t == _i16.UserType) {
+      return _i16.UserType.fromJson(data) as T;
     }
     if (t == _i1.getType<_i2.Booking?>()) {
       return (data != null ? _i2.Booking.fromJson(data) : null) as T;
@@ -134,67 +139,75 @@ class Protocol extends _i1.SerializationManager {
     if (t == _i1.getType<_i11.MediaType?>()) {
       return (data != null ? _i11.MediaType.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i12.Task?>()) {
-      return (data != null ? _i12.Task.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i12.Product?>()) {
+      return (data != null ? _i12.Product.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i13.User?>()) {
-      return (data != null ? _i13.User.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i13.Task?>()) {
+      return (data != null ? _i13.Task.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i14.UserDevice?>()) {
-      return (data != null ? _i14.UserDevice.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i14.User?>()) {
+      return (data != null ? _i14.User.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i15.UserType?>()) {
-      return (data != null ? _i15.UserType.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i15.UserDevice?>()) {
+      return (data != null ? _i15.UserDevice.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<List<_i16.Media>?>()) {
+    if (t == _i1.getType<_i16.UserType?>()) {
+      return (data != null ? _i16.UserType.fromJson(data) : null) as T;
+    }
+    if (t == _i1.getType<List<_i17.Media>?>()) {
       return (data != null
-          ? (data as List).map((e) => deserialize<_i16.Media>(e)).toList()
+          ? (data as List).map((e) => deserialize<_i17.Media>(e)).toList()
           : null) as dynamic;
     }
-    if (t == _i1.getType<List<_i16.User>?>()) {
+    if (t == _i1.getType<List<_i17.User>?>()) {
       return (data != null
-          ? (data as List).map((e) => deserialize<_i16.User>(e)).toList()
+          ? (data as List).map((e) => deserialize<_i17.User>(e)).toList()
           : null) as dynamic;
     }
-    if (t == _i1.getType<List<_i16.Task>?>()) {
+    if (t == _i1.getType<List<_i17.Task>?>()) {
       return (data != null
-          ? (data as List).map((e) => deserialize<_i16.Task>(e)).toList()
+          ? (data as List).map((e) => deserialize<_i17.Task>(e)).toList()
           : null) as dynamic;
     }
-    if (t == _i1.getType<List<_i16.Media>?>()) {
+    if (t == _i1.getType<List<_i17.Media>?>()) {
       return (data != null
-          ? (data as List).map((e) => deserialize<_i16.Media>(e)).toList()
+          ? (data as List).map((e) => deserialize<_i17.Media>(e)).toList()
           : null) as dynamic;
     }
-    if (t == _i1.getType<List<_i16.UserDevice>?>()) {
+    if (t == _i1.getType<List<_i17.Media>?>()) {
       return (data != null
-          ? (data as List).map((e) => deserialize<_i16.UserDevice>(e)).toList()
+          ? (data as List).map((e) => deserialize<_i17.Media>(e)).toList()
           : null) as dynamic;
     }
-    if (t == List<_i17.Booking>) {
-      return (data as List).map((e) => deserialize<_i17.Booking>(e)).toList()
+    if (t == _i1.getType<List<_i17.UserDevice>?>()) {
+      return (data != null
+          ? (data as List).map((e) => deserialize<_i17.UserDevice>(e)).toList()
+          : null) as dynamic;
+    }
+    if (t == List<_i18.Booking>) {
+      return (data as List).map((e) => deserialize<_i18.Booking>(e)).toList()
           as dynamic;
     }
-    if (t == List<_i18.Location>) {
-      return (data as List).map((e) => deserialize<_i18.Location>(e)).toList()
+    if (t == List<_i19.Location>) {
+      return (data as List).map((e) => deserialize<_i19.Location>(e)).toList()
           as dynamic;
     }
-    if (t == List<_i19.LocationTeam>) {
+    if (t == List<_i20.LocationTeam>) {
       return (data as List)
-          .map((e) => deserialize<_i19.LocationTeam>(e))
+          .map((e) => deserialize<_i20.LocationTeam>(e))
           .toList() as dynamic;
     }
-    if (t == List<_i20.Maintenance>) {
+    if (t == List<_i21.Maintenance>) {
       return (data as List)
-          .map((e) => deserialize<_i20.Maintenance>(e))
+          .map((e) => deserialize<_i21.Maintenance>(e))
           .toList() as dynamic;
     }
-    if (t == List<_i21.Task>) {
-      return (data as List).map((e) => deserialize<_i21.Task>(e)).toList()
+    if (t == List<_i22.Task>) {
+      return (data as List).map((e) => deserialize<_i22.Task>(e)).toList()
           as dynamic;
     }
     try {
-      return _i22.Protocol().deserialize<T>(data, t);
+      return _i23.Protocol().deserialize<T>(data, t);
     } on _i1.DeserializationTypeNotFoundException catch (_) {}
     return super.deserialize<T>(data, t);
   }
@@ -233,19 +246,22 @@ class Protocol extends _i1.SerializationManager {
     if (data is _i11.MediaType) {
       return 'MediaType';
     }
-    if (data is _i12.Task) {
+    if (data is _i12.Product) {
+      return 'Product';
+    }
+    if (data is _i13.Task) {
       return 'Task';
     }
-    if (data is _i13.User) {
+    if (data is _i14.User) {
       return 'User';
     }
-    if (data is _i14.UserDevice) {
+    if (data is _i15.UserDevice) {
       return 'UserDevice';
     }
-    if (data is _i15.UserType) {
+    if (data is _i16.UserType) {
       return 'UserType';
     }
-    className = _i22.Protocol().getClassNameForObject(data);
+    className = _i23.Protocol().getClassNameForObject(data);
     if (className != null) {
       return 'serverpod_auth.$className';
     }
@@ -284,21 +300,24 @@ class Protocol extends _i1.SerializationManager {
     if (data['className'] == 'MediaType') {
       return deserialize<_i11.MediaType>(data['data']);
     }
+    if (data['className'] == 'Product') {
+      return deserialize<_i12.Product>(data['data']);
+    }
     if (data['className'] == 'Task') {
-      return deserialize<_i12.Task>(data['data']);
+      return deserialize<_i13.Task>(data['data']);
     }
     if (data['className'] == 'User') {
-      return deserialize<_i13.User>(data['data']);
+      return deserialize<_i14.User>(data['data']);
     }
     if (data['className'] == 'UserDevice') {
-      return deserialize<_i14.UserDevice>(data['data']);
+      return deserialize<_i15.UserDevice>(data['data']);
     }
     if (data['className'] == 'UserType') {
-      return deserialize<_i15.UserType>(data['data']);
+      return deserialize<_i16.UserType>(data['data']);
     }
     if (data['className'].startsWith('serverpod_auth.')) {
       data['className'] = data['className'].substring(15);
-      return _i22.Protocol().deserializeByClassName(data);
+      return _i23.Protocol().deserializeByClassName(data);
     }
     return super.deserializeByClassName(data);
   }

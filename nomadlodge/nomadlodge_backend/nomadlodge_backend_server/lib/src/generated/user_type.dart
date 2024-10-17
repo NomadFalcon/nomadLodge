@@ -14,7 +14,8 @@ import 'package:serverpod/serverpod.dart' as _i1;
 enum UserType implements _i1.SerializableModel {
   client,
   admin,
-  worker;
+  worker,
+  cleaner;
 
   static UserType fromJson(String name) {
     switch (name) {
@@ -24,6 +25,8 @@ enum UserType implements _i1.SerializableModel {
         return admin;
       case 'worker':
         return worker;
+      case 'cleaner':
+        return cleaner;
       default:
         throw ArgumentError('Value "$name" cannot be converted to "UserType"');
     }
