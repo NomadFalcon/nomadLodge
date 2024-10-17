@@ -1,3 +1,9 @@
+booking:
+  - getAll:
+  - getAllFuture:
+  - getAllPast:
+  - getByLocationId:
+  - getByMonthYear:
 example:
   - hello:
 location:

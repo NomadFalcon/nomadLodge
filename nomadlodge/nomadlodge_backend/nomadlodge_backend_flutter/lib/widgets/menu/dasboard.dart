@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'contact_screen.dart';
-import 'home_screen.dart.dart';
-import 'product_screen.dart';
+import 'package:nomadlodge_backend_flutter/widgets/menu/maintances_screen.dart';
+import 'reservations_screen.dart';
+import 'locations_screen.dart.dart';
+import 'products_screen.dart';
 import '../account_page.dart';
 import '../../constants/text_constants.dart';
-import '../../serverpod_client.dart';
 
-import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
+
+
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({Key? key}) : super(key: key);
@@ -21,7 +22,7 @@ class _DashboardPage extends State<DashboardPage>
 
   @override
   void initState() {
-    tabController = TabController(length: 4, vsync: this);
+    tabController = TabController(length: 5, vsync: this);
     tabController.addListener(() {
       setState(() {});
     });
@@ -29,7 +30,23 @@ class _DashboardPage extends State<DashboardPage>
     super.initState();
   }
 
+  String getTabTitle(int index) {
+    switch (index) {
+      case 0:
+        return TextConstants.locationsTitleTab;
+      case 1:
+        return TextConstants.productsTitleTab;
+      case 2:
+        return TextConstants.reservationsTitleTab;
+      case 3:
+        return TextConstants.maintenacesTitleTab;
+      case 4:
+        return TextConstants.accountTitleTab;
+      default:
+        return "";
+    }
 
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,35 +55,35 @@ class _DashboardPage extends State<DashboardPage>
       appBar: AppBar(
         centerTitle: true,
         //tabcontroller.index can be used to get the name of current index value of the tabview.
-        title: Text(tabController.index == 0
-            ? TextConstants.titleTab_1
-            : tabController.index == 1
-                ? TextConstants.titleTab_2
-                : tabController.index == 2
-                    ? TextConstants.titleTab_3
-                    : TextConstants.titleTab_4),
+        title: Text(getTabTitle(tabController.index)),
         bottom: TabBar(controller: tabController, tabs: [
           Tab(
-            text: TextConstants.titleTab_1,
+            text: TextConstants.locationsTitleTab,
             icon: Icon(
               Icons.home,
               color: Colors.indigo.shade500,
             ),
           ),
           Tab(
-              text: TextConstants.titleTab_2,
+              text: TextConstants.productsTitleTab,
               icon: Icon(
                 Icons.star,
                 color: Colors.indigo.shade500,
               )),
           Tab(
-              text: TextConstants.titleTab_3,
+              text: TextConstants.reservationsTitleTab,
               icon: Icon(
                 Icons.contact_mail,
                 color: Colors.indigo.shade500,
               )),
           Tab(
-              text: TextConstants.titleTab_4,
+              text: TextConstants.maintenacesTitleTab,
+              icon: Icon(
+                Icons.star,
+                color: Colors.indigo.shade500,
+              )),
+              Tab(
+              text: TextConstants.accountTitleTab,
               icon: Icon(
                 Icons.star,
                 color: Colors.indigo.shade500,
@@ -74,14 +91,13 @@ class _DashboardPage extends State<DashboardPage>
         ]),
       ),
       body: TabBarView(controller: tabController, children: [
-        HomeScreen(
-          tabController: tabController,
+        LocationScreen(
         ),
         ProductScreen(
-          tabController: tabController,
         ),
-        ConstactScreen(
-          tabController: tabController,
+        ReservationsScreen(
+        ),
+        MaintenancesScreen(
         ),
         AccountPage(key:ValueKey(AccountPage)),
       ]),

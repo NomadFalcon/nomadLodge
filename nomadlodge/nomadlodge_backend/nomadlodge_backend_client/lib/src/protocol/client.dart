@@ -11,15 +11,64 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import 'dart:async' as _i2;
-import 'package:nomadlodge_backend_client/src/protocol/location.dart' as _i3;
+import 'package:nomadlodge_backend_client/src/protocol/booking.dart' as _i3;
+import 'package:nomadlodge_backend_client/src/protocol/location.dart' as _i4;
 import 'package:nomadlodge_backend_client/src/protocol/location_team.dart'
-    as _i4;
-import 'package:nomadlodge_backend_client/src/protocol/booking.dart' as _i5;
+    as _i5;
 import 'package:nomadlodge_backend_client/src/protocol/maintenace.dart' as _i6;
 import 'package:nomadlodge_backend_client/src/protocol/task.dart' as _i7;
 import 'package:nomadlodge_backend_client/src/protocol/user.dart' as _i8;
 import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i9;
 import 'protocol.dart' as _i10;
+
+/// {@category Endpoint}
+class EndpointBooking extends _i1.EndpointRef {
+  EndpointBooking(_i1.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'booking';
+
+  _i2.Future<List<_i3.Booking>> getAll() =>
+      caller.callServerEndpoint<List<_i3.Booking>>(
+        'booking',
+        'getAll',
+        {},
+      );
+
+  _i2.Future<List<_i3.Booking>> getAllFuture() =>
+      caller.callServerEndpoint<List<_i3.Booking>>(
+        'booking',
+        'getAllFuture',
+        {},
+      );
+
+  _i2.Future<List<_i3.Booking>> getAllPast() =>
+      caller.callServerEndpoint<List<_i3.Booking>>(
+        'booking',
+        'getAllPast',
+        {},
+      );
+
+  _i2.Future<List<_i3.Booking>> getByLocationId(int locationId) =>
+      caller.callServerEndpoint<List<_i3.Booking>>(
+        'booking',
+        'getByLocationId',
+        {'locationId': locationId},
+      );
+
+  _i2.Future<List<_i3.Booking>> getByMonthYear(
+    int year,
+    int month,
+  ) =>
+      caller.callServerEndpoint<List<_i3.Booking>>(
+        'booking',
+        'getByMonthYear',
+        {
+          'year': year,
+          'month': month,
+        },
+      );
+}
 
 /// {@category Endpoint}
 class EndpointExample extends _i1.EndpointRef {
@@ -42,29 +91,29 @@ class EndpointLocation extends _i1.EndpointRef {
   @override
   String get name => 'location';
 
-  _i2.Future<List<_i3.Location>> getAll() =>
-      caller.callServerEndpoint<List<_i3.Location>>(
+  _i2.Future<List<_i4.Location>> getAll() =>
+      caller.callServerEndpoint<List<_i4.Location>>(
         'location',
         'getAll',
         {},
       );
 
-  _i2.Future<_i3.Location?> getById(int locationId) =>
-      caller.callServerEndpoint<_i3.Location?>(
+  _i2.Future<_i4.Location?> getById(int locationId) =>
+      caller.callServerEndpoint<_i4.Location?>(
         'location',
         'getById',
         {'locationId': locationId},
       );
 
-  _i2.Future<List<_i4.LocationTeam>> getTeams(int locationId) =>
-      caller.callServerEndpoint<List<_i4.LocationTeam>>(
+  _i2.Future<List<_i5.LocationTeam>> getTeams(int locationId) =>
+      caller.callServerEndpoint<List<_i5.LocationTeam>>(
         'location',
         'getTeams',
         {'locationId': locationId},
       );
 
-  _i2.Future<List<_i5.Booking>> getBookings(int locationId) =>
-      caller.callServerEndpoint<List<_i5.Booking>>(
+  _i2.Future<List<_i3.Booking>> getBookings(int locationId) =>
+      caller.callServerEndpoint<List<_i3.Booking>>(
         'location',
         'getBookings',
         {'locationId': locationId},
@@ -191,6 +240,7 @@ class Client extends _i1.ServerpodClientShared {
           disconnectStreamsOnLostInternetConnection:
               disconnectStreamsOnLostInternetConnection,
         ) {
+    booking = EndpointBooking(this);
     example = EndpointExample(this);
     location = EndpointLocation(this);
     maintenance = EndpointMaintenance(this);
@@ -198,6 +248,8 @@ class Client extends _i1.ServerpodClientShared {
     user = EndpointUser(this);
     modules = _Modules(this);
   }
+
+  late final EndpointBooking booking;
 
   late final EndpointExample example;
 
@@ -213,6 +265,7 @@ class Client extends _i1.ServerpodClientShared {
 
   @override
   Map<String, _i1.EndpointRef> get endpointRefLookup => {
+        'booking': booking,
         'example': example,
         'location': location,
         'maintenance': maintenance,

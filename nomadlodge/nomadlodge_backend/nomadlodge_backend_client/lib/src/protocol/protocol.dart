@@ -26,10 +26,10 @@ import 'user.dart' as _i13;
 import 'user_device.dart' as _i14;
 import 'user_type.dart' as _i15;
 import 'protocol.dart' as _i16;
-import 'package:nomadlodge_backend_client/src/protocol/location.dart' as _i17;
+import 'package:nomadlodge_backend_client/src/protocol/booking.dart' as _i17;
+import 'package:nomadlodge_backend_client/src/protocol/location.dart' as _i18;
 import 'package:nomadlodge_backend_client/src/protocol/location_team.dart'
-    as _i18;
-import 'package:nomadlodge_backend_client/src/protocol/booking.dart' as _i19;
+    as _i19;
 import 'package:nomadlodge_backend_client/src/protocol/maintenace.dart' as _i20;
 import 'package:nomadlodge_backend_client/src/protocol/task.dart' as _i21;
 import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i22;
@@ -171,18 +171,18 @@ class Protocol extends _i1.SerializationManager {
           ? (data as List).map((e) => deserialize<_i16.UserDevice>(e)).toList()
           : null) as dynamic;
     }
-    if (t == List<_i17.Location>) {
-      return (data as List).map((e) => deserialize<_i17.Location>(e)).toList()
+    if (t == List<_i17.Booking>) {
+      return (data as List).map((e) => deserialize<_i17.Booking>(e)).toList()
           as dynamic;
     }
-    if (t == List<_i18.LocationTeam>) {
+    if (t == List<_i18.Location>) {
+      return (data as List).map((e) => deserialize<_i18.Location>(e)).toList()
+          as dynamic;
+    }
+    if (t == List<_i19.LocationTeam>) {
       return (data as List)
-          .map((e) => deserialize<_i18.LocationTeam>(e))
+          .map((e) => deserialize<_i19.LocationTeam>(e))
           .toList() as dynamic;
-    }
-    if (t == List<_i19.Booking>) {
-      return (data as List).map((e) => deserialize<_i19.Booking>(e)).toList()
-          as dynamic;
     }
     if (t == List<_i20.Maintenance>) {
       return (data as List)
