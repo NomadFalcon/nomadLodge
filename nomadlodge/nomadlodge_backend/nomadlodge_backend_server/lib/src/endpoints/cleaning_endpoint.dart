@@ -20,7 +20,7 @@ class CleaningEndpoint extends Endpoint {
     final locations = await Location.db.find(session, where: (t) => t.userId.equals(userId));
     print("getAllByUsersLocations locations: $locations");
     for (var location in locations) {
-      final maintanences = await Maintenance.db.find(session, where: (t) => t.locationId.equals(location.id!));
+      final maintanences = await Maintenance.db.find(session, where: (t) => t.locationId.equals(location.id!), include: Maintenance.include(location: Location.include()));
       print("getAllByUsersLocations maintanences: $maintanences");
       final filteredMaintanences = maintanences.where((element) => element.maintenancetype == MaintenanceType.cleaning);
       maintanencesFinal.addAll(filteredMaintanences);
