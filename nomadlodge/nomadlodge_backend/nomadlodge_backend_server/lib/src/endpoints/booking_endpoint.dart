@@ -19,6 +19,7 @@ class BookingEndpoint extends Endpoint {
   // passwords, and information about the request being made to the server.
   Future<List<Booking>> getAll(Session session) async {
     final bookings = <Booking>[];
+    
     return bookings;
   }
   Future<List<Booking>> getAllFuture(Session session) async {

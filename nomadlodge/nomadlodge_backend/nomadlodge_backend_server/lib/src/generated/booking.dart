@@ -15,6 +15,7 @@ import 'protocol.dart' as _i2;
 abstract class Booking implements _i1.TableRow, _i1.ProtocolSerialization {
   Booking._({
     this.id,
+    required this.externalId,
     required this.platform,
     required this.start,
     required this.end,
@@ -26,6 +27,7 @@ abstract class Booking implements _i1.TableRow, _i1.ProtocolSerialization {
 
   factory Booking({
     int? id,
+    required String externalId,
     required String platform,
     required DateTime start,
     required DateTime end,
@@ -38,6 +40,7 @@ abstract class Booking implements _i1.TableRow, _i1.ProtocolSerialization {
   factory Booking.fromJson(Map<String, dynamic> jsonSerialization) {
     return Booking(
       id: jsonSerialization['id'] as int?,
+      externalId: jsonSerialization['externalId'] as String,
       platform: jsonSerialization['platform'] as String,
       start: _i1.DateTimeJsonExtension.fromJson(jsonSerialization['start']),
       end: _i1.DateTimeJsonExtension.fromJson(jsonSerialization['end']),
@@ -61,6 +64,8 @@ abstract class Booking implements _i1.TableRow, _i1.ProtocolSerialization {
   @override
   int? id;
 
+  String externalId;
+
   String platform;
 
   DateTime start;
@@ -80,6 +85,7 @@ abstract class Booking implements _i1.TableRow, _i1.ProtocolSerialization {
 
   Booking copyWith({
     int? id,
+    String? externalId,
     String? platform,
     DateTime? start,
     DateTime? end,
@@ -92,6 +98,7 @@ abstract class Booking implements _i1.TableRow, _i1.ProtocolSerialization {
   Map<String, dynamic> toJson() {
     return {
       if (id != null) 'id': id,
+      'externalId': externalId,
       'platform': platform,
       'start': start.toJson(),
       'end': end.toJson(),
@@ -106,6 +113,7 @@ abstract class Booking implements _i1.TableRow, _i1.ProtocolSerialization {
   Map<String, dynamic> toJsonForProtocol() {
     return {
       if (id != null) 'id': id,
+      'externalId': externalId,
       'platform': platform,
       'start': start.toJson(),
       'end': end.toJson(),
@@ -157,6 +165,7 @@ class _Undefined {}
 class _BookingImpl extends Booking {
   _BookingImpl({
     int? id,
+    required String externalId,
     required String platform,
     required DateTime start,
     required DateTime end,
@@ -166,6 +175,7 @@ class _BookingImpl extends Booking {
     _i2.Location? location,
   }) : super._(
           id: id,
+          externalId: externalId,
           platform: platform,
           start: start,
           end: end,
@@ -178,6 +188,7 @@ class _BookingImpl extends Booking {
   @override
   Booking copyWith({
     Object? id = _Undefined,
+    String? externalId,
     String? platform,
     DateTime? start,
     DateTime? end,
@@ -188,6 +199,7 @@ class _BookingImpl extends Booking {
   }) {
     return Booking(
       id: id is int? ? id : this.id,
+      externalId: externalId ?? this.externalId,
       platform: platform ?? this.platform,
       start: start ?? this.start,
       end: end ?? this.end,
@@ -202,6 +214,10 @@ class _BookingImpl extends Booking {
 
 class BookingTable extends _i1.Table {
   BookingTable({super.tableRelation}) : super(tableName: 'booking') {
+    externalId = _i1.ColumnString(
+      'externalId',
+      this,
+    );
     platform = _i1.ColumnString(
       'platform',
       this,
@@ -223,6 +239,8 @@ class BookingTable extends _i1.Table {
       this,
     );
   }
+
+  late final _i1.ColumnString externalId;
 
   late final _i1.ColumnString platform;
 
@@ -267,6 +285,7 @@ class BookingTable extends _i1.Table {
   @override
   List<_i1.Column> get columns => [
         id,
+        externalId,
         platform,
         start,
         end,

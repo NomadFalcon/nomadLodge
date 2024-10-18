@@ -1,0 +1,10 @@
+class: Integration 
+table: integration
+fields:
+  apiKey: String
+  integrationType: IntegrationType
+  user: User?, relation
+indexes:
+  integration_user_unique_idx:
+    fields: userId
+    unique: true

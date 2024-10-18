@@ -2,6 +2,7 @@ class: Location
 table: location
 fields:
   name: String
+  externalId: String
   longDescription: String
   shortDescription: String
   website: String?

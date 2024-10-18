@@ -16,6 +16,7 @@ abstract class Location implements _i1.SerializableModel {
   Location._({
     this.id,
     required this.name,
+    required this.externalId,
     required this.longDescription,
     required this.shortDescription,
     this.website,
@@ -30,6 +31,7 @@ abstract class Location implements _i1.SerializableModel {
   factory Location({
     int? id,
     required String name,
+    required String externalId,
     required String longDescription,
     required String shortDescription,
     String? website,
@@ -45,6 +47,7 @@ abstract class Location implements _i1.SerializableModel {
     return Location(
       id: jsonSerialization['id'] as int?,
       name: jsonSerialization['name'] as String,
+      externalId: jsonSerialization['externalId'] as String,
       longDescription: jsonSerialization['longDescription'] as String,
       shortDescription: jsonSerialization['shortDescription'] as String,
       website: jsonSerialization['website'] as String?,
@@ -72,6 +75,8 @@ abstract class Location implements _i1.SerializableModel {
 
   String name;
 
+  String externalId;
+
   String longDescription;
 
   String shortDescription;
@@ -93,6 +98,7 @@ abstract class Location implements _i1.SerializableModel {
   Location copyWith({
     int? id,
     String? name,
+    String? externalId,
     String? longDescription,
     String? shortDescription,
     String? website,
@@ -108,6 +114,7 @@ abstract class Location implements _i1.SerializableModel {
     return {
       if (id != null) 'id': id,
       'name': name,
+      'externalId': externalId,
       'longDescription': longDescription,
       'shortDescription': shortDescription,
       if (website != null) 'website': website,
@@ -133,6 +140,7 @@ class _LocationImpl extends Location {
   _LocationImpl({
     int? id,
     required String name,
+    required String externalId,
     required String longDescription,
     required String shortDescription,
     String? website,
@@ -145,6 +153,7 @@ class _LocationImpl extends Location {
   }) : super._(
           id: id,
           name: name,
+          externalId: externalId,
           longDescription: longDescription,
           shortDescription: shortDescription,
           website: website,
@@ -160,6 +169,7 @@ class _LocationImpl extends Location {
   Location copyWith({
     Object? id = _Undefined,
     String? name,
+    String? externalId,
     String? longDescription,
     String? shortDescription,
     Object? website = _Undefined,
@@ -173,6 +183,7 @@ class _LocationImpl extends Location {
     return Location(
       id: id is int? ? id : this.id,
       name: name ?? this.name,
+      externalId: externalId ?? this.externalId,
       longDescription: longDescription ?? this.longDescription,
       shortDescription: shortDescription ?? this.shortDescription,
       website: website is String? ? website : this.website,

@@ -15,6 +15,7 @@ import 'protocol.dart' as _i2;
 abstract class Booking implements _i1.SerializableModel {
   Booking._({
     this.id,
+    required this.externalId,
     required this.platform,
     required this.start,
     required this.end,
@@ -26,6 +27,7 @@ abstract class Booking implements _i1.SerializableModel {
 
   factory Booking({
     int? id,
+    required String externalId,
     required String platform,
     required DateTime start,
     required DateTime end,
@@ -38,6 +40,7 @@ abstract class Booking implements _i1.SerializableModel {
   factory Booking.fromJson(Map<String, dynamic> jsonSerialization) {
     return Booking(
       id: jsonSerialization['id'] as int?,
+      externalId: jsonSerialization['externalId'] as String,
       platform: jsonSerialization['platform'] as String,
       start: _i1.DateTimeJsonExtension.fromJson(jsonSerialization['start']),
       end: _i1.DateTimeJsonExtension.fromJson(jsonSerialization['end']),
@@ -59,6 +62,8 @@ abstract class Booking implements _i1.SerializableModel {
   /// the id will be null.
   int? id;
 
+  String externalId;
+
   String platform;
 
   DateTime start;
@@ -75,6 +80,7 @@ abstract class Booking implements _i1.SerializableModel {
 
   Booking copyWith({
     int? id,
+    String? externalId,
     String? platform,
     DateTime? start,
     DateTime? end,
@@ -87,6 +93,7 @@ abstract class Booking implements _i1.SerializableModel {
   Map<String, dynamic> toJson() {
     return {
       if (id != null) 'id': id,
+      'externalId': externalId,
       'platform': platform,
       'start': start.toJson(),
       'end': end.toJson(),
@@ -108,6 +115,7 @@ class _Undefined {}
 class _BookingImpl extends Booking {
   _BookingImpl({
     int? id,
+    required String externalId,
     required String platform,
     required DateTime start,
     required DateTime end,
@@ -117,6 +125,7 @@ class _BookingImpl extends Booking {
     _i2.Location? location,
   }) : super._(
           id: id,
+          externalId: externalId,
           platform: platform,
           start: start,
           end: end,
@@ -129,6 +138,7 @@ class _BookingImpl extends Booking {
   @override
   Booking copyWith({
     Object? id = _Undefined,
+    String? externalId,
     String? platform,
     DateTime? start,
     DateTime? end,
@@ -139,6 +149,7 @@ class _BookingImpl extends Booking {
   }) {
     return Booking(
       id: id is int? ? id : this.id,
+      externalId: externalId ?? this.externalId,
       platform: platform ?? this.platform,
       start: start ?? this.start,
       end: end ?? this.end,

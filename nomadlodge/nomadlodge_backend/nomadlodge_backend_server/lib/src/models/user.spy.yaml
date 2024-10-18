@@ -3,7 +3,8 @@ table: user
 fields:
   name: String
   email: String
-  authUserIdentifier: String
+  authUserIdentifier: String?
+  externalId: String?
   phone: String?
   country: String?
   userType: UserType

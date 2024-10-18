@@ -17,7 +17,8 @@ abstract class User implements _i1.SerializableModel {
     this.id,
     required this.name,
     required this.email,
-    required this.authUserIdentifier,
+    this.authUserIdentifier,
+    this.externalId,
     this.phone,
     this.country,
     required this.userType,
@@ -28,7 +29,8 @@ abstract class User implements _i1.SerializableModel {
     int? id,
     required String name,
     required String email,
-    required String authUserIdentifier,
+    String? authUserIdentifier,
+    String? externalId,
     String? phone,
     String? country,
     required _i2.UserType userType,
@@ -40,7 +42,8 @@ abstract class User implements _i1.SerializableModel {
       id: jsonSerialization['id'] as int?,
       name: jsonSerialization['name'] as String,
       email: jsonSerialization['email'] as String,
-      authUserIdentifier: jsonSerialization['authUserIdentifier'] as String,
+      authUserIdentifier: jsonSerialization['authUserIdentifier'] as String?,
+      externalId: jsonSerialization['externalId'] as String?,
       phone: jsonSerialization['phone'] as String?,
       country: jsonSerialization['country'] as String?,
       userType:
@@ -60,7 +63,9 @@ abstract class User implements _i1.SerializableModel {
 
   String email;
 
-  String authUserIdentifier;
+  String? authUserIdentifier;
+
+  String? externalId;
 
   String? phone;
 
@@ -75,6 +80,7 @@ abstract class User implements _i1.SerializableModel {
     String? name,
     String? email,
     String? authUserIdentifier,
+    String? externalId,
     String? phone,
     String? country,
     _i2.UserType? userType,
@@ -86,7 +92,8 @@ abstract class User implements _i1.SerializableModel {
       if (id != null) 'id': id,
       'name': name,
       'email': email,
-      'authUserIdentifier': authUserIdentifier,
+      if (authUserIdentifier != null) 'authUserIdentifier': authUserIdentifier,
+      if (externalId != null) 'externalId': externalId,
       if (phone != null) 'phone': phone,
       if (country != null) 'country': country,
       'userType': userType.toJson(),
@@ -108,7 +115,8 @@ class _UserImpl extends User {
     int? id,
     required String name,
     required String email,
-    required String authUserIdentifier,
+    String? authUserIdentifier,
+    String? externalId,
     String? phone,
     String? country,
     required _i2.UserType userType,
@@ -118,6 +126,7 @@ class _UserImpl extends User {
           name: name,
           email: email,
           authUserIdentifier: authUserIdentifier,
+          externalId: externalId,
           phone: phone,
           country: country,
           userType: userType,
@@ -129,7 +138,8 @@ class _UserImpl extends User {
     Object? id = _Undefined,
     String? name,
     String? email,
-    String? authUserIdentifier,
+    Object? authUserIdentifier = _Undefined,
+    Object? externalId = _Undefined,
     Object? phone = _Undefined,
     Object? country = _Undefined,
     _i2.UserType? userType,
@@ -139,7 +149,10 @@ class _UserImpl extends User {
       id: id is int? ? id : this.id,
       name: name ?? this.name,
       email: email ?? this.email,
-      authUserIdentifier: authUserIdentifier ?? this.authUserIdentifier,
+      authUserIdentifier: authUserIdentifier is String?
+          ? authUserIdentifier
+          : this.authUserIdentifier,
+      externalId: externalId is String? ? externalId : this.externalId,
       phone: phone is String? ? phone : this.phone,
       country: country is String? ? country : this.country,
       userType: userType ?? this.userType,

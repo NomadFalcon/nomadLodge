@@ -1,6 +1,7 @@
 class: Booking 
 table: booking
 fields:
+  externalId: String
   platform: String
   start: DateTime
   end: DateTime
