@@ -48,14 +48,27 @@ class _MaintenancesScreenState extends State<MaintenancesScreen> {
           ),
           height: MediaQuery.of(context).size.height * 0.8,
           width: MediaQuery.of(context).size.width,
-          padding: const EdgeInsets.all(20),
-          child: (maintenaces.isNotEmpty) ? ListView.builder(
-            itemBuilder: (BuildContext context, int index) { 
-              return ListTile(
-                title: Text(maintenaces[index].description),
-                subtitle: Text(maintenaces[index].location?.name ?? ""),
-              );
-             },
+          padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 0.0),
+          child: (maintenaces.isNotEmpty) ? ListView(
+            children: [
+              for (var maintenace in maintenaces)
+                Card(
+                  color: (maintenace.maintenancetype == MaintenanceType.cleaning) ? Colors.lightBlue : Colors.lightGreen,
+                  child: ListTile(
+                    contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                    title: Text("${maintenace.maintenancetype.name} for ${maintenace.location?.name ?? "Unknown"}"),
+                    subtitle: Text("Date: ${maintenace.start}"),
+                    textColor: Colors.white,
+                    trailing: ElevatedButton(
+                      onPressed: () {
+                        // Add your reload logic here
+                        print('Reload button pressed');
+                      },
+                      child: const Text('See more'),
+                    ),
+                  ),
+                ),
+            ],
           ) : Text("There is no maintenaces to show"),
           
         ),
