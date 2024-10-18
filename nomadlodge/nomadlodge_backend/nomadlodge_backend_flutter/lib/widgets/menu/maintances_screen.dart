@@ -4,6 +4,9 @@ import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 import 'package:nomadlodge_backend_client/nomadlodge_backend_client.dart';
 import '../popups/new_maintenace_popup.dart';
 import '../creation/maintenance_creation_page.dart';
+import 'package:intl/intl.dart';
+
+
 class MaintenancesScreen extends StatefulWidget {
 
   const MaintenancesScreen(
@@ -57,7 +60,7 @@ class _MaintenancesScreenState extends State<MaintenancesScreen> {
                   child: ListTile(
                     contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                     title: Text("${maintenace.maintenancetype.name} for ${maintenace.location?.name ?? "Unknown"}"),
-                    subtitle: Text("Date: ${maintenace.start}"),
+                    subtitle: Text("Date: ${DateFormat('dd-MM-yyyy').format(maintenace.start) }"),
                     textColor: Colors.white,
                     trailing: ElevatedButton(
                       onPressed: () {

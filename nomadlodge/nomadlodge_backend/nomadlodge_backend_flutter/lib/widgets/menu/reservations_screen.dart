@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../serverpod_client.dart';
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 import 'package:nomadlodge_backend_client/nomadlodge_backend_client.dart';
+import 'package:intl/intl.dart';
 
 class ReservationsScreen extends StatefulWidget {
 
@@ -50,10 +51,12 @@ class _ReservationsScreenState extends State<ReservationsScreen> {
             children: [
               for (var reservation in reservations)
                 Card(
+                  color: (reservation.platform == "Booking.com") ? Colors.lightBlue : (reservation.platform == "Airbnb") ? Colors.red : Colors.lightGreen,
                   child: ListTile(
                     contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                    textColor: Colors.white,
                     title: Text(reservation.user?.name ?? "Unknown"),
-                    subtitle: Text(reservation.platform),
+                    subtitle: Text("${reservation.platform}\n${DateFormat('dd-MM-yyyy').format(reservation.start)} to ${DateFormat('dd-MM-yyyy').format(reservation.end)}"),
                     trailing: ElevatedButton(
                       onPressed: () {
                         // Add your reload logic here

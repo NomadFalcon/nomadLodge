@@ -12,9 +12,9 @@ import 'package:serverpod/serverpod.dart';
 class BookingEndpoint extends Endpoint {
   Future<List<Booking>> getAll(Session session, User user) async {
     final bookings = <Booking>[];
-    final locations = await Location.db.find(session, where: (t) => t.userId.equals(user.id));
+    final locations = await Location.db.find(session, where: (t) => t.userId.equals(user.id), include: Location.include(user: User.include()));
     for (var location in locations) {
-      final locationBookings = await Booking.db.find(session, where: (t) => t.locationId.equals(location.id));
+      final locationBookings = await Booking.db.find(session, where: (t) => t.locationId.equals(location.id), include: Booking.include(user: User.include()));
       bookings.addAll(locationBookings);
     }
     return bookings;
