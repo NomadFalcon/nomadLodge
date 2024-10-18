@@ -15,8 +15,7 @@ import 'protocol.dart' as _i2;
 abstract class Maintenance implements _i1.SerializableModel {
   Maintenance._({
     this.id,
-    required this.maintenancetypeId,
-    this.maintenancetype,
+    required this.maintenancetype,
     required this.start,
     this.end,
     required this.description,
@@ -31,8 +30,7 @@ abstract class Maintenance implements _i1.SerializableModel {
 
   factory Maintenance({
     int? id,
-    required int maintenancetypeId,
-    _i2.Maintenancetype? maintenancetype,
+    required _i2.MaintenanceType maintenancetype,
     required DateTime start,
     DateTime? end,
     required String description,
@@ -48,11 +46,8 @@ abstract class Maintenance implements _i1.SerializableModel {
   factory Maintenance.fromJson(Map<String, dynamic> jsonSerialization) {
     return Maintenance(
       id: jsonSerialization['id'] as int?,
-      maintenancetypeId: jsonSerialization['maintenancetypeId'] as int,
-      maintenancetype: jsonSerialization['maintenancetype'] == null
-          ? null
-          : _i2.Maintenancetype.fromJson(
-              (jsonSerialization['maintenancetype'] as Map<String, dynamic>)),
+      maintenancetype: _i2.MaintenanceType.fromJson(
+          (jsonSerialization['maintenancetype'] as String)),
       start: _i1.DateTimeJsonExtension.fromJson(jsonSerialization['start']),
       end: jsonSerialization['end'] == null
           ? null
@@ -84,9 +79,7 @@ abstract class Maintenance implements _i1.SerializableModel {
   /// the id will be null.
   int? id;
 
-  int maintenancetypeId;
-
-  _i2.Maintenancetype? maintenancetype;
+  _i2.MaintenanceType maintenancetype;
 
   DateTime start;
 
@@ -110,8 +103,7 @@ abstract class Maintenance implements _i1.SerializableModel {
 
   Maintenance copyWith({
     int? id,
-    int? maintenancetypeId,
-    _i2.Maintenancetype? maintenancetype,
+    _i2.MaintenanceType? maintenancetype,
     DateTime? start,
     DateTime? end,
     String? description,
@@ -127,8 +119,7 @@ abstract class Maintenance implements _i1.SerializableModel {
   Map<String, dynamic> toJson() {
     return {
       if (id != null) 'id': id,
-      'maintenancetypeId': maintenancetypeId,
-      if (maintenancetype != null) 'maintenancetype': maintenancetype?.toJson(),
+      'maintenancetype': maintenancetype.toJson(),
       'start': start.toJson(),
       if (end != null) 'end': end?.toJson(),
       'description': description,
@@ -153,8 +144,7 @@ class _Undefined {}
 class _MaintenanceImpl extends Maintenance {
   _MaintenanceImpl({
     int? id,
-    required int maintenancetypeId,
-    _i2.Maintenancetype? maintenancetype,
+    required _i2.MaintenanceType maintenancetype,
     required DateTime start,
     DateTime? end,
     required String description,
@@ -167,7 +157,6 @@ class _MaintenanceImpl extends Maintenance {
     _i2.Location? location,
   }) : super._(
           id: id,
-          maintenancetypeId: maintenancetypeId,
           maintenancetype: maintenancetype,
           start: start,
           end: end,
@@ -184,8 +173,7 @@ class _MaintenanceImpl extends Maintenance {
   @override
   Maintenance copyWith({
     Object? id = _Undefined,
-    int? maintenancetypeId,
-    Object? maintenancetype = _Undefined,
+    _i2.MaintenanceType? maintenancetype,
     DateTime? start,
     Object? end = _Undefined,
     String? description,
@@ -199,10 +187,7 @@ class _MaintenanceImpl extends Maintenance {
   }) {
     return Maintenance(
       id: id is int? ? id : this.id,
-      maintenancetypeId: maintenancetypeId ?? this.maintenancetypeId,
-      maintenancetype: maintenancetype is _i2.Maintenancetype?
-          ? maintenancetype
-          : this.maintenancetype?.copyWith(),
+      maintenancetype: maintenancetype ?? this.maintenancetype,
       start: start ?? this.start,
       end: end is DateTime? ? end : this.end,
       description: description ?? this.description,

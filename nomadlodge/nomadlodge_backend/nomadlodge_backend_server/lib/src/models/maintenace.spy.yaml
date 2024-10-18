@@ -1,7 +1,7 @@
 class: Maintenance
 table: maintenance
 fields:
-  maintenancetype: Maintenancetype?, relation
+  maintenancetype: MaintenanceType
   start: DateTime
   end: DateTime?
   description: String
@@ -10,15 +10,12 @@ fields:
   fee: Fee?, relation
   location: Location?, relation
 indexes:
-  maintenance_maintenancetype_unique_idx:
-    fields: maintenancetypeId
-    unique: true
   maintenance_user_unique_idx:
     fields: userId
-    unique: true
+    unique: false
   maintenance_fee_idx:
     fields: feeId
-    unique: true
+    unique: false
   maintenance_location_unique_idx:
     fields: locationId
-    unique: true
+    unique: false

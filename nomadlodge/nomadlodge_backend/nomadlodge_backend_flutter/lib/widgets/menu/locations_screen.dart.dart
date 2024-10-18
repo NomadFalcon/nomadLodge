@@ -50,26 +50,25 @@ class _LocationScreenState extends State<LocationScreen> {
           height: MediaQuery.of(context).size.height * 0.8,
           width: MediaQuery.of(context).size.width,
           padding: const EdgeInsets.all(20),
-          child: (locations.isNotEmpty) ? ListView.builder(
-            itemBuilder: (BuildContext context, int index) { 
-              return  Card(
-            child: ListTile(
-            contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-            title: Text(locations[index].name),
-            subtitle: Text("Number of rooms: ${locations[index].rooms}"),
-            trailing: ElevatedButton(
-              onPressed: () {
-              // Add your reload logic here
-              print('Reload button pressed');
-            },
-            child: const Text('See more'),
-        ),
-      ),
-    );
-              
-             
-             },
-          ) : Text("There is no location to show"),
+          child: (locations.isNotEmpty) ? 
+          ListView(children: [
+            for (var location in locations)
+                Card(
+                  child: ListTile(
+                    contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                    title: Text(location.name),
+                    subtitle: Text("Number of rooms: ${location.rooms}"),
+                    trailing: ElevatedButton(
+                      onPressed: () {
+                        // Add your reload logic here
+                        print('Reload button pressed');
+                      },
+                      child: const Text('See more'),
+                    ),
+                  ),
+                ),
+          ],) : Text("There are no locations to show"),
+          
           
         ),
         floatingActionButton: FloatingActionButton(

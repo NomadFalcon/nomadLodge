@@ -28,7 +28,7 @@ class _DashboardPage extends State<DashboardPage>
 
   @override
   void initState() {
-    tabController = TabController(length: 5, vsync: this);
+    tabController = TabController(length: 4, vsync: this);
     tabController.addListener(() {
       setState(() {});
     });
@@ -41,12 +41,10 @@ class _DashboardPage extends State<DashboardPage>
       case 0:
         return TextConstants.locationsTitleTab;
       case 1:
-        return TextConstants.productsTitleTab;
-      case 2:
         return TextConstants.reservationsTitleTab;
-      case 3:
+      case 2:
         return TextConstants.maintenacesTitleTab;
-      case 4:
+      case 3:
         return TextConstants.accountTitleTab;
       default:
         return "";
@@ -71,12 +69,6 @@ class _DashboardPage extends State<DashboardPage>
             ),
           ),
           Tab(
-              text: TextConstants.productsTitleTab,
-              icon: Icon(
-                Icons.star,
-                color: Colors.indigo.shade500,
-              )),
-          Tab(
               text: TextConstants.reservationsTitleTab,
               icon: Icon(
                 Icons.contact_mail,
@@ -85,22 +77,19 @@ class _DashboardPage extends State<DashboardPage>
           Tab(
               text: TextConstants.maintenacesTitleTab,
               icon: Icon(
-                Icons.star,
+                Icons.cleaning_services,
                 color: Colors.indigo.shade500,
               )),
               Tab(
               text: TextConstants.accountTitleTab,
               icon: Icon(
-                Icons.star,
+                Icons.account_circle,
                 color: Colors.indigo.shade500,
               )),
         ]),
       ),
       body: TabBarView(controller: tabController, children: [
         LocationScreen(
-          currentUser: widget.currentUser
-        ),
-        ProductScreen(
           currentUser: widget.currentUser
         ),
         ReservationsScreen(

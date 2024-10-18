@@ -83,7 +83,6 @@ class AccountPageState extends State<AccountPage> {
             trailing: ElevatedButton(
               onPressed: () {
               // Add your reload logic here
-              print('Reload button pressed');
               client.integration.reloadIntegrations(widget.currentUser).then((value) {
                 getIntegration();
               });
@@ -113,7 +112,7 @@ class AccountPageState extends State<AccountPage> {
                     pageListBuilder: (bottomSheetContext) => [
                       NonScrollingWoltModalSheetPage(
                         child: IntegrationCreationPage(currentUser: widget.currentUser,onIntegrationCreated: (){
-                          WoltModalSheet.of(context).deactivate();
+                          Navigator.of(bottomSheetContext).pop();
                           getIntegration();
                         },),
                       ),

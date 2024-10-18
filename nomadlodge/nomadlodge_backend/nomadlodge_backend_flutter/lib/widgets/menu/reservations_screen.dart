@@ -46,27 +46,25 @@ class _ReservationsScreenState extends State<ReservationsScreen> {
           height: MediaQuery.of(context).size.height * 0.8,
           width: MediaQuery.of(context).size.width,
           padding: const EdgeInsets.all(20),
-          child: (reservations.isNotEmpty) ? ListView.builder(
-            itemBuilder: (BuildContext context, int index) { 
-              return  Card(
-            child: ListTile(
-            contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-            title: Text(reservations[index].user?.name ?? "Unknown"),
-            subtitle: Text(reservations[index].platform),
-            trailing: ElevatedButton(
-              onPressed: () {
-              // Add your reload logic here
-              print('Reload button pressed');
-            },
-            child: const Text('See more'),
-        ),
-      ),
-    );
-              
-              
-             },
+          child: (reservations.isNotEmpty) ? ListView(
+            children: [
+              for (var reservation in reservations)
+                Card(
+                  child: ListTile(
+                    contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                    title: Text(reservation.user?.name ?? "Unknown"),
+                    subtitle: Text(reservation.platform),
+                    trailing: ElevatedButton(
+                      onPressed: () {
+                        // Add your reload logic here
+                        print('Reload button pressed');
+                      },
+                      child: const Text('See more'),
+                    ),
+                  ),
+                ),
+            ],
           ) : Text("There is no reservations to show"),
-          
         ),
         floatingActionButton: FloatingActionButton(
                 backgroundColor: Colors.indigo,

@@ -1,6 +1,8 @@
-class: Maintenancetype
-table: maintenancetype
-fields:
-  name: String
-  description: String
-  icon: String?
+enum: MaintenanceType 
+serialized: byName
+values:
+ - cleaning
+ - outdoor
+ - indoor
+ - plumbing
+ - electrical

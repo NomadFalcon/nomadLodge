@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import '../../serverpod_client.dart';
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 import 'package:nomadlodge_backend_client/nomadlodge_backend_client.dart';
-
+import '../popups/new_maintenace_popup.dart';
+import '../creation/maintenance_creation_page.dart';
 class MaintenancesScreen extends StatefulWidget {
 
   const MaintenancesScreen(
@@ -70,24 +71,29 @@ class _MaintenancesScreenState extends State<MaintenancesScreen> {
                       return WoltModalType.dialog();
                     },
                     pageListBuilder: (bottomSheetContext) => [
-                      SliverWoltModalSheetPage(
-                        mainContentSliversBuilder: (context) => [
-                          SliverList.builder(
-                            itemBuilder: (context, index) {
-                              return ListTile(
-                                title: Text('Index is $index'),
-                                onTap: Navigator.of(bottomSheetContext).pop,
-                          );
+                      GrindOrRejectModalPage.build(
+                        onSelectCreateCleaningForAllBookingsTapped: () {
+                          Navigator.pop(context);
                         },
-                      ),
-                    ],
-                  )
+                    ),
+                    MaintenanceCreationModalPage.build(
+                      onMaintenanceCreated: () {
+                        Navigator.pop(context);
+                      },
+                    ),
                 ],
               );
             },
               )
             );
   }
+
+
+  void getPopup(){
+    
+  }
+
+
 }
 
 

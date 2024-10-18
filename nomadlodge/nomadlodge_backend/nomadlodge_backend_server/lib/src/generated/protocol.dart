@@ -588,10 +588,10 @@ class Protocol extends _i1.SerializationManagerServer {
           columnDefault: 'nextval(\'maintenance_id_seq\'::regclass)',
         ),
         _i2.ColumnDefinition(
-          name: 'maintenancetypeId',
-          columnType: _i2.ColumnType.bigint,
+          name: 'maintenancetype',
+          columnType: _i2.ColumnType.text,
           isNullable: false,
-          dartType: 'int',
+          dartType: 'protocol:MaintenanceType',
         ),
         _i2.ColumnDefinition(
           name: 'start',
@@ -633,16 +633,6 @@ class Protocol extends _i1.SerializationManagerServer {
       foreignKeys: [
         _i2.ForeignKeyDefinition(
           constraintName: 'maintenance_fk_0',
-          columns: ['maintenancetypeId'],
-          referenceTable: 'maintenancetype',
-          referenceTableSchema: 'public',
-          referenceColumns: ['id'],
-          onUpdate: _i2.ForeignKeyAction.noAction,
-          onDelete: _i2.ForeignKeyAction.noAction,
-          matchType: null,
-        ),
-        _i2.ForeignKeyDefinition(
-          constraintName: 'maintenance_fk_1',
           columns: ['userId'],
           referenceTable: 'user',
           referenceTableSchema: 'public',
@@ -652,7 +642,7 @@ class Protocol extends _i1.SerializationManagerServer {
           matchType: null,
         ),
         _i2.ForeignKeyDefinition(
-          constraintName: 'maintenance_fk_2',
+          constraintName: 'maintenance_fk_1',
           columns: ['feeId'],
           referenceTable: 'fee',
           referenceTableSchema: 'public',
@@ -662,7 +652,7 @@ class Protocol extends _i1.SerializationManagerServer {
           matchType: null,
         ),
         _i2.ForeignKeyDefinition(
-          constraintName: 'maintenance_fk_3',
+          constraintName: 'maintenance_fk_2',
           columns: ['locationId'],
           referenceTable: 'location',
           referenceTableSchema: 'public',
@@ -687,19 +677,6 @@ class Protocol extends _i1.SerializationManagerServer {
           isPrimary: true,
         ),
         _i2.IndexDefinition(
-          indexName: 'maintenance_maintenancetype_unique_idx',
-          tableSpace: null,
-          elements: [
-            _i2.IndexElementDefinition(
-              type: _i2.IndexElementDefinitionType.column,
-              definition: 'maintenancetypeId',
-            )
-          ],
-          type: 'btree',
-          isUnique: true,
-          isPrimary: false,
-        ),
-        _i2.IndexDefinition(
           indexName: 'maintenance_user_unique_idx',
           tableSpace: null,
           elements: [
@@ -709,7 +686,7 @@ class Protocol extends _i1.SerializationManagerServer {
             )
           ],
           type: 'btree',
-          isUnique: true,
+          isUnique: false,
           isPrimary: false,
         ),
         _i2.IndexDefinition(
@@ -722,7 +699,7 @@ class Protocol extends _i1.SerializationManagerServer {
             )
           ],
           type: 'btree',
-          isUnique: true,
+          isUnique: false,
           isPrimary: false,
         ),
         _i2.IndexDefinition(
@@ -735,59 +712,9 @@ class Protocol extends _i1.SerializationManagerServer {
             )
           ],
           type: 'btree',
-          isUnique: true,
+          isUnique: false,
           isPrimary: false,
         ),
-      ],
-      managed: true,
-    ),
-    _i2.TableDefinition(
-      name: 'maintenancetype',
-      dartName: 'Maintenancetype',
-      schema: 'public',
-      module: 'nomadlodge_backend',
-      columns: [
-        _i2.ColumnDefinition(
-          name: 'id',
-          columnType: _i2.ColumnType.bigint,
-          isNullable: false,
-          dartType: 'int?',
-          columnDefault: 'nextval(\'maintenancetype_id_seq\'::regclass)',
-        ),
-        _i2.ColumnDefinition(
-          name: 'name',
-          columnType: _i2.ColumnType.text,
-          isNullable: false,
-          dartType: 'String',
-        ),
-        _i2.ColumnDefinition(
-          name: 'description',
-          columnType: _i2.ColumnType.text,
-          isNullable: false,
-          dartType: 'String',
-        ),
-        _i2.ColumnDefinition(
-          name: 'icon',
-          columnType: _i2.ColumnType.text,
-          isNullable: true,
-          dartType: 'String?',
-        ),
-      ],
-      foreignKeys: [],
-      indexes: [
-        _i2.IndexDefinition(
-          indexName: 'maintenancetype_pkey',
-          tableSpace: null,
-          elements: [
-            _i2.IndexElementDefinition(
-              type: _i2.IndexElementDefinitionType.column,
-              definition: 'id',
-            )
-          ],
-          type: 'btree',
-          isUnique: true,
-          isPrimary: true,
-        )
       ],
       managed: true,
     ),
@@ -1273,8 +1200,8 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == _i12.Maintenance) {
       return _i12.Maintenance.fromJson(data) as T;
     }
-    if (t == _i13.Maintenancetype) {
-      return _i13.Maintenancetype.fromJson(data) as T;
+    if (t == _i13.MaintenanceType) {
+      return _i13.MaintenanceType.fromJson(data) as T;
     }
     if (t == _i14.Media) {
       return _i14.Media.fromJson(data) as T;
@@ -1324,8 +1251,8 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == _i1.getType<_i12.Maintenance?>()) {
       return (data != null ? _i12.Maintenance.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i13.Maintenancetype?>()) {
-      return (data != null ? _i13.Maintenancetype.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i13.MaintenanceType?>()) {
+      return (data != null ? _i13.MaintenanceType.fromJson(data) : null) as T;
     }
     if (t == _i1.getType<_i14.Media?>()) {
       return (data != null ? _i14.Media.fromJson(data) : null) as T;
@@ -1445,8 +1372,8 @@ class Protocol extends _i1.SerializationManagerServer {
     if (data is _i12.Maintenance) {
       return 'Maintenance';
     }
-    if (data is _i13.Maintenancetype) {
-      return 'Maintenancetype';
+    if (data is _i13.MaintenanceType) {
+      return 'MaintenanceType';
     }
     if (data is _i14.Media) {
       return 'Media';
@@ -1509,8 +1436,8 @@ class Protocol extends _i1.SerializationManagerServer {
     if (data['className'] == 'Maintenance') {
       return deserialize<_i12.Maintenance>(data['data']);
     }
-    if (data['className'] == 'Maintenancetype') {
-      return deserialize<_i13.Maintenancetype>(data['data']);
+    if (data['className'] == 'MaintenanceType') {
+      return deserialize<_i13.MaintenanceType>(data['data']);
     }
     if (data['className'] == 'Media') {
       return deserialize<_i14.Media>(data['data']);
@@ -1573,8 +1500,6 @@ class Protocol extends _i1.SerializationManagerServer {
         return _i11.LocationTeam.t;
       case _i12.Maintenance:
         return _i12.Maintenance.t;
-      case _i13.Maintenancetype:
-        return _i13.Maintenancetype.t;
       case _i14.Media:
         return _i14.Media.t;
       case _i16.Product:

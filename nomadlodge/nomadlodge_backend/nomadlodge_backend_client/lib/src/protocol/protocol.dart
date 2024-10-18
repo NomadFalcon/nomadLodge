@@ -97,8 +97,8 @@ class Protocol extends _i1.SerializationManager {
     if (t == _i10.Maintenance) {
       return _i10.Maintenance.fromJson(data) as T;
     }
-    if (t == _i11.Maintenancetype) {
-      return _i11.Maintenancetype.fromJson(data) as T;
+    if (t == _i11.MaintenanceType) {
+      return _i11.MaintenanceType.fromJson(data) as T;
     }
     if (t == _i12.Media) {
       return _i12.Media.fromJson(data) as T;
@@ -148,8 +148,8 @@ class Protocol extends _i1.SerializationManager {
     if (t == _i1.getType<_i10.Maintenance?>()) {
       return (data != null ? _i10.Maintenance.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i11.Maintenancetype?>()) {
-      return (data != null ? _i11.Maintenancetype.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i11.MaintenanceType?>()) {
+      return (data != null ? _i11.MaintenanceType.fromJson(data) : null) as T;
     }
     if (t == _i1.getType<_i12.Media?>()) {
       return (data != null ? _i12.Media.fromJson(data) : null) as T;
@@ -266,8 +266,8 @@ class Protocol extends _i1.SerializationManager {
     if (data is _i10.Maintenance) {
       return 'Maintenance';
     }
-    if (data is _i11.Maintenancetype) {
-      return 'Maintenancetype';
+    if (data is _i11.MaintenanceType) {
+      return 'MaintenanceType';
     }
     if (data is _i12.Media) {
       return 'Media';
@@ -326,8 +326,8 @@ class Protocol extends _i1.SerializationManager {
     if (data['className'] == 'Maintenance') {
       return deserialize<_i10.Maintenance>(data['data']);
     }
-    if (data['className'] == 'Maintenancetype') {
-      return deserialize<_i11.Maintenancetype>(data['data']);
+    if (data['className'] == 'MaintenanceType') {
+      return deserialize<_i11.MaintenanceType>(data['data']);
     }
     if (data['className'] == 'Media') {
       return deserialize<_i12.Media>(data['data']);

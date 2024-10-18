@@ -1,0 +1,192 @@
+{
+  "actions": [
+    {
+      "type": "deleteTable",
+      "deleteTable": "maintenancetype"
+    },
+    {
+      "type": "deleteTable",
+      "deleteTable": "maintenance"
+    },
+    {
+      "type": "createTable",
+      "createTable": {
+        "name": "maintenance",
+        "dartName": "Maintenance",
+        "module": "nomadlodge_backend",
+        "schema": "public",
+        "columns": [
+          {
+            "name": "id",
+            "columnType": 6,
+            "isNullable": false,
+            "columnDefault": "nextval('maintenance_id_seq'::regclass)",
+            "dartType": "int?"
+          },
+          {
+            "name": "maintenancetype",
+            "columnType": 0,
+            "isNullable": false,
+            "dartType": "protocol:MaintenanceType"
+          },
+          {
+            "name": "start",
+            "columnType": 4,
+            "isNullable": false,
+            "dartType": "DateTime"
+          },
+          {
+            "name": "end",
+            "columnType": 4,
+            "isNullable": true,
+            "dartType": "DateTime?"
+          },
+          {
+            "name": "description",
+            "columnType": 0,
+            "isNullable": false,
+            "dartType": "String"
+          },
+          {
+            "name": "userId",
+            "columnType": 6,
+            "isNullable": false,
+            "dartType": "int"
+          },
+          {
+            "name": "feeId",
+            "columnType": 6,
+            "isNullable": false,
+            "dartType": "int"
+          },
+          {
+            "name": "locationId",
+            "columnType": 6,
+            "isNullable": false,
+            "dartType": "int"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "constraintName": "maintenance_fk_0",
+            "columns": [
+              "userId"
+            ],
+            "referenceTable": "user",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3
+          },
+          {
+            "constraintName": "maintenance_fk_1",
+            "columns": [
+              "feeId"
+            ],
+            "referenceTable": "fee",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3
+          },
+          {
+            "constraintName": "maintenance_fk_2",
+            "columns": [
+              "locationId"
+            ],
+            "referenceTable": "location",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3
+          }
+        ],
+        "indexes": [
+          {
+            "indexName": "maintenance_pkey",
+            "elements": [
+              {
+                "type": 0,
+                "definition": "id"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": true
+          },
+          {
+            "indexName": "maintenance_user_unique_idx",
+            "elements": [
+              {
+                "type": 0,
+                "definition": "userId"
+              }
+            ],
+            "type": "btree",
+            "isUnique": false,
+            "isPrimary": false
+          },
+          {
+            "indexName": "maintenance_fee_idx",
+            "elements": [
+              {
+                "type": 0,
+                "definition": "feeId"
+              }
+            ],
+            "type": "btree",
+            "isUnique": false,
+            "isPrimary": false
+          },
+          {
+            "indexName": "maintenance_location_unique_idx",
+            "elements": [
+              {
+                "type": 0,
+                "definition": "locationId"
+              }
+            ],
+            "type": "btree",
+            "isUnique": false,
+            "isPrimary": false
+          }
+        ],
+        "managed": true
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "type": "tableDropped",
+      "message": "Table \"maintenancetype\" will be dropped.",
+      "table": "maintenancetype",
+      "columns": [],
+      "destrucive": true
+    },
+    {
+      "type": "columnDropped",
+      "message": "Column \"maintenancetypeId\" of table \"maintenance\" will be dropped.",
+      "table": "maintenance",
+      "columns": [
+        "maintenancetypeId"
+      ],
+      "destrucive": true
+    },
+    {
+      "type": "tableDropped",
+      "message": "One or more columns are added to table \"maintenance\" which cannot be added in a table migration. The complete table will be deleted and recreated.",
+      "table": "maintenance",
+      "columns": [
+        "maintenancetype"
+      ],
+      "destrucive": true
+    }
+  ],
+  "migrationApiVersion": 1
+}

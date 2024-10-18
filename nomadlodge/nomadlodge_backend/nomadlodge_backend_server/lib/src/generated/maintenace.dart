@@ -15,8 +15,7 @@ import 'protocol.dart' as _i2;
 abstract class Maintenance implements _i1.TableRow, _i1.ProtocolSerialization {
   Maintenance._({
     this.id,
-    required this.maintenancetypeId,
-    this.maintenancetype,
+    required this.maintenancetype,
     required this.start,
     this.end,
     required this.description,
@@ -31,8 +30,7 @@ abstract class Maintenance implements _i1.TableRow, _i1.ProtocolSerialization {
 
   factory Maintenance({
     int? id,
-    required int maintenancetypeId,
-    _i2.Maintenancetype? maintenancetype,
+    required _i2.MaintenanceType maintenancetype,
     required DateTime start,
     DateTime? end,
     required String description,
@@ -48,11 +46,8 @@ abstract class Maintenance implements _i1.TableRow, _i1.ProtocolSerialization {
   factory Maintenance.fromJson(Map<String, dynamic> jsonSerialization) {
     return Maintenance(
       id: jsonSerialization['id'] as int?,
-      maintenancetypeId: jsonSerialization['maintenancetypeId'] as int,
-      maintenancetype: jsonSerialization['maintenancetype'] == null
-          ? null
-          : _i2.Maintenancetype.fromJson(
-              (jsonSerialization['maintenancetype'] as Map<String, dynamic>)),
+      maintenancetype: _i2.MaintenanceType.fromJson(
+          (jsonSerialization['maintenancetype'] as String)),
       start: _i1.DateTimeJsonExtension.fromJson(jsonSerialization['start']),
       end: jsonSerialization['end'] == null
           ? null
@@ -86,9 +81,7 @@ abstract class Maintenance implements _i1.TableRow, _i1.ProtocolSerialization {
   @override
   int? id;
 
-  int maintenancetypeId;
-
-  _i2.Maintenancetype? maintenancetype;
+  _i2.MaintenanceType maintenancetype;
 
   DateTime start;
 
@@ -115,8 +108,7 @@ abstract class Maintenance implements _i1.TableRow, _i1.ProtocolSerialization {
 
   Maintenance copyWith({
     int? id,
-    int? maintenancetypeId,
-    _i2.Maintenancetype? maintenancetype,
+    _i2.MaintenanceType? maintenancetype,
     DateTime? start,
     DateTime? end,
     String? description,
@@ -132,8 +124,7 @@ abstract class Maintenance implements _i1.TableRow, _i1.ProtocolSerialization {
   Map<String, dynamic> toJson() {
     return {
       if (id != null) 'id': id,
-      'maintenancetypeId': maintenancetypeId,
-      if (maintenancetype != null) 'maintenancetype': maintenancetype?.toJson(),
+      'maintenancetype': maintenancetype.toJson(),
       'start': start.toJson(),
       if (end != null) 'end': end?.toJson(),
       'description': description,
@@ -151,9 +142,7 @@ abstract class Maintenance implements _i1.TableRow, _i1.ProtocolSerialization {
   Map<String, dynamic> toJsonForProtocol() {
     return {
       if (id != null) 'id': id,
-      'maintenancetypeId': maintenancetypeId,
-      if (maintenancetype != null)
-        'maintenancetype': maintenancetype?.toJsonForProtocol(),
+      'maintenancetype': maintenancetype.toJson(),
       'start': start.toJson(),
       if (end != null) 'end': end?.toJson(),
       'description': description,
@@ -169,14 +158,12 @@ abstract class Maintenance implements _i1.TableRow, _i1.ProtocolSerialization {
   }
 
   static MaintenanceInclude include({
-    _i2.MaintenancetypeInclude? maintenancetype,
     _i2.TaskIncludeList? tasks,
     _i2.UserInclude? user,
     _i2.FeeInclude? fee,
     _i2.LocationInclude? location,
   }) {
     return MaintenanceInclude._(
-      maintenancetype: maintenancetype,
       tasks: tasks,
       user: user,
       fee: fee,
@@ -215,8 +202,7 @@ class _Undefined {}
 class _MaintenanceImpl extends Maintenance {
   _MaintenanceImpl({
     int? id,
-    required int maintenancetypeId,
-    _i2.Maintenancetype? maintenancetype,
+    required _i2.MaintenanceType maintenancetype,
     required DateTime start,
     DateTime? end,
     required String description,
@@ -229,7 +215,6 @@ class _MaintenanceImpl extends Maintenance {
     _i2.Location? location,
   }) : super._(
           id: id,
-          maintenancetypeId: maintenancetypeId,
           maintenancetype: maintenancetype,
           start: start,
           end: end,
@@ -246,8 +231,7 @@ class _MaintenanceImpl extends Maintenance {
   @override
   Maintenance copyWith({
     Object? id = _Undefined,
-    int? maintenancetypeId,
-    Object? maintenancetype = _Undefined,
+    _i2.MaintenanceType? maintenancetype,
     DateTime? start,
     Object? end = _Undefined,
     String? description,
@@ -261,10 +245,7 @@ class _MaintenanceImpl extends Maintenance {
   }) {
     return Maintenance(
       id: id is int? ? id : this.id,
-      maintenancetypeId: maintenancetypeId ?? this.maintenancetypeId,
-      maintenancetype: maintenancetype is _i2.Maintenancetype?
-          ? maintenancetype
-          : this.maintenancetype?.copyWith(),
+      maintenancetype: maintenancetype ?? this.maintenancetype,
       start: start ?? this.start,
       end: end is DateTime? ? end : this.end,
       description: description ?? this.description,
@@ -284,9 +265,10 @@ class _MaintenanceImpl extends Maintenance {
 
 class MaintenanceTable extends _i1.Table {
   MaintenanceTable({super.tableRelation}) : super(tableName: 'maintenance') {
-    maintenancetypeId = _i1.ColumnInt(
-      'maintenancetypeId',
+    maintenancetype = _i1.ColumnEnum(
+      'maintenancetype',
       this,
+      _i1.EnumSerialization.byName,
     );
     start = _i1.ColumnDateTime(
       'start',
@@ -314,9 +296,7 @@ class MaintenanceTable extends _i1.Table {
     );
   }
 
-  late final _i1.ColumnInt maintenancetypeId;
-
-  _i2.MaintenancetypeTable? _maintenancetype;
+  late final _i1.ColumnEnum<_i2.MaintenanceType> maintenancetype;
 
   late final _i1.ColumnDateTime start;
 
@@ -339,19 +319,6 @@ class MaintenanceTable extends _i1.Table {
   late final _i1.ColumnInt locationId;
 
   _i2.LocationTable? _location;
-
-  _i2.MaintenancetypeTable get maintenancetype {
-    if (_maintenancetype != null) return _maintenancetype!;
-    _maintenancetype = _i1.createRelationTable(
-      relationFieldName: 'maintenancetype',
-      field: Maintenance.t.maintenancetypeId,
-      foreignField: _i2.Maintenancetype.t.id,
-      tableRelation: tableRelation,
-      createTable: (foreignTableRelation) =>
-          _i2.MaintenancetypeTable(tableRelation: foreignTableRelation),
-    );
-    return _maintenancetype!;
-  }
 
   _i2.TaskTable get __tasks {
     if (___tasks != null) return ___tasks!;
@@ -426,7 +393,7 @@ class MaintenanceTable extends _i1.Table {
   @override
   List<_i1.Column> get columns => [
         id,
-        maintenancetypeId,
+        maintenancetype,
         start,
         end,
         description,
@@ -437,9 +404,6 @@ class MaintenanceTable extends _i1.Table {
 
   @override
   _i1.Table? getRelationTable(String relationField) {
-    if (relationField == 'maintenancetype') {
-      return maintenancetype;
-    }
     if (relationField == 'tasks') {
       return __tasks;
     }
@@ -458,20 +422,16 @@ class MaintenanceTable extends _i1.Table {
 
 class MaintenanceInclude extends _i1.IncludeObject {
   MaintenanceInclude._({
-    _i2.MaintenancetypeInclude? maintenancetype,
     _i2.TaskIncludeList? tasks,
     _i2.UserInclude? user,
     _i2.FeeInclude? fee,
     _i2.LocationInclude? location,
   }) {
-    _maintenancetype = maintenancetype;
     _tasks = tasks;
     _user = user;
     _fee = fee;
     _location = location;
   }
-
-  _i2.MaintenancetypeInclude? _maintenancetype;
 
   _i2.TaskIncludeList? _tasks;
 
@@ -483,7 +443,6 @@ class MaintenanceInclude extends _i1.IncludeObject {
 
   @override
   Map<String, _i1.Include?> get includes => {
-        'maintenancetype': _maintenancetype,
         'tasks': _tasks,
         'user': _user,
         'fee': _fee,
@@ -709,28 +668,6 @@ class MaintenanceAttachRepository {
 
 class MaintenanceAttachRowRepository {
   const MaintenanceAttachRowRepository._();
-
-  Future<void> maintenancetype(
-    _i1.DatabaseAccessor databaseAccessor,
-    Maintenance maintenance,
-    _i2.Maintenancetype maintenancetype, {
-    _i1.Transaction? transaction,
-  }) async {
-    if (maintenance.id == null) {
-      throw ArgumentError.notNull('maintenance.id');
-    }
-    if (maintenancetype.id == null) {
-      throw ArgumentError.notNull('maintenancetype.id');
-    }
-
-    var $maintenance =
-        maintenance.copyWith(maintenancetypeId: maintenancetype.id);
-    await databaseAccessor.db.updateRow<Maintenance>(
-      $maintenance,
-      columns: [Maintenance.t.maintenancetypeId],
-      transaction: transaction ?? databaseAccessor.transaction,
-    );
-  }
 
   Future<void> user(
     _i1.DatabaseAccessor databaseAccessor,
