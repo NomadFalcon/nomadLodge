@@ -17,6 +17,7 @@ abstract class Integration implements _i1.TableRow, _i1.ProtocolSerialization {
     this.id,
     required this.apiKey,
     required this.integrationType,
+    this.lastReloadDate,
     required this.userId,
     this.user,
   });
@@ -25,6 +26,7 @@ abstract class Integration implements _i1.TableRow, _i1.ProtocolSerialization {
     int? id,
     required String apiKey,
     required _i2.IntegrationType integrationType,
+    DateTime? lastReloadDate,
     required int userId,
     _i2.User? user,
   }) = _IntegrationImpl;
@@ -35,6 +37,10 @@ abstract class Integration implements _i1.TableRow, _i1.ProtocolSerialization {
       apiKey: jsonSerialization['apiKey'] as String,
       integrationType: _i2.IntegrationType.fromJson(
           (jsonSerialization['integrationType'] as String)),
+      lastReloadDate: jsonSerialization['lastReloadDate'] == null
+          ? null
+          : _i1.DateTimeJsonExtension.fromJson(
+              jsonSerialization['lastReloadDate']),
       userId: jsonSerialization['userId'] as int,
       user: jsonSerialization['user'] == null
           ? null
@@ -54,6 +60,8 @@ abstract class Integration implements _i1.TableRow, _i1.ProtocolSerialization {
 
   _i2.IntegrationType integrationType;
 
+  DateTime? lastReloadDate;
+
   int userId;
 
   _i2.User? user;
@@ -65,6 +73,7 @@ abstract class Integration implements _i1.TableRow, _i1.ProtocolSerialization {
     int? id,
     String? apiKey,
     _i2.IntegrationType? integrationType,
+    DateTime? lastReloadDate,
     int? userId,
     _i2.User? user,
   });
@@ -74,6 +83,7 @@ abstract class Integration implements _i1.TableRow, _i1.ProtocolSerialization {
       if (id != null) 'id': id,
       'apiKey': apiKey,
       'integrationType': integrationType.toJson(),
+      if (lastReloadDate != null) 'lastReloadDate': lastReloadDate?.toJson(),
       'userId': userId,
       if (user != null) 'user': user?.toJson(),
     };
@@ -85,6 +95,7 @@ abstract class Integration implements _i1.TableRow, _i1.ProtocolSerialization {
       if (id != null) 'id': id,
       'apiKey': apiKey,
       'integrationType': integrationType.toJson(),
+      if (lastReloadDate != null) 'lastReloadDate': lastReloadDate?.toJson(),
       'userId': userId,
       if (user != null) 'user': user?.toJsonForProtocol(),
     };
@@ -127,12 +138,14 @@ class _IntegrationImpl extends Integration {
     int? id,
     required String apiKey,
     required _i2.IntegrationType integrationType,
+    DateTime? lastReloadDate,
     required int userId,
     _i2.User? user,
   }) : super._(
           id: id,
           apiKey: apiKey,
           integrationType: integrationType,
+          lastReloadDate: lastReloadDate,
           userId: userId,
           user: user,
         );
@@ -142,6 +155,7 @@ class _IntegrationImpl extends Integration {
     Object? id = _Undefined,
     String? apiKey,
     _i2.IntegrationType? integrationType,
+    Object? lastReloadDate = _Undefined,
     int? userId,
     Object? user = _Undefined,
   }) {
@@ -149,6 +163,8 @@ class _IntegrationImpl extends Integration {
       id: id is int? ? id : this.id,
       apiKey: apiKey ?? this.apiKey,
       integrationType: integrationType ?? this.integrationType,
+      lastReloadDate:
+          lastReloadDate is DateTime? ? lastReloadDate : this.lastReloadDate,
       userId: userId ?? this.userId,
       user: user is _i2.User? ? user : this.user?.copyWith(),
     );
@@ -166,6 +182,10 @@ class IntegrationTable extends _i1.Table {
       this,
       _i1.EnumSerialization.byName,
     );
+    lastReloadDate = _i1.ColumnDateTime(
+      'lastReloadDate',
+      this,
+    );
     userId = _i1.ColumnInt(
       'userId',
       this,
@@ -175,6 +195,8 @@ class IntegrationTable extends _i1.Table {
   late final _i1.ColumnString apiKey;
 
   late final _i1.ColumnEnum<_i2.IntegrationType> integrationType;
+
+  late final _i1.ColumnDateTime lastReloadDate;
 
   late final _i1.ColumnInt userId;
 
@@ -198,6 +220,7 @@ class IntegrationTable extends _i1.Table {
         id,
         apiKey,
         integrationType,
+        lastReloadDate,
         userId,
       ];
 

@@ -12,14 +12,15 @@
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import 'dart:async' as _i2;
 import 'package:nomadlodge_backend_client/src/protocol/booking.dart' as _i3;
-import 'package:nomadlodge_backend_client/src/protocol/location.dart' as _i4;
+import 'package:nomadlodge_backend_client/src/protocol/integration.dart' as _i4;
+import 'package:nomadlodge_backend_client/src/protocol/user.dart' as _i5;
+import 'package:nomadlodge_backend_client/src/protocol/location.dart' as _i6;
 import 'package:nomadlodge_backend_client/src/protocol/location_team.dart'
-    as _i5;
-import 'package:nomadlodge_backend_client/src/protocol/maintenace.dart' as _i6;
-import 'package:nomadlodge_backend_client/src/protocol/task.dart' as _i7;
-import 'package:nomadlodge_backend_client/src/protocol/user.dart' as _i8;
-import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i9;
-import 'protocol.dart' as _i10;
+    as _i7;
+import 'package:nomadlodge_backend_client/src/protocol/maintenace.dart' as _i8;
+import 'package:nomadlodge_backend_client/src/protocol/task.dart' as _i9;
+import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i10;
+import 'protocol.dart' as _i11;
 
 /// {@category Endpoint}
 class EndpointBooking extends _i1.EndpointRef {
@@ -85,28 +86,57 @@ class EndpointExample extends _i1.EndpointRef {
 }
 
 /// {@category Endpoint}
+class EndpointIntegration extends _i1.EndpointRef {
+  EndpointIntegration(_i1.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'integration';
+
+  _i2.Future<List<_i4.Integration>> getIntegrations(_i5.User user) =>
+      caller.callServerEndpoint<List<_i4.Integration>>(
+        'integration',
+        'getIntegrations',
+        {'user': user},
+      );
+
+  _i2.Future<_i4.Integration> createIntegration(_i4.Integration integration) =>
+      caller.callServerEndpoint<_i4.Integration>(
+        'integration',
+        'createIntegration',
+        {'integration': integration},
+      );
+
+  _i2.Future<bool> reloadIntegrations(_i5.User user) =>
+      caller.callServerEndpoint<bool>(
+        'integration',
+        'reloadIntegrations',
+        {'user': user},
+      );
+}
+
+/// {@category Endpoint}
 class EndpointLocation extends _i1.EndpointRef {
   EndpointLocation(_i1.EndpointCaller caller) : super(caller);
 
   @override
   String get name => 'location';
 
-  _i2.Future<List<_i4.Location>> getAll() =>
-      caller.callServerEndpoint<List<_i4.Location>>(
+  _i2.Future<List<_i6.Location>> getAll() =>
+      caller.callServerEndpoint<List<_i6.Location>>(
         'location',
         'getAll',
         {},
       );
 
-  _i2.Future<_i4.Location?> getById(int locationId) =>
-      caller.callServerEndpoint<_i4.Location?>(
+  _i2.Future<_i6.Location?> getById(int locationId) =>
+      caller.callServerEndpoint<_i6.Location?>(
         'location',
         'getById',
         {'locationId': locationId},
       );
 
-  _i2.Future<List<_i5.LocationTeam>> getTeams(int locationId) =>
-      caller.callServerEndpoint<List<_i5.LocationTeam>>(
+  _i2.Future<List<_i7.LocationTeam>> getTeams(int locationId) =>
+      caller.callServerEndpoint<List<_i7.LocationTeam>>(
         'location',
         'getTeams',
         {'locationId': locationId},
@@ -127,32 +157,32 @@ class EndpointMaintenance extends _i1.EndpointRef {
   @override
   String get name => 'maintenance';
 
-  _i2.Future<List<_i6.Maintenance>> getAll() =>
-      caller.callServerEndpoint<List<_i6.Maintenance>>(
+  _i2.Future<List<_i8.Maintenance>> getAll() =>
+      caller.callServerEndpoint<List<_i8.Maintenance>>(
         'maintenance',
         'getAll',
         {},
       );
 
-  _i2.Future<List<_i6.Maintenance>> getByLocationId(int locationId) =>
-      caller.callServerEndpoint<List<_i6.Maintenance>>(
+  _i2.Future<List<_i8.Maintenance>> getByLocationId(int locationId) =>
+      caller.callServerEndpoint<List<_i8.Maintenance>>(
         'maintenance',
         'getByLocationId',
         {'locationId': locationId},
       );
 
-  _i2.Future<List<_i6.Maintenance>> getByUserId(int userId) =>
-      caller.callServerEndpoint<List<_i6.Maintenance>>(
+  _i2.Future<List<_i8.Maintenance>> getByUserId(int userId) =>
+      caller.callServerEndpoint<List<_i8.Maintenance>>(
         'maintenance',
         'getByUserId',
         {'userId': userId},
       );
 
-  _i2.Future<List<_i6.Maintenance>> getByMonthYear(
+  _i2.Future<List<_i8.Maintenance>> getByMonthYear(
     int year,
     int month,
   ) =>
-      caller.callServerEndpoint<List<_i6.Maintenance>>(
+      caller.callServerEndpoint<List<_i8.Maintenance>>(
         'maintenance',
         'getByMonthYear',
         {
@@ -169,15 +199,15 @@ class EndpointTasks extends _i1.EndpointRef {
   @override
   String get name => 'tasks';
 
-  _i2.Future<List<_i7.Task>> getTasksByMaintenanceId(int maintenanceId) =>
-      caller.callServerEndpoint<List<_i7.Task>>(
+  _i2.Future<List<_i9.Task>> getTasksByMaintenanceId(int maintenanceId) =>
+      caller.callServerEndpoint<List<_i9.Task>>(
         'tasks',
         'getTasksByMaintenanceId',
         {'maintenanceId': maintenanceId},
       );
 
-  _i2.Future<_i7.Task?> setTaskAsComplete(int taskId) =>
-      caller.callServerEndpoint<_i7.Task?>(
+  _i2.Future<_i9.Task?> setTaskAsComplete(int taskId) =>
+      caller.callServerEndpoint<_i9.Task?>(
         'tasks',
         'setTaskAsComplete',
         {'taskId': taskId},
@@ -191,15 +221,15 @@ class EndpointUser extends _i1.EndpointRef {
   @override
   String get name => 'user';
 
-  _i2.Future<_i8.User?> getUserByAuthIdentifier(String authIdentifier) =>
-      caller.callServerEndpoint<_i8.User?>(
+  _i2.Future<_i5.User?> getUserByAuthIdentifier(String authIdentifier) =>
+      caller.callServerEndpoint<_i5.User?>(
         'user',
         'getUserByAuthIdentifier',
         {'authIdentifier': authIdentifier},
       );
 
-  _i2.Future<_i8.User> createUser(_i8.User user) =>
-      caller.callServerEndpoint<_i8.User>(
+  _i2.Future<_i5.User> createUser(_i5.User user) =>
+      caller.callServerEndpoint<_i5.User>(
         'user',
         'createUser',
         {'user': user},
@@ -208,10 +238,10 @@ class EndpointUser extends _i1.EndpointRef {
 
 class _Modules {
   _Modules(Client client) {
-    auth = _i9.Caller(client);
+    auth = _i10.Caller(client);
   }
 
-  late final _i9.Caller auth;
+  late final _i10.Caller auth;
 }
 
 class Client extends _i1.ServerpodClientShared {
@@ -230,7 +260,7 @@ class Client extends _i1.ServerpodClientShared {
     bool? disconnectStreamsOnLostInternetConnection,
   }) : super(
           host,
-          _i10.Protocol(),
+          _i11.Protocol(),
           securityContext: securityContext,
           authenticationKeyManager: authenticationKeyManager,
           streamingConnectionTimeout: streamingConnectionTimeout,
@@ -242,6 +272,7 @@ class Client extends _i1.ServerpodClientShared {
         ) {
     booking = EndpointBooking(this);
     example = EndpointExample(this);
+    integration = EndpointIntegration(this);
     location = EndpointLocation(this);
     maintenance = EndpointMaintenance(this);
     tasks = EndpointTasks(this);
@@ -252,6 +283,8 @@ class Client extends _i1.ServerpodClientShared {
   late final EndpointBooking booking;
 
   late final EndpointExample example;
+
+  late final EndpointIntegration integration;
 
   late final EndpointLocation location;
 
@@ -267,6 +300,7 @@ class Client extends _i1.ServerpodClientShared {
   Map<String, _i1.EndpointRef> get endpointRefLookup => {
         'booking': booking,
         'example': example,
+        'integration': integration,
         'location': location,
         'maintenance': maintenance,
         'tasks': tasks,

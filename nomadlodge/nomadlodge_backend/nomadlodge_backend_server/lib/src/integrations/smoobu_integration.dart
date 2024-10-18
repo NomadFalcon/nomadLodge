@@ -5,15 +5,14 @@ import 'package:serverpod/serverpod.dart';
 
 class SmoobuIntegration {
   static const String _baseUrl = 'https://login.smoobu.com/api/';
-  static const String _apiKey = 'FSKUqQbHEP4MQAILQkoDwk0zu0imYnuny3ryHTpxrT';
 
 
-  static Future<List<Location>> getApartments(Session session, int userId) async {
+  static Future<List<Location>> getApartments(Session session, int userId, String apiKey) async {
     final locations = <Location>[];
     final response = await http.get(
       Uri.parse('$_baseUrl/apartments'),
       headers: {
-        'Authorization': 'Bearer $_apiKey',
+        'Authorization': 'Bearer $apiKey',
         'Content-Type': 'application/json',
       },
     );
@@ -32,7 +31,7 @@ class SmoobuIntegration {
           final apartmentResponse = await http.get(
             Uri.parse('$_baseUrl/apartments/${apartment['id']}'),
               headers: {
-                'Authorization': 'Bearer $_apiKey',
+                'Authorization': 'Bearer $apiKey',
                 'Content-Type': 'application/json',
           },);
           if (apartmentResponse.statusCode == 200) {
@@ -49,12 +48,12 @@ class SmoobuIntegration {
     return locations;
   }
 
-  static Future<List<Booking>> getReservations(Session session,) async {
+  static Future<List<Booking>> getReservations(Session session,String apiKey) async {
     final bookings = <Booking>[];
     final response = await http.get(
       Uri.parse('$_baseUrl/reservations'),
       headers: {
-        'Authorization': 'Bearer $_apiKey',
+        'Authorization': 'Bearer $apiKey',
         'Content-Type': 'application/json',
       },
     );

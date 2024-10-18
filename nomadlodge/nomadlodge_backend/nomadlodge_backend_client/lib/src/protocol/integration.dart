@@ -17,6 +17,7 @@ abstract class Integration implements _i1.SerializableModel {
     this.id,
     required this.apiKey,
     required this.integrationType,
+    this.lastReloadDate,
     required this.userId,
     this.user,
   });
@@ -25,6 +26,7 @@ abstract class Integration implements _i1.SerializableModel {
     int? id,
     required String apiKey,
     required _i2.IntegrationType integrationType,
+    DateTime? lastReloadDate,
     required int userId,
     _i2.User? user,
   }) = _IntegrationImpl;
@@ -35,6 +37,10 @@ abstract class Integration implements _i1.SerializableModel {
       apiKey: jsonSerialization['apiKey'] as String,
       integrationType: _i2.IntegrationType.fromJson(
           (jsonSerialization['integrationType'] as String)),
+      lastReloadDate: jsonSerialization['lastReloadDate'] == null
+          ? null
+          : _i1.DateTimeJsonExtension.fromJson(
+              jsonSerialization['lastReloadDate']),
       userId: jsonSerialization['userId'] as int,
       user: jsonSerialization['user'] == null
           ? null
@@ -52,6 +58,8 @@ abstract class Integration implements _i1.SerializableModel {
 
   _i2.IntegrationType integrationType;
 
+  DateTime? lastReloadDate;
+
   int userId;
 
   _i2.User? user;
@@ -60,6 +68,7 @@ abstract class Integration implements _i1.SerializableModel {
     int? id,
     String? apiKey,
     _i2.IntegrationType? integrationType,
+    DateTime? lastReloadDate,
     int? userId,
     _i2.User? user,
   });
@@ -69,6 +78,7 @@ abstract class Integration implements _i1.SerializableModel {
       if (id != null) 'id': id,
       'apiKey': apiKey,
       'integrationType': integrationType.toJson(),
+      if (lastReloadDate != null) 'lastReloadDate': lastReloadDate?.toJson(),
       'userId': userId,
       if (user != null) 'user': user?.toJson(),
     };
@@ -87,12 +97,14 @@ class _IntegrationImpl extends Integration {
     int? id,
     required String apiKey,
     required _i2.IntegrationType integrationType,
+    DateTime? lastReloadDate,
     required int userId,
     _i2.User? user,
   }) : super._(
           id: id,
           apiKey: apiKey,
           integrationType: integrationType,
+          lastReloadDate: lastReloadDate,
           userId: userId,
           user: user,
         );
@@ -102,6 +114,7 @@ class _IntegrationImpl extends Integration {
     Object? id = _Undefined,
     String? apiKey,
     _i2.IntegrationType? integrationType,
+    Object? lastReloadDate = _Undefined,
     int? userId,
     Object? user = _Undefined,
   }) {
@@ -109,6 +122,8 @@ class _IntegrationImpl extends Integration {
       id: id is int? ? id : this.id,
       apiKey: apiKey ?? this.apiKey,
       integrationType: integrationType ?? this.integrationType,
+      lastReloadDate:
+          lastReloadDate is DateTime? ? lastReloadDate : this.lastReloadDate,
       userId: userId ?? this.userId,
       user: user is _i2.User? ? user : this.user?.copyWith(),
     );

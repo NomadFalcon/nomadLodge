@@ -30,17 +30,9 @@ class RouterHelper {
   static Map<String, WidgetBuilder> getUserRoutes(
       BuildContext context) {
     return {
-      '/profile': (context) {
-        return AccountPage(key: ValueKey(AccountPage),
-        );
-      },
-      '/dashboard': (context) {
-        return const DashboardPage(
-          key: ValueKey(DashboardPage),
-        );
-      },
+      
       '/createUser': (context) {
-        return  UserCreation(
+        return  UserCreationPage(
         );
       },
       

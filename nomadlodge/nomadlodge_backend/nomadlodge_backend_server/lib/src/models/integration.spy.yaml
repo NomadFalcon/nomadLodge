@@ -3,6 +3,7 @@ table: integration
 fields:
   apiKey: String
   integrationType: IntegrationType
+  lastReloadDate: DateTime?
   user: User?, relation
 indexes:
   integration_user_unique_idx:

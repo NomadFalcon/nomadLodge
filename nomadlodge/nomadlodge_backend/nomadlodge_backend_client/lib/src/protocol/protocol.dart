@@ -30,12 +30,14 @@ import 'user_device.dart' as _i17;
 import 'user_type.dart' as _i18;
 import 'protocol.dart' as _i19;
 import 'package:nomadlodge_backend_client/src/protocol/booking.dart' as _i20;
-import 'package:nomadlodge_backend_client/src/protocol/location.dart' as _i21;
+import 'package:nomadlodge_backend_client/src/protocol/integration.dart'
+    as _i21;
+import 'package:nomadlodge_backend_client/src/protocol/location.dart' as _i22;
 import 'package:nomadlodge_backend_client/src/protocol/location_team.dart'
-    as _i22;
-import 'package:nomadlodge_backend_client/src/protocol/maintenace.dart' as _i23;
-import 'package:nomadlodge_backend_client/src/protocol/task.dart' as _i24;
-import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i25;
+    as _i23;
+import 'package:nomadlodge_backend_client/src/protocol/maintenace.dart' as _i24;
+import 'package:nomadlodge_backend_client/src/protocol/task.dart' as _i25;
+import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i26;
 export 'booking.dart';
 export 'example.dart';
 export 'fee.dart';
@@ -204,26 +206,31 @@ class Protocol extends _i1.SerializationManager {
       return (data as List).map((e) => deserialize<_i20.Booking>(e)).toList()
           as dynamic;
     }
-    if (t == List<_i21.Location>) {
-      return (data as List).map((e) => deserialize<_i21.Location>(e)).toList()
+    if (t == List<_i21.Integration>) {
+      return (data as List)
+          .map((e) => deserialize<_i21.Integration>(e))
+          .toList() as dynamic;
+    }
+    if (t == List<_i22.Location>) {
+      return (data as List).map((e) => deserialize<_i22.Location>(e)).toList()
           as dynamic;
     }
-    if (t == List<_i22.LocationTeam>) {
+    if (t == List<_i23.LocationTeam>) {
       return (data as List)
-          .map((e) => deserialize<_i22.LocationTeam>(e))
+          .map((e) => deserialize<_i23.LocationTeam>(e))
           .toList() as dynamic;
     }
-    if (t == List<_i23.Maintenance>) {
+    if (t == List<_i24.Maintenance>) {
       return (data as List)
-          .map((e) => deserialize<_i23.Maintenance>(e))
+          .map((e) => deserialize<_i24.Maintenance>(e))
           .toList() as dynamic;
     }
-    if (t == List<_i24.Task>) {
-      return (data as List).map((e) => deserialize<_i24.Task>(e)).toList()
+    if (t == List<_i25.Task>) {
+      return (data as List).map((e) => deserialize<_i25.Task>(e)).toList()
           as dynamic;
     }
     try {
-      return _i25.Protocol().deserialize<T>(data, t);
+      return _i26.Protocol().deserialize<T>(data, t);
     } on _i1.DeserializationTypeNotFoundException catch (_) {}
     return super.deserialize<T>(data, t);
   }
@@ -283,7 +290,7 @@ class Protocol extends _i1.SerializationManager {
     if (data is _i18.UserType) {
       return 'UserType';
     }
-    className = _i25.Protocol().getClassNameForObject(data);
+    className = _i26.Protocol().getClassNameForObject(data);
     if (className != null) {
       return 'serverpod_auth.$className';
     }
@@ -345,7 +352,7 @@ class Protocol extends _i1.SerializationManager {
     }
     if (data['className'].startsWith('serverpod_auth.')) {
       data['className'] = data['className'].substring(15);
-      return _i25.Protocol().deserializeByClassName(data);
+      return _i26.Protocol().deserializeByClassName(data);
     }
     return super.deserializeByClassName(data);
   }

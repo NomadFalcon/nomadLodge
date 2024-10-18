@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nomadlodge_backend_client/nomadlodge_backend_client.dart';
 import '../serverpod_client.dart';
 import 'sign_in_page.dart';
 import 'menu/dasboard.dart';
@@ -17,39 +18,43 @@ class EntryPage extends StatefulWidget {
 
 class EntryPageState extends State<EntryPage> {
   bool needsToSetupUser = false;
+  User? currentUser;
   @override
   void initState() {
     super.initState();
 
     // Make sure that we rebuild the page if signed in status changes.
     sessionManager.addListener(() {
-      setState(() {});
+      if (sessionManager.isSignedIn) {
+        checkForUserSetup();
+      } else {
+        setState(() {});
+      }
+      
     });
     WidgetsBinding.instance.addPostFrameCallback((_) {
       checkForUserSetup();
     });
     
   }
-
+  
   void checkForUserSetup() async {
      final userIdentier = sessionManager.signedInUser?.userIdentifier;
     if (userIdentier != null){
       final user = await client.user.getUserByAuthIdentifier(userIdentier);
-      if(user == null){
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) =>  UserCreation()));
-      }
+      setState(() {
+          currentUser = user;
+        });
     }
   }
-
+  
   @override
   Widget build(BuildContext context) {
-    
-    
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: sessionManager.isSignedIn ?  const DashboardPage(key: ValueKey(DashboardPage),) : const SignInPage(),);
+      body: sessionManager.isSignedIn ?  (currentUser == null)  ? UserCreationPage() : DashboardPage(key: ValueKey(DashboardPage), currentUser: currentUser!) : const SignInPage(),);
   }
 }
 

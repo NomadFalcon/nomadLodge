@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:nomadlodge_backend_client/nomadlodge_backend_client.dart';
 import '../serverpod_client.dart';
 
-class UserCreation extends StatefulWidget {
+class UserCreationPage extends StatefulWidget {
   @override
-  _UserCreationState createState() => _UserCreationState();
+  _UserCreationPageState createState() => _UserCreationPageState();
 }
 List<String> countryList = ['USA', 'Canada', 'Mexico', 'Brazil', 'Portugal'];
-class _UserCreationState extends State<UserCreation> {
+class _UserCreationPageState extends State<UserCreationPage> {
   UserType? _selectedUserType;
   String? _selectedCountry;
   final _nameController = TextEditingController(text: sessionManager.signedInUser?.fullName);

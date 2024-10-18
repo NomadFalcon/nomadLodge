@@ -6,6 +6,10 @@ booking:
   - getByMonthYear:
 example:
   - hello:
+integration:
+  - getIntegrations:
+  - createIntegration:
+  - reloadIntegrations:
 location:
   - getAll:
   - getById:

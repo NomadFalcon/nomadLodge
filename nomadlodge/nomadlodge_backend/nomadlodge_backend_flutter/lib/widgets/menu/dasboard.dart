@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nomadlodge_backend_flutter/widgets/menu/maintances_screen.dart';
+import 'package:nomadlodge_backend_client/nomadlodge_backend_client.dart';
 import 'reservations_screen.dart';
 import 'locations_screen.dart.dart';
 import 'products_screen.dart';
@@ -9,8 +10,13 @@ import '../../constants/text_constants.dart';
 
 
 
+
 class DashboardPage extends StatefulWidget {
-  const DashboardPage({Key? key}) : super(key: key);
+  const DashboardPage({Key? key, required this.currentUser}) : super(key: key);
+
+  final User currentUser;
+
+
   @override
   State<DashboardPage> createState() => _DashboardPage();
 }
@@ -99,7 +105,7 @@ class _DashboardPage extends State<DashboardPage>
         ),
         MaintenancesScreen(
         ),
-        AccountPage(key:ValueKey(AccountPage)),
+        AccountPage(key:ValueKey(AccountPage), currentUser: widget.currentUser,),
       ]),
     );
   }

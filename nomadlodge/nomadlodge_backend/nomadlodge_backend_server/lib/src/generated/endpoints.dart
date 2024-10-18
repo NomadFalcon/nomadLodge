@@ -12,12 +12,15 @@
 import 'package:serverpod/serverpod.dart' as _i1;
 import '../endpoints/booking_endpoint.dart' as _i2;
 import '../endpoints/example_endpoint.dart' as _i3;
-import '../endpoints/location_endpoint.dart' as _i4;
-import '../endpoints/maintenance_endpoint.dart' as _i5;
-import '../endpoints/tasks_endpoint.dart' as _i6;
-import '../endpoints/user_endpoint.dart' as _i7;
-import 'package:nomadlodge_backend_server/src/generated/user.dart' as _i8;
-import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i9;
+import '../endpoints/integration_enpoint.dart' as _i4;
+import '../endpoints/location_endpoint.dart' as _i5;
+import '../endpoints/maintenance_endpoint.dart' as _i6;
+import '../endpoints/tasks_endpoint.dart' as _i7;
+import '../endpoints/user_endpoint.dart' as _i8;
+import 'package:nomadlodge_backend_server/src/generated/user.dart' as _i9;
+import 'package:nomadlodge_backend_server/src/generated/integration.dart'
+    as _i10;
+import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i11;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
@@ -35,25 +38,31 @@ class Endpoints extends _i1.EndpointDispatch {
           'example',
           null,
         ),
-      'location': _i4.LocationEndpoint()
+      'integration': _i4.IntegrationEndpoint()
+        ..initialize(
+          server,
+          'integration',
+          null,
+        ),
+      'location': _i5.LocationEndpoint()
         ..initialize(
           server,
           'location',
           null,
         ),
-      'maintenance': _i5.MaintenanceEndpoint()
+      'maintenance': _i6.MaintenanceEndpoint()
         ..initialize(
           server,
           'maintenance',
           null,
         ),
-      'tasks': _i6.TasksEndpoint()
+      'tasks': _i7.TasksEndpoint()
         ..initialize(
           server,
           'tasks',
           null,
         ),
-      'user': _i7.UserEndpoint()
+      'user': _i8.UserEndpoint()
         ..initialize(
           server,
           'user',
@@ -160,6 +169,69 @@ class Endpoints extends _i1.EndpointDispatch {
         )
       },
     );
+    connectors['integration'] = _i1.EndpointConnector(
+      name: 'integration',
+      endpoint: endpoints['integration']!,
+      methodConnectors: {
+        'getIntegrations': _i1.MethodConnector(
+          name: 'getIntegrations',
+          params: {
+            'user': _i1.ParameterDescription(
+              name: 'user',
+              type: _i1.getType<_i9.User>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['integration'] as _i4.IntegrationEndpoint)
+                  .getIntegrations(
+            session,
+            params['user'],
+          ),
+        ),
+        'createIntegration': _i1.MethodConnector(
+          name: 'createIntegration',
+          params: {
+            'integration': _i1.ParameterDescription(
+              name: 'integration',
+              type: _i1.getType<_i10.Integration>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['integration'] as _i4.IntegrationEndpoint)
+                  .createIntegration(
+            session,
+            params['integration'],
+          ),
+        ),
+        'reloadIntegrations': _i1.MethodConnector(
+          name: 'reloadIntegrations',
+          params: {
+            'user': _i1.ParameterDescription(
+              name: 'user',
+              type: _i1.getType<_i9.User>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['integration'] as _i4.IntegrationEndpoint)
+                  .reloadIntegrations(
+            session,
+            params['user'],
+          ),
+        ),
+      },
+    );
     connectors['location'] = _i1.EndpointConnector(
       name: 'location',
       endpoint: endpoints['location']!,
@@ -171,7 +243,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['location'] as _i4.LocationEndpoint).getAll(session),
+              (endpoints['location'] as _i5.LocationEndpoint).getAll(session),
         ),
         'getById': _i1.MethodConnector(
           name: 'getById',
@@ -186,7 +258,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['location'] as _i4.LocationEndpoint).getById(
+              (endpoints['location'] as _i5.LocationEndpoint).getById(
             session,
             params['locationId'],
           ),
@@ -204,7 +276,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['location'] as _i4.LocationEndpoint).getTeams(
+              (endpoints['location'] as _i5.LocationEndpoint).getTeams(
             session,
             params['locationId'],
           ),
@@ -222,7 +294,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['location'] as _i4.LocationEndpoint).getBookings(
+              (endpoints['location'] as _i5.LocationEndpoint).getBookings(
             session,
             params['locationId'],
           ),
@@ -240,7 +312,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['maintenance'] as _i5.MaintenanceEndpoint)
+              (endpoints['maintenance'] as _i6.MaintenanceEndpoint)
                   .getAll(session),
         ),
         'getByLocationId': _i1.MethodConnector(
@@ -256,7 +328,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['maintenance'] as _i5.MaintenanceEndpoint)
+              (endpoints['maintenance'] as _i6.MaintenanceEndpoint)
                   .getByLocationId(
             session,
             params['locationId'],
@@ -275,7 +347,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['maintenance'] as _i5.MaintenanceEndpoint).getByUserId(
+              (endpoints['maintenance'] as _i6.MaintenanceEndpoint).getByUserId(
             session,
             params['userId'],
           ),
@@ -298,7 +370,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['maintenance'] as _i5.MaintenanceEndpoint)
+              (endpoints['maintenance'] as _i6.MaintenanceEndpoint)
                   .getByMonthYear(
             session,
             params['year'],
@@ -324,7 +396,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['tasks'] as _i6.TasksEndpoint).getTasksByMaintenanceId(
+              (endpoints['tasks'] as _i7.TasksEndpoint).getTasksByMaintenanceId(
             session,
             params['maintenanceId'],
           ),
@@ -342,7 +414,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['tasks'] as _i6.TasksEndpoint).setTaskAsComplete(
+              (endpoints['tasks'] as _i7.TasksEndpoint).setTaskAsComplete(
             session,
             params['taskId'],
           ),
@@ -366,7 +438,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['user'] as _i7.UserEndpoint).getUserByAuthIdentifier(
+              (endpoints['user'] as _i8.UserEndpoint).getUserByAuthIdentifier(
             session,
             params['authIdentifier'],
           ),
@@ -376,7 +448,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'user': _i1.ParameterDescription(
               name: 'user',
-              type: _i1.getType<_i8.User>(),
+              type: _i1.getType<_i9.User>(),
               nullable: false,
             )
           },
@@ -384,13 +456,13 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['user'] as _i7.UserEndpoint).createUser(
+              (endpoints['user'] as _i8.UserEndpoint).createUser(
             session,
             params['user'],
           ),
         ),
       },
     );
-    modules['serverpod_auth'] = _i9.Endpoints()..initializeEndpoints(server);
+    modules['serverpod_auth'] = _i11.Endpoints()..initializeEndpoints(server);
   }
 }
