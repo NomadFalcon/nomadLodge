@@ -4,19 +4,20 @@ import 'package:nomadlodge_backend_server/src/generated/protocol.dart';
 import 'package:serverpod/serverpod.dart';
 
 class SmoobuIntegration {
-  static const String _baseUrl = 'https://login.smoobu.com/api/';
+  static const String _baseUrl = 'https://login.smoobu.com/api';
 
 
   static Future<List<Location>> getApartments(Session session, int userId, String apiKey) async {
+    print("entered getApartments apiKey: $apiKey");
     final locations = <Location>[];
     final response = await http.get(
       Uri.parse('$_baseUrl/apartments'),
       headers: {
-        'Authorization': 'Bearer $apiKey',
+        'Api-Key': apiKey,
         'Content-Type': 'application/json',
       },
     );
-
+    print("getApartments response: ${response.statusCode}");
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body)['apartments'] as List;
       print("smoobu data: $data");
@@ -25,21 +26,30 @@ class SmoobuIntegration {
         var location = await Location.db.findFirstRow(session,
               where: (t) => t.externalId.equals('$apartmentId'),
         );
+        print("getApartments location: $location");
         if(location != null) {
           locations.add(location);
         } else {
           final apartmentResponse = await http.get(
             Uri.parse('$_baseUrl/apartments/${apartment['id']}'),
               headers: {
-                'Authorization': 'Bearer $apiKey',
+                'Api-Key': apiKey,
                 'Content-Type': 'application/json',
           },);
+           print("getApartments apartmentResponse: ${apartmentResponse.statusCode}");
           if (apartmentResponse.statusCode == 200) {
             final apartmentData = jsonDecode(apartmentResponse.body);
-            var geoAddressRow = GeoAddress(latitude: apartmentData['location']['latitude'], longitude: apartmentData['location']['longitude'], shortAddress: apartmentData['location']['street'], longAddress: apartmentData['location']['street']);
+            print("getApartments apartmentData: $apartmentData");
+            final lng = apartmentData['location']['longitude'] ?? 0.0;
+            final lat = apartmentData['location']['latitude'] ?? 0.0;
+            print("getApartments lng lat: $lng $lat");
+            final streetName = apartmentData['location']['street'] ?? '';
+            final city = apartmentData['location']['city'] ?? '';
+            var geoAddressRow = GeoAddress(latitude: lat, longitude: lng, shortAddress: city, longAddress: streetName);
             final geoAddress = await GeoAddress.db.insertRow(session, geoAddressRow);
-            final location = Location(externalId: "$apartment['id']", name: apartment['name'], longDescription: "", shortDescription: '', rooms: apartmentData['rooms']['bedrooms'], userId: userId, geoAddressId: geoAddress.id!);
+            final location = Location(externalId: "${apartment['id']}", name: apartment['name'], longDescription: "", shortDescription: '', rooms: apartmentData['rooms']['bedrooms'], userId: userId, geoAddressId: geoAddress.id!);
             final newLocation = await Location.db.insertRow(session, location);
+            print("getApartments newLocation: $newLocation");
             locations.add(newLocation);
           }
         }
@@ -53,14 +63,14 @@ class SmoobuIntegration {
     final response = await http.get(
       Uri.parse('$_baseUrl/reservations'),
       headers: {
-        'Authorization': 'Bearer $apiKey',
+        'Api-Key': apiKey,
         'Content-Type': 'application/json',
       },
     );
 
     if (response.statusCode == 200) {
       final bookingData = jsonDecode(response.body)['bookings'] as List;
-      print("smoobu data: $bookingData");
+      //print("smoobu data: $bookingData");
       for (var booking in bookingData) {
         int apartmentId = booking['apartment']['id'] as int;
         var location = await Location.db.findFirstRow(session,
@@ -70,8 +80,8 @@ class SmoobuIntegration {
         if (location != null) {
           int bookingId = booking['id'] as int;
           String platform = booking['channel']['name'] as String;
-          String startDate = booking['from'] as String;
-          String endDate = booking['to'] as String;
+          String startDate = booking['arrival'] as String;
+          String endDate = booking['departure'] as String;
           DateTime start = DateTime.parse(startDate);
           DateTime end = DateTime.parse(endDate);
 
@@ -81,7 +91,10 @@ class SmoobuIntegration {
           );
           int userId;
           if (guestUser == null) {
-            final guestUserRow = User(name: booking['guest-name'], email: booking['email'], externalId: "$guestId", userType: UserType.client);
+            print("guestUser is null");
+            final guestName = booking['guest-name'] ?? '';
+            final guestEmail = booking['email'] ?? '';
+            final guestUserRow = User(name: guestName, email: guestEmail, externalId: "$guestId", userType: UserType.client);
             User newGuestUser = await User.db.insertRow(session, guestUserRow);
             userId = newGuestUser.id!;
           } else {

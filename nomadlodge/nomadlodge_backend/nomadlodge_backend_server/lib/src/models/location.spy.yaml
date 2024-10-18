@@ -13,7 +13,7 @@ fields:
 indexes:
   location_user_unique_idx:
     fields: userId
-    unique: true
+    unique: false
   location_geoaddress_idx:
     fields: geoAddressId
     unique: true

@@ -10,7 +10,7 @@ fields:
 indexes:
   booking_user_unique_idx:
     fields: userId
-    unique: true
+    unique: false
   booking_location_unique_idx:
     fields: locationId
-    unique: true
+    unique: false
