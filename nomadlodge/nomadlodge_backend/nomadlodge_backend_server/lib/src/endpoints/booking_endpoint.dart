@@ -10,16 +10,16 @@ import 'package:serverpod/serverpod.dart';
 // After adding or modifying an endpoint, you will need to run
 // `serverpod generate` to update the server and client code.
 class BookingEndpoint extends Endpoint {
-  // You create methods in your endpoint which are accessible from the client by
-  // creating a public method with `Session` as its first parameter.
-  // `bool`, `int`, `double`, `String`, `UuidValue`, `Duration`, `DateTime`, `ByteData`,
-  // and other serializable classes, exceptions and enums from your from your `protocol` directory.
-  // The methods should return a typed future; the same types as for the parameters are
-  // supported. The `session` object provides access to the database, logging,
-  // passwords, and information about the request being made to the server.
-  Future<List<Booking>> getAll(Session session) async {
+  Future<List<Booking>> getAll(Session session, User user) async {
+    print("Booking entered getAll");
     final bookings = <Booking>[];
-    
+    final locations = await Location.db.find(session, where: (t) => t.userId.equals(user.id));
+     print("Booking entered locations: $locations");
+    for (var location in locations) {
+      final locationBookings = await Booking.db.find(session, where: (t) => t.locationId.equals(location.id));
+      print("Booking entered locationBookings: $locationBookings");
+      bookings.addAll(locationBookings);
+    }
     return bookings;
   }
   Future<List<Booking>> getAllFuture(Session session) async {
@@ -35,6 +35,8 @@ class BookingEndpoint extends Endpoint {
   Future<List<Booking>> getByLocationId(
       Session session, int locationId) async {
     final bookings = <Booking>[];
+    final locationBookings = await Booking.db.find(session, where: (t) => t.locationId.equals(locationId));
+    bookings.addAll(locationBookings);
     return bookings;
   }
 

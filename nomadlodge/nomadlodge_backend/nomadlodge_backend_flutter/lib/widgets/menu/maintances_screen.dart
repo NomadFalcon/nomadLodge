@@ -6,9 +6,10 @@ import 'package:nomadlodge_backend_client/nomadlodge_backend_client.dart';
 class MaintenancesScreen extends StatefulWidget {
 
   const MaintenancesScreen(
-      {Key? key,})
+      {Key? key, required this.currentUser})
       : super(key: key);
 
+  final User currentUser;
   @override
   State<MaintenancesScreen> createState() => _MaintenancesScreenState();
 }

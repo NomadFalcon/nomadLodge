@@ -75,12 +75,21 @@ class Endpoints extends _i1.EndpointDispatch {
       methodConnectors: {
         'getAll': _i1.MethodConnector(
           name: 'getAll',
-          params: {},
+          params: {
+            'user': _i1.ParameterDescription(
+              name: 'user',
+              type: _i1.getType<_i9.User>(),
+              nullable: false,
+            )
+          },
           call: (
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['booking'] as _i2.BookingEndpoint).getAll(session),
+              (endpoints['booking'] as _i2.BookingEndpoint).getAll(
+            session,
+            params['user'],
+          ),
         ),
         'getAllFuture': _i1.MethodConnector(
           name: 'getAllFuture',
@@ -238,12 +247,21 @@ class Endpoints extends _i1.EndpointDispatch {
       methodConnectors: {
         'getAll': _i1.MethodConnector(
           name: 'getAll',
-          params: {},
+          params: {
+            'user': _i1.ParameterDescription(
+              name: 'user',
+              type: _i1.getType<_i9.User>(),
+              nullable: false,
+            )
+          },
           call: (
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['location'] as _i5.LocationEndpoint).getAll(session),
+              (endpoints['location'] as _i5.LocationEndpoint).getAll(
+            session,
+            params['user'],
+          ),
         ),
         'getById': _i1.MethodConnector(
           name: 'getById',

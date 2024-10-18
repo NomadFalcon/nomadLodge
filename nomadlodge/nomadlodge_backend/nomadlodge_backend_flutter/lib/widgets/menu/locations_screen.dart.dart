@@ -10,9 +10,9 @@ import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 class LocationScreen extends StatefulWidget {
 
   const LocationScreen(
-      {Key? key,})
+      {Key? key, required this.currentUser})
       : super(key: key);
-
+  final User currentUser;
   @override
   State<LocationScreen> createState() => _LocationScreenState();
 }
@@ -29,7 +29,7 @@ class _LocationScreenState extends State<LocationScreen> {
   }
 
   void getLocations() {
-    client.location.getAll().then((value) {
+    client.location.getAll(widget.currentUser).then((value) {
       setState(() {
         locations = value;
       });
@@ -52,10 +52,22 @@ class _LocationScreenState extends State<LocationScreen> {
           padding: const EdgeInsets.all(20),
           child: (locations.isNotEmpty) ? ListView.builder(
             itemBuilder: (BuildContext context, int index) { 
-              return ListTile(
-                title: Text(locations[index].name),
-                subtitle: Text(locations[index].longDescription),
-              );
+              return  Card(
+            child: ListTile(
+            contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+            title: Text(locations[index].name),
+            subtitle: Text("Number of rooms: ${locations[index].rooms}"),
+            trailing: ElevatedButton(
+              onPressed: () {
+              // Add your reload logic here
+              print('Reload button pressed');
+            },
+            child: const Text('See more'),
+        ),
+      ),
+    );
+              
+             
              },
           ) : Text("There is no location to show"),
           

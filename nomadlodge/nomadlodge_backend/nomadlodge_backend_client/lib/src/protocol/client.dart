@@ -12,8 +12,8 @@
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import 'dart:async' as _i2;
 import 'package:nomadlodge_backend_client/src/protocol/booking.dart' as _i3;
-import 'package:nomadlodge_backend_client/src/protocol/integration.dart' as _i4;
-import 'package:nomadlodge_backend_client/src/protocol/user.dart' as _i5;
+import 'package:nomadlodge_backend_client/src/protocol/user.dart' as _i4;
+import 'package:nomadlodge_backend_client/src/protocol/integration.dart' as _i5;
 import 'package:nomadlodge_backend_client/src/protocol/location.dart' as _i6;
 import 'package:nomadlodge_backend_client/src/protocol/location_team.dart'
     as _i7;
@@ -29,11 +29,11 @@ class EndpointBooking extends _i1.EndpointRef {
   @override
   String get name => 'booking';
 
-  _i2.Future<List<_i3.Booking>> getAll() =>
+  _i2.Future<List<_i3.Booking>> getAll(_i4.User user) =>
       caller.callServerEndpoint<List<_i3.Booking>>(
         'booking',
         'getAll',
-        {},
+        {'user': user},
       );
 
   _i2.Future<List<_i3.Booking>> getAllFuture() =>
@@ -92,21 +92,21 @@ class EndpointIntegration extends _i1.EndpointRef {
   @override
   String get name => 'integration';
 
-  _i2.Future<List<_i4.Integration>> getIntegrations(_i5.User user) =>
-      caller.callServerEndpoint<List<_i4.Integration>>(
+  _i2.Future<List<_i5.Integration>> getIntegrations(_i4.User user) =>
+      caller.callServerEndpoint<List<_i5.Integration>>(
         'integration',
         'getIntegrations',
         {'user': user},
       );
 
-  _i2.Future<_i4.Integration> createIntegration(_i4.Integration integration) =>
-      caller.callServerEndpoint<_i4.Integration>(
+  _i2.Future<_i5.Integration> createIntegration(_i5.Integration integration) =>
+      caller.callServerEndpoint<_i5.Integration>(
         'integration',
         'createIntegration',
         {'integration': integration},
       );
 
-  _i2.Future<bool> reloadIntegrations(_i5.User user) =>
+  _i2.Future<bool> reloadIntegrations(_i4.User user) =>
       caller.callServerEndpoint<bool>(
         'integration',
         'reloadIntegrations',
@@ -121,11 +121,11 @@ class EndpointLocation extends _i1.EndpointRef {
   @override
   String get name => 'location';
 
-  _i2.Future<List<_i6.Location>> getAll() =>
+  _i2.Future<List<_i6.Location>> getAll(_i4.User user) =>
       caller.callServerEndpoint<List<_i6.Location>>(
         'location',
         'getAll',
-        {},
+        {'user': user},
       );
 
   _i2.Future<_i6.Location?> getById(int locationId) =>
@@ -221,15 +221,15 @@ class EndpointUser extends _i1.EndpointRef {
   @override
   String get name => 'user';
 
-  _i2.Future<_i5.User?> getUserByAuthIdentifier(String authIdentifier) =>
-      caller.callServerEndpoint<_i5.User?>(
+  _i2.Future<_i4.User?> getUserByAuthIdentifier(String authIdentifier) =>
+      caller.callServerEndpoint<_i4.User?>(
         'user',
         'getUserByAuthIdentifier',
         {'authIdentifier': authIdentifier},
       );
 
-  _i2.Future<_i5.User> createUser(_i5.User user) =>
-      caller.callServerEndpoint<_i5.User>(
+  _i2.Future<_i4.User> createUser(_i4.User user) =>
+      caller.callServerEndpoint<_i4.User>(
         'user',
         'createUser',
         {'user': user},

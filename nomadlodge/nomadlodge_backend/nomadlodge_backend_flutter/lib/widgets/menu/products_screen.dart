@@ -6,9 +6,10 @@ import 'package:nomadlodge_backend_client/nomadlodge_backend_client.dart';
 class ProductScreen extends StatefulWidget {
 
   const ProductScreen(
-      {Key? key,})
+      {Key? key, required this.currentUser})
       : super(key: key);
 
+  final User currentUser;
   @override
   State<ProductScreen> createState() => _ProductScreenState();
 }
@@ -20,12 +21,12 @@ class _ProductScreenState extends State<ProductScreen> {
 
   @override
   void initState() {
-    getLocations();
+    //getLocations();
     super.initState();
   }
 
   void getLocations() {
-    client.location.getAll().then((value) {
+    client.location.getAll(widget.currentUser).then((value) {
       setState(() {
         locations = value;
       });
@@ -53,7 +54,7 @@ class _ProductScreenState extends State<ProductScreen> {
                 subtitle: Text(locations[index].longDescription),
               );
              },
-          ) : Text("There is no location to show"),
+          ) : Text("There are no products to show"),
           
         ),
         floatingActionButton: FloatingActionButton(

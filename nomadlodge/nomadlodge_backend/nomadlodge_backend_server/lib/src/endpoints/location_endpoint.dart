@@ -10,8 +10,8 @@ import 'package:serverpod/serverpod.dart';
 // After adding or modifying an endpoint, you will need to run
 // `serverpod generate` to update the server and client code.
 class LocationEndpoint extends Endpoint {
-  Future<List<Location>> getAll(Session session) async {
-    final locations = <Location>[];
+  Future<List<Location>> getAll(Session session, User user) async {
+    final locations = await Location.db.find(session, where: (t) => t.userId.equals(user.id));
     return locations;
   }
 
@@ -25,7 +25,7 @@ class LocationEndpoint extends Endpoint {
   }
 
   Future<List<Booking>> getBookings(Session session, int locationId) async {
-    final bookings = <Booking>[];
+    final bookings = await Booking.db.find(session, where: (t) => t.locationId.equals(locationId));
     return bookings;
   }
 }

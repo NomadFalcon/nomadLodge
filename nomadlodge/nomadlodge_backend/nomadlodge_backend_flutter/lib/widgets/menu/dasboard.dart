@@ -98,12 +98,16 @@ class _DashboardPage extends State<DashboardPage>
       ),
       body: TabBarView(controller: tabController, children: [
         LocationScreen(
+          currentUser: widget.currentUser
         ),
         ProductScreen(
+          currentUser: widget.currentUser
         ),
         ReservationsScreen(
+          currentUser: widget.currentUser
         ),
         MaintenancesScreen(
+          currentUser: widget.currentUser
         ),
         AccountPage(key:ValueKey(AccountPage), currentUser: widget.currentUser,),
       ]),

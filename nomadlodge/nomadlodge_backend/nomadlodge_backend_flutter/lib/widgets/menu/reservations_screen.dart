@@ -6,9 +6,9 @@ import 'package:nomadlodge_backend_client/nomadlodge_backend_client.dart';
 class ReservationsScreen extends StatefulWidget {
 
   const ReservationsScreen(
-      {Key? key,})
+      {Key? key, required this.currentUser})
       : super(key: key);
-
+  final User currentUser;
   @override
   State<ReservationsScreen> createState() => _ReservationsScreenState();
 }
@@ -25,7 +25,7 @@ class _ReservationsScreenState extends State<ReservationsScreen> {
   }
 
   void getReservations() {
-    client.booking.getAll().then((value) {
+    client.booking.getAll(widget.currentUser).then((value) {
       setState(() {
         reservations = value;
       });
@@ -48,10 +48,22 @@ class _ReservationsScreenState extends State<ReservationsScreen> {
           padding: const EdgeInsets.all(20),
           child: (reservations.isNotEmpty) ? ListView.builder(
             itemBuilder: (BuildContext context, int index) { 
-              return ListTile(
-                title: Text(reservations[index].platform),
-                subtitle: Text(reservations[index].location?.name ?? ""),
-              );
+              return  Card(
+            child: ListTile(
+            contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+            title: Text(reservations[index].user?.name ?? "Unknown"),
+            subtitle: Text(reservations[index].platform),
+            trailing: ElevatedButton(
+              onPressed: () {
+              // Add your reload logic here
+              print('Reload button pressed');
+            },
+            child: const Text('See more'),
+        ),
+      ),
+    );
+              
+              
              },
           ) : Text("There is no reservations to show"),
           
