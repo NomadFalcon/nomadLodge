@@ -4,6 +4,11 @@ booking:
   - getAllPast:
   - getByLocationId:
   - getByMonthYear:
+cleaning:
+  - getAllByUsersLocations:
+  - getByLocationId:
+  - getByUserId:
+  - createCleaningMaintenancesforEachBookingInUsersLocations:
 example:
   - hello:
 integration:
@@ -16,7 +21,6 @@ location:
   - getTeams:
   - getBookings:
 maintenance:
-  - getAll:
   - getByLocationId:
   - getByUserId:
   - getByMonthYear:

@@ -1,8 +1,9 @@
 import 'package:nomadlodge_backend_server/src/generated/maintenace.dart';
 import 'package:nomadlodge_backend_server/src/generated/maintenance_type.dart';
 import 'package:nomadlodge_backend_server/src/generated/booking.dart';
+import 'package:nomadlodge_backend_server/src/generated/location.dart';
 import 'package:serverpod/serverpod.dart';
-import 'maintenance_endpoint.dart';
+
 // This is an example endpoint of your server. It's best practice to use the
 // `Endpoint` ending of the class name, but it will be removed when accessing
 // the endpoint from the client. I.e., this endpoint can be accessed through
@@ -10,48 +11,57 @@ import 'maintenance_endpoint.dart';
 
 // After adding or modifying an endpoint, you will need to run
 // `serverpod generate` to update the server and client code.
-class CleaningEndpoint extends MaintenanceEndpoint {
+class CleaningEndpoint extends Endpoint {
 
-  @override
+  Future<List<Maintenance>> getAllByUsersLocations(
+      Session session, int userId) async {
+        print("getAllByUsersLocations");
+    final maintanencesFinal = <Maintenance>[];
+    final locations = await Location.db.find(session, where: (t) => t.userId.equals(userId));
+    print("getAllByUsersLocations locations: $locations");
+    for (var location in locations) {
+      final maintanences = await Maintenance.db.find(session, where: (t) => t.locationId.equals(location.id!));
+      print("getAllByUsersLocations maintanences: $maintanences");
+      final filteredMaintanences = maintanences.where((element) => element.maintenancetype == MaintenanceType.cleaning);
+      maintanencesFinal.addAll(filteredMaintanences);
+    }
+    
+    return maintanencesFinal;
+  }
   Future<List<Maintenance>> getByLocationId(
       Session session, int locationId) async {
-    final maintanences = super.getByLocationId(session, locationId);
+    final maintanences = Maintenance.db.find(session, where: (t) => t.locationId.equals(locationId));
     maintanences.then((value) => {
           value.where((element) => element.maintenancetype == MaintenanceType.cleaning)
         }.toList());
     return maintanences;
   }
 
-  @override
+
   Future<List<Maintenance>> getByUserId(Session session, int userId) async {
-    final maintanences = super.getByUserId(session, userId);
+
+    final maintanences = Maintenance.db.find(session, where: (t) => t.userId.equals(userId));
     maintanences.then((value) => {
           value.where((element) => element.maintenancetype == MaintenanceType.cleaning)
         }.toList());
     return maintanences;
   }
 
-  @override
-  Future<List<Maintenance>> getByMonthYear(
-      Session session, int year, int month) async {
-    final maintanences = super.getByMonthYear(session, year, month);
-    maintanences.then((value) => {
-          value.where((element) => element.maintenancetype == MaintenanceType.cleaning)
-        }.toList());
-    return maintanences;
-  }
 
-  Future<List<Maintenance>> createCleaningMaintenancesforEachBookingInLocationId(
-      Session session, int locationId) async {
+
+  Future<List<Maintenance>> createCleaningMaintenancesforEachBookingInUsersLocations(
+      Session session, int userId) async {
     
     final maintanences = <Maintenance>[];
-    final bookings = await Booking.db.find(session, where: (t) => t.locationId.equals(locationId));
+    final locations = await Location.db.find(session, where: (t) => t.userId.equals(userId));
+    for (var location in locations) {
+      final bookings = await Booking.db.find(session, where: (t) => t.locationId.equals(location.id!));
     for (var booking in bookings) {
-      final maintanences = await Maintenance.db.find(session, where: (t) => t.locationId.equals(locationId));
+      final maintanences = await Maintenance.db.find(session, where: (t) => t.locationId.equals(location.id!));
       final filteredM = maintanences.where((element) => element.maintenancetype == MaintenanceType.cleaning && element.bookingId == booking.id).toList();
       if (filteredM.isEmpty) {
           final newMaintenance = Maintenance(
-            locationId: locationId,
+            locationId: location.id!,
             bookingId: booking.id,
             maintenancetype: MaintenanceType.cleaning,
             start: booking.end,
@@ -65,6 +75,8 @@ class CleaningEndpoint extends MaintenanceEndpoint {
       }
     }
    
+    }
+    
         
     return maintanences;
   }

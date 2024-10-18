@@ -32,12 +32,12 @@ import 'user_device.dart' as _i19;
 import 'user_type.dart' as _i20;
 import 'protocol.dart' as _i21;
 import 'package:nomadlodge_backend_server/src/generated/booking.dart' as _i22;
-import 'package:nomadlodge_backend_server/src/generated/integration.dart'
-    as _i23;
-import 'package:nomadlodge_backend_server/src/generated/location.dart' as _i24;
-import 'package:nomadlodge_backend_server/src/generated/location_team.dart'
-    as _i25;
 import 'package:nomadlodge_backend_server/src/generated/maintenace.dart'
+    as _i23;
+import 'package:nomadlodge_backend_server/src/generated/integration.dart'
+    as _i24;
+import 'package:nomadlodge_backend_server/src/generated/location.dart' as _i25;
+import 'package:nomadlodge_backend_server/src/generated/location_team.dart'
     as _i26;
 import 'package:nomadlodge_backend_server/src/generated/task.dart' as _i27;
 export 'booking.dart';
@@ -1338,23 +1338,23 @@ class Protocol extends _i1.SerializationManagerServer {
       return (data as List).map((e) => deserialize<_i22.Booking>(e)).toList()
           as dynamic;
     }
-    if (t == List<_i23.Integration>) {
+    if (t == List<_i23.Maintenance>) {
       return (data as List)
-          .map((e) => deserialize<_i23.Integration>(e))
+          .map((e) => deserialize<_i23.Maintenance>(e))
           .toList() as dynamic;
     }
-    if (t == List<_i24.Location>) {
-      return (data as List).map((e) => deserialize<_i24.Location>(e)).toList()
+    if (t == List<_i24.Integration>) {
+      return (data as List)
+          .map((e) => deserialize<_i24.Integration>(e))
+          .toList() as dynamic;
+    }
+    if (t == List<_i25.Location>) {
+      return (data as List).map((e) => deserialize<_i25.Location>(e)).toList()
           as dynamic;
     }
-    if (t == List<_i25.LocationTeam>) {
+    if (t == List<_i26.LocationTeam>) {
       return (data as List)
-          .map((e) => deserialize<_i25.LocationTeam>(e))
-          .toList() as dynamic;
-    }
-    if (t == List<_i26.Maintenance>) {
-      return (data as List)
-          .map((e) => deserialize<_i26.Maintenance>(e))
+          .map((e) => deserialize<_i26.LocationTeam>(e))
           .toList() as dynamic;
     }
     if (t == List<_i27.Task>) {

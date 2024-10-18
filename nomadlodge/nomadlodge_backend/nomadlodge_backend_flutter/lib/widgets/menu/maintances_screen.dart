@@ -27,11 +27,12 @@ class _MaintenancesScreenState extends State<MaintenancesScreen> {
   }
 
   void getMaintenaces() {
-    client.maintenance.getAll().then((value) {
+    client.cleaning.getAllByUsersLocations(widget.currentUser.id!).then((value) {
       setState(() {
         maintenaces = value;
       });
     });
+    
   }
 
   
@@ -73,7 +74,10 @@ class _MaintenancesScreenState extends State<MaintenancesScreen> {
                     pageListBuilder: (bottomSheetContext) => [
                       GrindOrRejectModalPage.build(
                         onSelectCreateCleaningForAllBookingsTapped: () {
-                          Navigator.pop(context);
+                          client.cleaning.createCleaningMaintenancesforEachBookingInUsersLocations(widget.currentUser.id!).then((value) {
+                            Navigator.pop(context);
+                          });
+                          //Navigator.pop(context);
                         },
                     ),
                     MaintenanceCreationModalPage.build(

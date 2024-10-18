@@ -11,13 +11,10 @@ import 'package:serverpod/serverpod.dart';
 // `serverpod generate` to update the server and client code.
 class BookingEndpoint extends Endpoint {
   Future<List<Booking>> getAll(Session session, User user) async {
-    print("Booking entered getAll");
     final bookings = <Booking>[];
     final locations = await Location.db.find(session, where: (t) => t.userId.equals(user.id));
-     print("Booking entered locations: $locations");
     for (var location in locations) {
       final locationBookings = await Booking.db.find(session, where: (t) => t.locationId.equals(location.id));
-      print("Booking entered locationBookings: $locationBookings");
       bookings.addAll(locationBookings);
     }
     return bookings;
