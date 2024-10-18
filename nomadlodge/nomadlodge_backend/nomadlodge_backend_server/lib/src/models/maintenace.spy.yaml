@@ -6,9 +6,10 @@ fields:
   end: DateTime?
   description: String
   tasks: List<Task>?, relation
-  user: User?, relation
-  fee: Fee?, relation
+  user: User?, relation(optional)
+  fee: Fee?, relation(optional)
   location: Location?, relation
+  booking: Booking?, relation(optional)
 indexes:
   maintenance_user_unique_idx:
     fields: userId
@@ -18,4 +19,7 @@ indexes:
     unique: false
   maintenance_location_unique_idx:
     fields: locationId
+    unique: false
+  maintenance_booking_unique_idx:
+    fields: bookingId
     unique: false

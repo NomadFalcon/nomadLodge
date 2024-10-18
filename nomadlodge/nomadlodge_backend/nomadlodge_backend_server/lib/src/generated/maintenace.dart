@@ -20,12 +20,14 @@ abstract class Maintenance implements _i1.TableRow, _i1.ProtocolSerialization {
     this.end,
     required this.description,
     this.tasks,
-    required this.userId,
+    this.userId,
     this.user,
-    required this.feeId,
+    this.feeId,
     this.fee,
     required this.locationId,
     this.location,
+    this.bookingId,
+    this.booking,
   });
 
   factory Maintenance({
@@ -35,12 +37,14 @@ abstract class Maintenance implements _i1.TableRow, _i1.ProtocolSerialization {
     DateTime? end,
     required String description,
     List<_i2.Task>? tasks,
-    required int userId,
+    int? userId,
     _i2.User? user,
-    required int feeId,
+    int? feeId,
     _i2.Fee? fee,
     required int locationId,
     _i2.Location? location,
+    int? bookingId,
+    _i2.Booking? booking,
   }) = _MaintenanceImpl;
 
   factory Maintenance.fromJson(Map<String, dynamic> jsonSerialization) {
@@ -56,12 +60,12 @@ abstract class Maintenance implements _i1.TableRow, _i1.ProtocolSerialization {
       tasks: (jsonSerialization['tasks'] as List?)
           ?.map((e) => _i2.Task.fromJson((e as Map<String, dynamic>)))
           .toList(),
-      userId: jsonSerialization['userId'] as int,
+      userId: jsonSerialization['userId'] as int?,
       user: jsonSerialization['user'] == null
           ? null
           : _i2.User.fromJson(
               (jsonSerialization['user'] as Map<String, dynamic>)),
-      feeId: jsonSerialization['feeId'] as int,
+      feeId: jsonSerialization['feeId'] as int?,
       fee: jsonSerialization['fee'] == null
           ? null
           : _i2.Fee.fromJson(
@@ -71,6 +75,11 @@ abstract class Maintenance implements _i1.TableRow, _i1.ProtocolSerialization {
           ? null
           : _i2.Location.fromJson(
               (jsonSerialization['location'] as Map<String, dynamic>)),
+      bookingId: jsonSerialization['bookingId'] as int?,
+      booking: jsonSerialization['booking'] == null
+          ? null
+          : _i2.Booking.fromJson(
+              (jsonSerialization['booking'] as Map<String, dynamic>)),
     );
   }
 
@@ -91,17 +100,21 @@ abstract class Maintenance implements _i1.TableRow, _i1.ProtocolSerialization {
 
   List<_i2.Task>? tasks;
 
-  int userId;
+  int? userId;
 
   _i2.User? user;
 
-  int feeId;
+  int? feeId;
 
   _i2.Fee? fee;
 
   int locationId;
 
   _i2.Location? location;
+
+  int? bookingId;
+
+  _i2.Booking? booking;
 
   @override
   _i1.Table get table => t;
@@ -119,6 +132,8 @@ abstract class Maintenance implements _i1.TableRow, _i1.ProtocolSerialization {
     _i2.Fee? fee,
     int? locationId,
     _i2.Location? location,
+    int? bookingId,
+    _i2.Booking? booking,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -129,12 +144,14 @@ abstract class Maintenance implements _i1.TableRow, _i1.ProtocolSerialization {
       if (end != null) 'end': end?.toJson(),
       'description': description,
       if (tasks != null) 'tasks': tasks?.toJson(valueToJson: (v) => v.toJson()),
-      'userId': userId,
+      if (userId != null) 'userId': userId,
       if (user != null) 'user': user?.toJson(),
-      'feeId': feeId,
+      if (feeId != null) 'feeId': feeId,
       if (fee != null) 'fee': fee?.toJson(),
       'locationId': locationId,
       if (location != null) 'location': location?.toJson(),
+      if (bookingId != null) 'bookingId': bookingId,
+      if (booking != null) 'booking': booking?.toJson(),
     };
   }
 
@@ -148,12 +165,14 @@ abstract class Maintenance implements _i1.TableRow, _i1.ProtocolSerialization {
       'description': description,
       if (tasks != null)
         'tasks': tasks?.toJson(valueToJson: (v) => v.toJsonForProtocol()),
-      'userId': userId,
+      if (userId != null) 'userId': userId,
       if (user != null) 'user': user?.toJsonForProtocol(),
-      'feeId': feeId,
+      if (feeId != null) 'feeId': feeId,
       if (fee != null) 'fee': fee?.toJsonForProtocol(),
       'locationId': locationId,
       if (location != null) 'location': location?.toJsonForProtocol(),
+      if (bookingId != null) 'bookingId': bookingId,
+      if (booking != null) 'booking': booking?.toJsonForProtocol(),
     };
   }
 
@@ -162,12 +181,14 @@ abstract class Maintenance implements _i1.TableRow, _i1.ProtocolSerialization {
     _i2.UserInclude? user,
     _i2.FeeInclude? fee,
     _i2.LocationInclude? location,
+    _i2.BookingInclude? booking,
   }) {
     return MaintenanceInclude._(
       tasks: tasks,
       user: user,
       fee: fee,
       location: location,
+      booking: booking,
     );
   }
 
@@ -207,12 +228,14 @@ class _MaintenanceImpl extends Maintenance {
     DateTime? end,
     required String description,
     List<_i2.Task>? tasks,
-    required int userId,
+    int? userId,
     _i2.User? user,
-    required int feeId,
+    int? feeId,
     _i2.Fee? fee,
     required int locationId,
     _i2.Location? location,
+    int? bookingId,
+    _i2.Booking? booking,
   }) : super._(
           id: id,
           maintenancetype: maintenancetype,
@@ -226,6 +249,8 @@ class _MaintenanceImpl extends Maintenance {
           fee: fee,
           locationId: locationId,
           location: location,
+          bookingId: bookingId,
+          booking: booking,
         );
 
   @override
@@ -236,12 +261,14 @@ class _MaintenanceImpl extends Maintenance {
     Object? end = _Undefined,
     String? description,
     Object? tasks = _Undefined,
-    int? userId,
+    Object? userId = _Undefined,
     Object? user = _Undefined,
-    int? feeId,
+    Object? feeId = _Undefined,
     Object? fee = _Undefined,
     int? locationId,
     Object? location = _Undefined,
+    Object? bookingId = _Undefined,
+    Object? booking = _Undefined,
   }) {
     return Maintenance(
       id: id is int? ? id : this.id,
@@ -252,13 +279,15 @@ class _MaintenanceImpl extends Maintenance {
       tasks: tasks is List<_i2.Task>?
           ? tasks
           : this.tasks?.map((e0) => e0.copyWith()).toList(),
-      userId: userId ?? this.userId,
+      userId: userId is int? ? userId : this.userId,
       user: user is _i2.User? ? user : this.user?.copyWith(),
-      feeId: feeId ?? this.feeId,
+      feeId: feeId is int? ? feeId : this.feeId,
       fee: fee is _i2.Fee? ? fee : this.fee?.copyWith(),
       locationId: locationId ?? this.locationId,
       location:
           location is _i2.Location? ? location : this.location?.copyWith(),
+      bookingId: bookingId is int? ? bookingId : this.bookingId,
+      booking: booking is _i2.Booking? ? booking : this.booking?.copyWith(),
     );
   }
 }
@@ -294,6 +323,10 @@ class MaintenanceTable extends _i1.Table {
       'locationId',
       this,
     );
+    bookingId = _i1.ColumnInt(
+      'bookingId',
+      this,
+    );
   }
 
   late final _i1.ColumnEnum<_i2.MaintenanceType> maintenancetype;
@@ -319,6 +352,10 @@ class MaintenanceTable extends _i1.Table {
   late final _i1.ColumnInt locationId;
 
   _i2.LocationTable? _location;
+
+  late final _i1.ColumnInt bookingId;
+
+  _i2.BookingTable? _booking;
 
   _i2.TaskTable get __tasks {
     if (___tasks != null) return ___tasks!;
@@ -372,6 +409,19 @@ class MaintenanceTable extends _i1.Table {
     return _location!;
   }
 
+  _i2.BookingTable get booking {
+    if (_booking != null) return _booking!;
+    _booking = _i1.createRelationTable(
+      relationFieldName: 'booking',
+      field: Maintenance.t.bookingId,
+      foreignField: _i2.Booking.t.id,
+      tableRelation: tableRelation,
+      createTable: (foreignTableRelation) =>
+          _i2.BookingTable(tableRelation: foreignTableRelation),
+    );
+    return _booking!;
+  }
+
   _i1.ManyRelation<_i2.TaskTable> get tasks {
     if (_tasks != null) return _tasks!;
     var relationTable = _i1.createRelationTable(
@@ -400,6 +450,7 @@ class MaintenanceTable extends _i1.Table {
         userId,
         feeId,
         locationId,
+        bookingId,
       ];
 
   @override
@@ -416,6 +467,9 @@ class MaintenanceTable extends _i1.Table {
     if (relationField == 'location') {
       return location;
     }
+    if (relationField == 'booking') {
+      return booking;
+    }
     return null;
   }
 }
@@ -426,11 +480,13 @@ class MaintenanceInclude extends _i1.IncludeObject {
     _i2.UserInclude? user,
     _i2.FeeInclude? fee,
     _i2.LocationInclude? location,
+    _i2.BookingInclude? booking,
   }) {
     _tasks = tasks;
     _user = user;
     _fee = fee;
     _location = location;
+    _booking = booking;
   }
 
   _i2.TaskIncludeList? _tasks;
@@ -441,12 +497,15 @@ class MaintenanceInclude extends _i1.IncludeObject {
 
   _i2.LocationInclude? _location;
 
+  _i2.BookingInclude? _booking;
+
   @override
   Map<String, _i1.Include?> get includes => {
         'tasks': _tasks,
         'user': _user,
         'fee': _fee,
         'location': _location,
+        'booking': _booking,
       };
 
   @override
@@ -732,6 +791,27 @@ class MaintenanceAttachRowRepository {
     );
   }
 
+  Future<void> booking(
+    _i1.DatabaseAccessor databaseAccessor,
+    Maintenance maintenance,
+    _i2.Booking booking, {
+    _i1.Transaction? transaction,
+  }) async {
+    if (maintenance.id == null) {
+      throw ArgumentError.notNull('maintenance.id');
+    }
+    if (booking.id == null) {
+      throw ArgumentError.notNull('booking.id');
+    }
+
+    var $maintenance = maintenance.copyWith(bookingId: booking.id);
+    await databaseAccessor.db.updateRow<Maintenance>(
+      $maintenance,
+      columns: [Maintenance.t.bookingId],
+      transaction: transaction ?? databaseAccessor.transaction,
+    );
+  }
+
   Future<void> tasks(
     _i1.DatabaseAccessor databaseAccessor,
     Maintenance maintenance,
@@ -785,6 +865,57 @@ class MaintenanceDetachRepository {
 
 class MaintenanceDetachRowRepository {
   const MaintenanceDetachRowRepository._();
+
+  Future<void> user(
+    _i1.DatabaseAccessor databaseAccessor,
+    Maintenance maintenance, {
+    _i1.Transaction? transaction,
+  }) async {
+    if (maintenance.id == null) {
+      throw ArgumentError.notNull('maintenance.id');
+    }
+
+    var $maintenance = maintenance.copyWith(userId: null);
+    await databaseAccessor.db.updateRow<Maintenance>(
+      $maintenance,
+      columns: [Maintenance.t.userId],
+      transaction: transaction ?? databaseAccessor.transaction,
+    );
+  }
+
+  Future<void> fee(
+    _i1.DatabaseAccessor databaseAccessor,
+    Maintenance maintenance, {
+    _i1.Transaction? transaction,
+  }) async {
+    if (maintenance.id == null) {
+      throw ArgumentError.notNull('maintenance.id');
+    }
+
+    var $maintenance = maintenance.copyWith(feeId: null);
+    await databaseAccessor.db.updateRow<Maintenance>(
+      $maintenance,
+      columns: [Maintenance.t.feeId],
+      transaction: transaction ?? databaseAccessor.transaction,
+    );
+  }
+
+  Future<void> booking(
+    _i1.DatabaseAccessor databaseAccessor,
+    Maintenance maintenance, {
+    _i1.Transaction? transaction,
+  }) async {
+    if (maintenance.id == null) {
+      throw ArgumentError.notNull('maintenance.id');
+    }
+
+    var $maintenance = maintenance.copyWith(bookingId: null);
+    await databaseAccessor.db.updateRow<Maintenance>(
+      $maintenance,
+      columns: [Maintenance.t.bookingId],
+      transaction: transaction ?? databaseAccessor.transaction,
+    );
+  }
 
   Future<void> tasks(
     _i1.DatabaseAccessor databaseAccessor,

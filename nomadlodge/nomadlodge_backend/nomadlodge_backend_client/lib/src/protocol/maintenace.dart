@@ -20,12 +20,14 @@ abstract class Maintenance implements _i1.SerializableModel {
     this.end,
     required this.description,
     this.tasks,
-    required this.userId,
+    this.userId,
     this.user,
-    required this.feeId,
+    this.feeId,
     this.fee,
     required this.locationId,
     this.location,
+    this.bookingId,
+    this.booking,
   });
 
   factory Maintenance({
@@ -35,12 +37,14 @@ abstract class Maintenance implements _i1.SerializableModel {
     DateTime? end,
     required String description,
     List<_i2.Task>? tasks,
-    required int userId,
+    int? userId,
     _i2.User? user,
-    required int feeId,
+    int? feeId,
     _i2.Fee? fee,
     required int locationId,
     _i2.Location? location,
+    int? bookingId,
+    _i2.Booking? booking,
   }) = _MaintenanceImpl;
 
   factory Maintenance.fromJson(Map<String, dynamic> jsonSerialization) {
@@ -56,12 +60,12 @@ abstract class Maintenance implements _i1.SerializableModel {
       tasks: (jsonSerialization['tasks'] as List?)
           ?.map((e) => _i2.Task.fromJson((e as Map<String, dynamic>)))
           .toList(),
-      userId: jsonSerialization['userId'] as int,
+      userId: jsonSerialization['userId'] as int?,
       user: jsonSerialization['user'] == null
           ? null
           : _i2.User.fromJson(
               (jsonSerialization['user'] as Map<String, dynamic>)),
-      feeId: jsonSerialization['feeId'] as int,
+      feeId: jsonSerialization['feeId'] as int?,
       fee: jsonSerialization['fee'] == null
           ? null
           : _i2.Fee.fromJson(
@@ -71,6 +75,11 @@ abstract class Maintenance implements _i1.SerializableModel {
           ? null
           : _i2.Location.fromJson(
               (jsonSerialization['location'] as Map<String, dynamic>)),
+      bookingId: jsonSerialization['bookingId'] as int?,
+      booking: jsonSerialization['booking'] == null
+          ? null
+          : _i2.Booking.fromJson(
+              (jsonSerialization['booking'] as Map<String, dynamic>)),
     );
   }
 
@@ -89,17 +98,21 @@ abstract class Maintenance implements _i1.SerializableModel {
 
   List<_i2.Task>? tasks;
 
-  int userId;
+  int? userId;
 
   _i2.User? user;
 
-  int feeId;
+  int? feeId;
 
   _i2.Fee? fee;
 
   int locationId;
 
   _i2.Location? location;
+
+  int? bookingId;
+
+  _i2.Booking? booking;
 
   Maintenance copyWith({
     int? id,
@@ -114,6 +127,8 @@ abstract class Maintenance implements _i1.SerializableModel {
     _i2.Fee? fee,
     int? locationId,
     _i2.Location? location,
+    int? bookingId,
+    _i2.Booking? booking,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -124,12 +139,14 @@ abstract class Maintenance implements _i1.SerializableModel {
       if (end != null) 'end': end?.toJson(),
       'description': description,
       if (tasks != null) 'tasks': tasks?.toJson(valueToJson: (v) => v.toJson()),
-      'userId': userId,
+      if (userId != null) 'userId': userId,
       if (user != null) 'user': user?.toJson(),
-      'feeId': feeId,
+      if (feeId != null) 'feeId': feeId,
       if (fee != null) 'fee': fee?.toJson(),
       'locationId': locationId,
       if (location != null) 'location': location?.toJson(),
+      if (bookingId != null) 'bookingId': bookingId,
+      if (booking != null) 'booking': booking?.toJson(),
     };
   }
 
@@ -149,12 +166,14 @@ class _MaintenanceImpl extends Maintenance {
     DateTime? end,
     required String description,
     List<_i2.Task>? tasks,
-    required int userId,
+    int? userId,
     _i2.User? user,
-    required int feeId,
+    int? feeId,
     _i2.Fee? fee,
     required int locationId,
     _i2.Location? location,
+    int? bookingId,
+    _i2.Booking? booking,
   }) : super._(
           id: id,
           maintenancetype: maintenancetype,
@@ -168,6 +187,8 @@ class _MaintenanceImpl extends Maintenance {
           fee: fee,
           locationId: locationId,
           location: location,
+          bookingId: bookingId,
+          booking: booking,
         );
 
   @override
@@ -178,12 +199,14 @@ class _MaintenanceImpl extends Maintenance {
     Object? end = _Undefined,
     String? description,
     Object? tasks = _Undefined,
-    int? userId,
+    Object? userId = _Undefined,
     Object? user = _Undefined,
-    int? feeId,
+    Object? feeId = _Undefined,
     Object? fee = _Undefined,
     int? locationId,
     Object? location = _Undefined,
+    Object? bookingId = _Undefined,
+    Object? booking = _Undefined,
   }) {
     return Maintenance(
       id: id is int? ? id : this.id,
@@ -194,13 +217,15 @@ class _MaintenanceImpl extends Maintenance {
       tasks: tasks is List<_i2.Task>?
           ? tasks
           : this.tasks?.map((e0) => e0.copyWith()).toList(),
-      userId: userId ?? this.userId,
+      userId: userId is int? ? userId : this.userId,
       user: user is _i2.User? ? user : this.user?.copyWith(),
-      feeId: feeId ?? this.feeId,
+      feeId: feeId is int? ? feeId : this.feeId,
       fee: fee is _i2.Fee? ? fee : this.fee?.copyWith(),
       locationId: locationId ?? this.locationId,
       location:
           location is _i2.Location? ? location : this.location?.copyWith(),
+      bookingId: bookingId is int? ? bookingId : this.bookingId,
+      booking: booking is _i2.Booking? ? booking : this.booking?.copyWith(),
     );
   }
 }

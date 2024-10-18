@@ -16,19 +16,16 @@ class MaintenanceEndpoint extends Endpoint {
   // The methods should return a typed future; the same types as for the parameters are
   // supported. The `session` object provides access to the database, logging,
   // passwords, and information about the request being made to the server.
-  Future<List<Maintenance>> getAll(Session session) async {
-    final maintanences = <Maintenance>[];
-    return maintanences;
-  }
+
 
   Future<List<Maintenance>> getByLocationId(
       Session session, int locationId) async {
-    final maintanences = <Maintenance>[];
+    final maintanences = Maintenance.db.find(session, where: (t) => t.locationId.equals(locationId));
     return maintanences;
   }
 
   Future<List<Maintenance>> getByUserId(Session session, int userId) async {
-    final maintanences = <Maintenance>[];
+    final maintanences = Maintenance.db.find(session, where: (t) => t.userId.equals(userId));
     return maintanences;
   }
 
