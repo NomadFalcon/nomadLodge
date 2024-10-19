@@ -19,8 +19,10 @@ import 'package:nomadlodge_backend_client/src/protocol/location.dart' as _i7;
 import 'package:nomadlodge_backend_client/src/protocol/location_team.dart'
     as _i8;
 import 'package:nomadlodge_backend_client/src/protocol/task.dart' as _i9;
-import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i10;
-import 'protocol.dart' as _i11;
+import 'package:nomadlodge_backend_client/src/protocol/user_device.dart'
+    as _i10;
+import 'package:serverpod_auth_client/serverpod_auth_client.dart' as _i11;
+import 'protocol.dart' as _i12;
 
 /// {@category Endpoint}
 class EndpointBooking extends _i1.EndpointRef {
@@ -264,14 +266,28 @@ class EndpointUser extends _i1.EndpointRef {
         'createUser',
         {'user': user},
       );
+
+  _i2.Future<_i10.UserDevice> addDevice(_i10.UserDevice userDevice) =>
+      caller.callServerEndpoint<_i10.UserDevice>(
+        'user',
+        'addDevice',
+        {'userDevice': userDevice},
+      );
+
+  _i2.Future<void> removeDeviceWithToken(String userDeviceToken) =>
+      caller.callServerEndpoint<void>(
+        'user',
+        'removeDeviceWithToken',
+        {'userDeviceToken': userDeviceToken},
+      );
 }
 
 class _Modules {
   _Modules(Client client) {
-    auth = _i10.Caller(client);
+    auth = _i11.Caller(client);
   }
 
-  late final _i10.Caller auth;
+  late final _i11.Caller auth;
 }
 
 class Client extends _i1.ServerpodClientShared {
@@ -290,7 +306,7 @@ class Client extends _i1.ServerpodClientShared {
     bool? disconnectStreamsOnLostInternetConnection,
   }) : super(
           host,
-          _i11.Protocol(),
+          _i12.Protocol(),
           securityContext: securityContext,
           authenticationKeyManager: authenticationKeyManager,
           streamingConnectionTimeout: streamingConnectionTimeout,

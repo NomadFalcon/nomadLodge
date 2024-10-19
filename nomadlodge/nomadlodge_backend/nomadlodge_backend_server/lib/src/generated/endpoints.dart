@@ -21,7 +21,9 @@ import '../endpoints/user_endpoint.dart' as _i9;
 import 'package:nomadlodge_backend_server/src/generated/user.dart' as _i10;
 import 'package:nomadlodge_backend_server/src/generated/integration.dart'
     as _i11;
-import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i12;
+import 'package:nomadlodge_backend_server/src/generated/user_device.dart'
+    as _i12;
+import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i13;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
@@ -557,8 +559,44 @@ class Endpoints extends _i1.EndpointDispatch {
             params['user'],
           ),
         ),
+        'addDevice': _i1.MethodConnector(
+          name: 'addDevice',
+          params: {
+            'userDevice': _i1.ParameterDescription(
+              name: 'userDevice',
+              type: _i1.getType<_i12.UserDevice>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['user'] as _i9.UserEndpoint).addDevice(
+            session,
+            params['userDevice'],
+          ),
+        ),
+        'removeDeviceWithToken': _i1.MethodConnector(
+          name: 'removeDeviceWithToken',
+          params: {
+            'userDeviceToken': _i1.ParameterDescription(
+              name: 'userDeviceToken',
+              type: _i1.getType<String>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['user'] as _i9.UserEndpoint).removeDeviceWithToken(
+            session,
+            params['userDeviceToken'],
+          ),
+        ),
       },
     );
-    modules['serverpod_auth'] = _i12.Endpoints()..initializeEndpoints(server);
+    modules['serverpod_auth'] = _i13.Endpoints()..initializeEndpoints(server);
   }
 }

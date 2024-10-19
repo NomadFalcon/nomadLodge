@@ -21,4 +21,21 @@ class UserEndpoint extends Endpoint {
     var newUser = await User.db.insertRow(session, user);
     return newUser;
   }
+
+  Future<UserDevice> addDevice(Session session, UserDevice userDevice) async {
+    var existingUserDevice = await UserDevice.db.findFirstRow(session,  where: (t) => t.token.equals(userDevice.token),);
+    if(existingUserDevice != null) {
+      return existingUserDevice;
+    }
+    var newUserDevice = await UserDevice.db.insertRow(session, userDevice);
+    return newUserDevice;
+  }
+
+  Future<void> removeDeviceWithToken(Session session, String userDeviceToken) async {
+    var userDevice = await UserDevice.db.findFirstRow(session,  where: (t) => t.token.equals(userDeviceToken),);
+    if(userDevice != null) {
+      await UserDevice.db.deleteRow(session, userDevice);
+    }
+    return;
+  }
 }

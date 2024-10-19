@@ -6,16 +6,16 @@ import 'locations_screen.dart.dart';
 import 'products_screen.dart';
 import '../account_page.dart';
 import '../../constants/text_constants.dart';
-
+import '../../messaging_service.dart';
 
 
 
 
 class DashboardPage extends StatefulWidget {
-  const DashboardPage({Key? key, required this.currentUser}) : super(key: key);
+  const DashboardPage({Key? key, required this.currentUser, required this.messagingService}) : super(key: key);
 
   final User currentUser;
-
+  final MessagingService messagingService;
 
   @override
   State<DashboardPage> createState() => _DashboardPage();
@@ -98,7 +98,7 @@ class _DashboardPage extends State<DashboardPage>
         MaintenancesScreen(
           currentUser: widget.currentUser
         ),
-        AccountPage(key:ValueKey(AccountPage), currentUser: widget.currentUser,),
+        AccountPage(key:ValueKey(AccountPage), currentUser: widget.currentUser, messagingService: widget.messagingService),
       ]),
     );
   }

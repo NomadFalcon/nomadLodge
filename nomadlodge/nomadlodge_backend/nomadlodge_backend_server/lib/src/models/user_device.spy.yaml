@@ -1,7 +1,7 @@
 class: UserDevice 
 table: user_device
 fields:
-  toke: String
+  token: String
   plaform: String
   osVersion: String
   deviceInfo: String?

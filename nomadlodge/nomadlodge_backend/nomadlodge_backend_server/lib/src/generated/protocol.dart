@@ -1104,7 +1104,7 @@ class Protocol extends _i1.SerializationManagerServer {
           columnDefault: 'nextval(\'user_device_id_seq\'::regclass)',
         ),
         _i2.ColumnDefinition(
-          name: 'toke',
+          name: 'token',
           columnType: _i2.ColumnType.text,
           isNullable: false,
           dartType: 'String',

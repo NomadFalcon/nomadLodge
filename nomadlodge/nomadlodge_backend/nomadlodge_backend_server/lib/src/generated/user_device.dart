@@ -15,7 +15,7 @@ import 'protocol.dart' as _i2;
 abstract class UserDevice implements _i1.TableRow, _i1.ProtocolSerialization {
   UserDevice._({
     this.id,
-    required this.toke,
+    required this.token,
     required this.plaform,
     required this.osVersion,
     this.deviceInfo,
@@ -25,7 +25,7 @@ abstract class UserDevice implements _i1.TableRow, _i1.ProtocolSerialization {
 
   factory UserDevice({
     int? id,
-    required String toke,
+    required String token,
     required String plaform,
     required String osVersion,
     String? deviceInfo,
@@ -36,7 +36,7 @@ abstract class UserDevice implements _i1.TableRow, _i1.ProtocolSerialization {
   factory UserDevice.fromJson(Map<String, dynamic> jsonSerialization) {
     return UserDevice(
       id: jsonSerialization['id'] as int?,
-      toke: jsonSerialization['toke'] as String,
+      token: jsonSerialization['token'] as String,
       plaform: jsonSerialization['plaform'] as String,
       osVersion: jsonSerialization['osVersion'] as String,
       deviceInfo: jsonSerialization['deviceInfo'] as String?,
@@ -55,7 +55,7 @@ abstract class UserDevice implements _i1.TableRow, _i1.ProtocolSerialization {
   @override
   int? id;
 
-  String toke;
+  String token;
 
   String plaform;
 
@@ -74,7 +74,7 @@ abstract class UserDevice implements _i1.TableRow, _i1.ProtocolSerialization {
 
   UserDevice copyWith({
     int? id,
-    String? toke,
+    String? token,
     String? plaform,
     String? osVersion,
     String? deviceInfo,
@@ -85,7 +85,7 @@ abstract class UserDevice implements _i1.TableRow, _i1.ProtocolSerialization {
   Map<String, dynamic> toJson() {
     return {
       if (id != null) 'id': id,
-      'toke': toke,
+      'token': token,
       'plaform': plaform,
       'osVersion': osVersion,
       if (deviceInfo != null) 'deviceInfo': deviceInfo,
@@ -99,7 +99,7 @@ abstract class UserDevice implements _i1.TableRow, _i1.ProtocolSerialization {
   Map<String, dynamic> toJsonForProtocol() {
     return {
       if (id != null) 'id': id,
-      'toke': toke,
+      'token': token,
       'plaform': plaform,
       'osVersion': osVersion,
       if (deviceInfo != null) 'deviceInfo': deviceInfo,
@@ -143,7 +143,7 @@ class _Undefined {}
 class _UserDeviceImpl extends UserDevice {
   _UserDeviceImpl({
     int? id,
-    required String toke,
+    required String token,
     required String plaform,
     required String osVersion,
     String? deviceInfo,
@@ -151,7 +151,7 @@ class _UserDeviceImpl extends UserDevice {
     _i2.User? user,
   }) : super._(
           id: id,
-          toke: toke,
+          token: token,
           plaform: plaform,
           osVersion: osVersion,
           deviceInfo: deviceInfo,
@@ -162,7 +162,7 @@ class _UserDeviceImpl extends UserDevice {
   @override
   UserDevice copyWith({
     Object? id = _Undefined,
-    String? toke,
+    String? token,
     String? plaform,
     String? osVersion,
     Object? deviceInfo = _Undefined,
@@ -171,7 +171,7 @@ class _UserDeviceImpl extends UserDevice {
   }) {
     return UserDevice(
       id: id is int? ? id : this.id,
-      toke: toke ?? this.toke,
+      token: token ?? this.token,
       plaform: plaform ?? this.plaform,
       osVersion: osVersion ?? this.osVersion,
       deviceInfo: deviceInfo is String? ? deviceInfo : this.deviceInfo,
@@ -184,7 +184,7 @@ class _UserDeviceImpl extends UserDevice {
 class UserDeviceImplicit extends _UserDeviceImpl {
   UserDeviceImplicit._({
     int? id,
-    required String toke,
+    required String token,
     required String plaform,
     required String osVersion,
     String? deviceInfo,
@@ -193,7 +193,7 @@ class UserDeviceImplicit extends _UserDeviceImpl {
     this.$_userDevicesUserId,
   }) : super(
           id: id,
-          toke: toke,
+          token: token,
           plaform: plaform,
           osVersion: osVersion,
           deviceInfo: deviceInfo,
@@ -207,7 +207,7 @@ class UserDeviceImplicit extends _UserDeviceImpl {
   }) {
     return UserDeviceImplicit._(
       id: userDevice.id,
-      toke: userDevice.toke,
+      token: userDevice.token,
       plaform: userDevice.plaform,
       osVersion: userDevice.osVersion,
       deviceInfo: userDevice.deviceInfo,
@@ -229,8 +229,8 @@ class UserDeviceImplicit extends _UserDeviceImpl {
 
 class UserDeviceTable extends _i1.Table {
   UserDeviceTable({super.tableRelation}) : super(tableName: 'user_device') {
-    toke = _i1.ColumnString(
-      'toke',
+    token = _i1.ColumnString(
+      'token',
       this,
     );
     plaform = _i1.ColumnString(
@@ -255,7 +255,7 @@ class UserDeviceTable extends _i1.Table {
     );
   }
 
-  late final _i1.ColumnString toke;
+  late final _i1.ColumnString token;
 
   late final _i1.ColumnString plaform;
 
@@ -285,7 +285,7 @@ class UserDeviceTable extends _i1.Table {
   @override
   List<_i1.Column> get columns => [
         id,
-        toke,
+        token,
         plaform,
         osVersion,
         deviceInfo,

@@ -3,15 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
 
 import '../serverpod_client.dart';
+import '../messaging_service.dart';
 import '../widgets/creation/integration_creation_page.dart';
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
 
 
 class AccountPage extends StatefulWidget {
-  const AccountPage({super.key, required this.currentUser});
+  const AccountPage({super.key, required this.currentUser, required this.messagingService}) : super();
   
   final User currentUser;
+  final MessagingService messagingService;
 
   @override
   AccountPageState createState() => AccountPageState();
@@ -36,6 +38,14 @@ class AccountPageState extends State<AccountPage> {
         integrations = value;
       });
     });
+  }
+
+  void signOut() async {
+    final token = await widget.messagingService.getToken();
+    if (token != null) {
+      await client.user.removeDeviceWithToken(token);
+    }
+    sessionManager.signOut();
   }
   @override
   Widget build(BuildContext context) {
@@ -64,7 +74,8 @@ class AccountPageState extends State<AccountPage> {
           padding: const EdgeInsets.all(16),
           child: ElevatedButton(
             onPressed: () {
-              sessionManager.signOut();
+              signOut();
+
             },
             child: const Text('Sign out'),
           ),
