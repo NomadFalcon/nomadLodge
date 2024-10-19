@@ -68,3 +68,8 @@ end_server_dev:
 	cd nomadlodge_backend/nomadlodge_backend_server && docker compose down -v
 run_backend:
 	cd nomadlodge_backend/nomadlodge_backend_flutter && flutter run
+clean_backend:
+	@cd nomadlodge_backend/nomadlodge_backend_flutter
+	@flutter clean
+	@flutter pub get
+	@cd ios && rm -rf Pods Podfile.lock && pod install --repo-update

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nomadlodge_backend_client/nomadlodge_backend_client.dart';
 import '../serverpod_client.dart';
+import '../messaging_service.dart';
 import 'sign_in_page.dart';
 import 'menu/dasboard.dart';
 import 'user_creation.dart';
@@ -8,8 +9,9 @@ import 'user_creation.dart';
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
 class EntryPage extends StatefulWidget {
-  const EntryPage({super.key, required this.title});
-
+  const EntryPage({super.key, required this.title, required this.messagingService}) : super();
+  
+  final MessagingService messagingService;
   final String title;
 
   @override
@@ -22,7 +24,7 @@ class EntryPageState extends State<EntryPage> {
   @override
   void initState() {
     super.initState();
-
+    print("entered entry page");
     // Make sure that we rebuild the page if signed in status changes.
     sessionManager.addListener(() {
       if (sessionManager.isSignedIn) {
@@ -45,6 +47,7 @@ class EntryPageState extends State<EntryPage> {
       setState(() {
           currentUser = user;
         });
+      
     }
   }
   
