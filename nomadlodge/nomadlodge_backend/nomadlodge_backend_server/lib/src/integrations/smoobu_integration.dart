@@ -2,10 +2,16 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:nomadlodge_backend_server/src/generated/protocol.dart';
 import 'package:serverpod/serverpod.dart';
+import 'dart:math';
 
 class SmoobuIntegration {
   static const String _baseUrl = 'https://login.smoobu.com/api';
 
+  static String getRandString(int len) {
+    var random = Random.secure();
+    var values = List<int>.generate(len, (i) =>  random.nextInt(255));
+    return base64UrlEncode(values);
+  }
 
   static Future<List<Location>> getApartments(Session session, int userId, String apiKey) async {
     print("entered getApartments apiKey: $apiKey");
@@ -97,6 +103,11 @@ class SmoobuIntegration {
             final guestUserRow = User(name: guestName, email: guestEmail, externalId: "$guestId", userType: UserType.client);
             User newGuestUser = await User.db.insertRow(session, guestUserRow);
             userId = newGuestUser.id!;
+            if(newGuestUser.authUserIdentifier == null) {
+              final invitation = UserInvitation(code: getRandString(6), url: "www.nomadlodge.com", userId: userId, email: guestEmail);
+              await UserInvitation.db.insertRow(session, invitation);
+              //TODO: Send email with invitation code
+            }
           } else {
             userId = guestUser.id!;
           }

@@ -27,7 +27,7 @@ class UserEndpoint extends Endpoint {
   Future<User> createUser(Session session, User user) async {
     var newUser = await User.db.insertRow(session, user);
     if(newUser.authUserIdentifier == null) {
-      final invitation = UserInvitation(code: getRandString(6), url: "www.nomadlodge.com", userId: newUser.id!);
+      final invitation = UserInvitation(code: getRandString(6), url: "www.nomadlodge.com", userId: newUser.id!, email: newUser.email);
       await UserInvitation.db.insertRow(session, invitation);
       //TODO: Send email with invitation code
     }

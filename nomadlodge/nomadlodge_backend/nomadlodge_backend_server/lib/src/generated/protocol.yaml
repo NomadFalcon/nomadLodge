@@ -30,5 +30,6 @@ tasks:
 user:
   - getUserByAuthIdentifier:
   - createUser:
+  - associateUserFromInvitation:
   - addDevice:
   - removeDeviceWithToken:

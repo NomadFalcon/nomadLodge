@@ -267,6 +267,19 @@ class EndpointUser extends _i1.EndpointRef {
         {'user': user},
       );
 
+  _i2.Future<_i4.User?> associateUserFromInvitation(
+    String invitationCode,
+    String authIdentifier,
+  ) =>
+      caller.callServerEndpoint<_i4.User?>(
+        'user',
+        'associateUserFromInvitation',
+        {
+          'invitationCode': invitationCode,
+          'authIdentifier': authIdentifier,
+        },
+      );
+
   _i2.Future<_i10.UserDevice> addDevice(_i10.UserDevice userDevice) =>
       caller.callServerEndpoint<_i10.UserDevice>(
         'user',

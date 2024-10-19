@@ -2,6 +2,7 @@ class: UserInvitation
 table: user_invitation
 fields:
   code: String
+  email: String
   url: String
   hasBeenUsed: bool, default=false
   user: User?, relation

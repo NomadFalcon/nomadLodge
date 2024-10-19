@@ -16,6 +16,7 @@ abstract class UserInvitation implements _i1.SerializableModel {
   UserInvitation._({
     this.id,
     required this.code,
+    required this.email,
     required this.url,
     bool? hasBeenUsed,
     required this.userId,
@@ -25,6 +26,7 @@ abstract class UserInvitation implements _i1.SerializableModel {
   factory UserInvitation({
     int? id,
     required String code,
+    required String email,
     required String url,
     bool? hasBeenUsed,
     required int userId,
@@ -35,6 +37,7 @@ abstract class UserInvitation implements _i1.SerializableModel {
     return UserInvitation(
       id: jsonSerialization['id'] as int?,
       code: jsonSerialization['code'] as String,
+      email: jsonSerialization['email'] as String,
       url: jsonSerialization['url'] as String,
       hasBeenUsed: jsonSerialization['hasBeenUsed'] as bool,
       userId: jsonSerialization['userId'] as int,
@@ -52,6 +55,8 @@ abstract class UserInvitation implements _i1.SerializableModel {
 
   String code;
 
+  String email;
+
   String url;
 
   bool hasBeenUsed;
@@ -63,6 +68,7 @@ abstract class UserInvitation implements _i1.SerializableModel {
   UserInvitation copyWith({
     int? id,
     String? code,
+    String? email,
     String? url,
     bool? hasBeenUsed,
     int? userId,
@@ -73,6 +79,7 @@ abstract class UserInvitation implements _i1.SerializableModel {
     return {
       if (id != null) 'id': id,
       'code': code,
+      'email': email,
       'url': url,
       'hasBeenUsed': hasBeenUsed,
       'userId': userId,
@@ -92,6 +99,7 @@ class _UserInvitationImpl extends UserInvitation {
   _UserInvitationImpl({
     int? id,
     required String code,
+    required String email,
     required String url,
     bool? hasBeenUsed,
     required int userId,
@@ -99,6 +107,7 @@ class _UserInvitationImpl extends UserInvitation {
   }) : super._(
           id: id,
           code: code,
+          email: email,
           url: url,
           hasBeenUsed: hasBeenUsed,
           userId: userId,
@@ -109,6 +118,7 @@ class _UserInvitationImpl extends UserInvitation {
   UserInvitation copyWith({
     Object? id = _Undefined,
     String? code,
+    String? email,
     String? url,
     bool? hasBeenUsed,
     int? userId,
@@ -117,6 +127,7 @@ class _UserInvitationImpl extends UserInvitation {
     return UserInvitation(
       id: id is int? ? id : this.id,
       code: code ?? this.code,
+      email: email ?? this.email,
       url: url ?? this.url,
       hasBeenUsed: hasBeenUsed ?? this.hasBeenUsed,
       userId: userId ?? this.userId,

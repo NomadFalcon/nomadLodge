@@ -559,6 +559,31 @@ class Endpoints extends _i1.EndpointDispatch {
             params['user'],
           ),
         ),
+        'associateUserFromInvitation': _i1.MethodConnector(
+          name: 'associateUserFromInvitation',
+          params: {
+            'invitationCode': _i1.ParameterDescription(
+              name: 'invitationCode',
+              type: _i1.getType<String>(),
+              nullable: false,
+            ),
+            'authIdentifier': _i1.ParameterDescription(
+              name: 'authIdentifier',
+              type: _i1.getType<String>(),
+              nullable: false,
+            ),
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['user'] as _i9.UserEndpoint)
+                  .associateUserFromInvitation(
+            session,
+            params['invitationCode'],
+            params['authIdentifier'],
+          ),
+        ),
         'addDevice': _i1.MethodConnector(
           name: 'addDevice',
           params: {
