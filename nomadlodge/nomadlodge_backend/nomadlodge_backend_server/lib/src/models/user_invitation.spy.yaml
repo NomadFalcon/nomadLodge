@@ -1,0 +1,11 @@
+class: UserInvitation 
+table: user_invitation
+fields:
+  code: String
+  url: String
+  hasBeenUsed: bool, default=false
+  user: User?, relation
+indexes:
+  user_invitation_user_unique_idx:
+    fields: userId
+    unique: true

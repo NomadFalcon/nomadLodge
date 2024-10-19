@@ -29,17 +29,18 @@ import 'product.dart' as _i16;
 import 'task.dart' as _i17;
 import 'user.dart' as _i18;
 import 'user_device.dart' as _i19;
-import 'user_type.dart' as _i20;
-import 'protocol.dart' as _i21;
-import 'package:nomadlodge_backend_server/src/generated/booking.dart' as _i22;
+import 'user_invitation.dart' as _i20;
+import 'user_type.dart' as _i21;
+import 'protocol.dart' as _i22;
+import 'package:nomadlodge_backend_server/src/generated/booking.dart' as _i23;
 import 'package:nomadlodge_backend_server/src/generated/maintenace.dart'
-    as _i23;
-import 'package:nomadlodge_backend_server/src/generated/integration.dart'
     as _i24;
-import 'package:nomadlodge_backend_server/src/generated/location.dart' as _i25;
+import 'package:nomadlodge_backend_server/src/generated/integration.dart'
+    as _i25;
+import 'package:nomadlodge_backend_server/src/generated/location.dart' as _i26;
 import 'package:nomadlodge_backend_server/src/generated/location_team.dart'
-    as _i26;
-import 'package:nomadlodge_backend_server/src/generated/task.dart' as _i27;
+    as _i27;
+import 'package:nomadlodge_backend_server/src/generated/task.dart' as _i28;
 export 'booking.dart';
 export 'example.dart';
 export 'fee.dart';
@@ -56,6 +57,7 @@ export 'product.dart';
 export 'task.dart';
 export 'user.dart';
 export 'user_device.dart';
+export 'user_invitation.dart';
 export 'user_type.dart';
 
 class Protocol extends _i1.SerializationManagerServer {
@@ -1192,6 +1194,87 @@ class Protocol extends _i1.SerializationManagerServer {
       ],
       managed: true,
     ),
+    _i2.TableDefinition(
+      name: 'user_invitation',
+      dartName: 'UserInvitation',
+      schema: 'public',
+      module: 'nomadlodge_backend',
+      columns: [
+        _i2.ColumnDefinition(
+          name: 'id',
+          columnType: _i2.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int?',
+          columnDefault: 'nextval(\'user_invitation_id_seq\'::regclass)',
+        ),
+        _i2.ColumnDefinition(
+          name: 'code',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'url',
+          columnType: _i2.ColumnType.text,
+          isNullable: false,
+          dartType: 'String',
+        ),
+        _i2.ColumnDefinition(
+          name: 'hasBeenUsed',
+          columnType: _i2.ColumnType.boolean,
+          isNullable: false,
+          dartType: 'bool',
+          columnDefault: 'false',
+        ),
+        _i2.ColumnDefinition(
+          name: 'userId',
+          columnType: _i2.ColumnType.bigint,
+          isNullable: false,
+          dartType: 'int',
+        ),
+      ],
+      foreignKeys: [
+        _i2.ForeignKeyDefinition(
+          constraintName: 'user_invitation_fk_0',
+          columns: ['userId'],
+          referenceTable: 'user',
+          referenceTableSchema: 'public',
+          referenceColumns: ['id'],
+          onUpdate: _i2.ForeignKeyAction.noAction,
+          onDelete: _i2.ForeignKeyAction.noAction,
+          matchType: null,
+        )
+      ],
+      indexes: [
+        _i2.IndexDefinition(
+          indexName: 'user_invitation_pkey',
+          tableSpace: null,
+          elements: [
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'id',
+            )
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: true,
+        ),
+        _i2.IndexDefinition(
+          indexName: 'user_invitation_user_unique_idx',
+          tableSpace: null,
+          elements: [
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'userId',
+            )
+          ],
+          type: 'btree',
+          isUnique: true,
+          isPrimary: false,
+        ),
+      ],
+      managed: true,
+    ),
     ..._i3.Protocol.targetTableDefinitions,
     ..._i2.Protocol.targetTableDefinitions,
   ];
@@ -1250,8 +1333,11 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == _i19.UserDevice) {
       return _i19.UserDevice.fromJson(data) as T;
     }
-    if (t == _i20.UserType) {
-      return _i20.UserType.fromJson(data) as T;
+    if (t == _i20.UserInvitation) {
+      return _i20.UserInvitation.fromJson(data) as T;
+    }
+    if (t == _i21.UserType) {
+      return _i21.UserType.fromJson(data) as T;
     }
     if (t == _i1.getType<_i4.Booking?>()) {
       return (data != null ? _i4.Booking.fromJson(data) : null) as T;
@@ -1301,64 +1387,67 @@ class Protocol extends _i1.SerializationManagerServer {
     if (t == _i1.getType<_i19.UserDevice?>()) {
       return (data != null ? _i19.UserDevice.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<_i20.UserType?>()) {
-      return (data != null ? _i20.UserType.fromJson(data) : null) as T;
+    if (t == _i1.getType<_i20.UserInvitation?>()) {
+      return (data != null ? _i20.UserInvitation.fromJson(data) : null) as T;
     }
-    if (t == _i1.getType<List<_i21.Media>?>()) {
+    if (t == _i1.getType<_i21.UserType?>()) {
+      return (data != null ? _i21.UserType.fromJson(data) : null) as T;
+    }
+    if (t == _i1.getType<List<_i22.Media>?>()) {
       return (data != null
-          ? (data as List).map((e) => deserialize<_i21.Media>(e)).toList()
+          ? (data as List).map((e) => deserialize<_i22.Media>(e)).toList()
           : null) as dynamic;
     }
-    if (t == _i1.getType<List<_i21.User>?>()) {
+    if (t == _i1.getType<List<_i22.User>?>()) {
       return (data != null
-          ? (data as List).map((e) => deserialize<_i21.User>(e)).toList()
+          ? (data as List).map((e) => deserialize<_i22.User>(e)).toList()
           : null) as dynamic;
     }
-    if (t == _i1.getType<List<_i21.Task>?>()) {
+    if (t == _i1.getType<List<_i22.Task>?>()) {
       return (data != null
-          ? (data as List).map((e) => deserialize<_i21.Task>(e)).toList()
+          ? (data as List).map((e) => deserialize<_i22.Task>(e)).toList()
           : null) as dynamic;
     }
-    if (t == _i1.getType<List<_i21.Media>?>()) {
+    if (t == _i1.getType<List<_i22.Media>?>()) {
       return (data != null
-          ? (data as List).map((e) => deserialize<_i21.Media>(e)).toList()
+          ? (data as List).map((e) => deserialize<_i22.Media>(e)).toList()
           : null) as dynamic;
     }
-    if (t == _i1.getType<List<_i21.Media>?>()) {
+    if (t == _i1.getType<List<_i22.Media>?>()) {
       return (data != null
-          ? (data as List).map((e) => deserialize<_i21.Media>(e)).toList()
+          ? (data as List).map((e) => deserialize<_i22.Media>(e)).toList()
           : null) as dynamic;
     }
-    if (t == _i1.getType<List<_i21.UserDevice>?>()) {
+    if (t == _i1.getType<List<_i22.UserDevice>?>()) {
       return (data != null
-          ? (data as List).map((e) => deserialize<_i21.UserDevice>(e)).toList()
+          ? (data as List).map((e) => deserialize<_i22.UserDevice>(e)).toList()
           : null) as dynamic;
     }
-    if (t == List<_i22.Booking>) {
-      return (data as List).map((e) => deserialize<_i22.Booking>(e)).toList()
+    if (t == List<_i23.Booking>) {
+      return (data as List).map((e) => deserialize<_i23.Booking>(e)).toList()
           as dynamic;
     }
-    if (t == List<_i23.Maintenance>) {
+    if (t == List<_i24.Maintenance>) {
       return (data as List)
-          .map((e) => deserialize<_i23.Maintenance>(e))
+          .map((e) => deserialize<_i24.Maintenance>(e))
           .toList() as dynamic;
     }
-    if (t == List<_i24.Integration>) {
+    if (t == List<_i25.Integration>) {
       return (data as List)
-          .map((e) => deserialize<_i24.Integration>(e))
+          .map((e) => deserialize<_i25.Integration>(e))
           .toList() as dynamic;
     }
-    if (t == List<_i25.Location>) {
-      return (data as List).map((e) => deserialize<_i25.Location>(e)).toList()
+    if (t == List<_i26.Location>) {
+      return (data as List).map((e) => deserialize<_i26.Location>(e)).toList()
           as dynamic;
     }
-    if (t == List<_i26.LocationTeam>) {
+    if (t == List<_i27.LocationTeam>) {
       return (data as List)
-          .map((e) => deserialize<_i26.LocationTeam>(e))
+          .map((e) => deserialize<_i27.LocationTeam>(e))
           .toList() as dynamic;
     }
-    if (t == List<_i27.Task>) {
-      return (data as List).map((e) => deserialize<_i27.Task>(e)).toList()
+    if (t == List<_i28.Task>) {
+      return (data as List).map((e) => deserialize<_i28.Task>(e)).toList()
           as dynamic;
     }
     try {
@@ -1422,7 +1511,10 @@ class Protocol extends _i1.SerializationManagerServer {
     if (data is _i19.UserDevice) {
       return 'UserDevice';
     }
-    if (data is _i20.UserType) {
+    if (data is _i20.UserInvitation) {
+      return 'UserInvitation';
+    }
+    if (data is _i21.UserType) {
       return 'UserType';
     }
     className = _i2.Protocol().getClassNameForObject(data);
@@ -1486,8 +1578,11 @@ class Protocol extends _i1.SerializationManagerServer {
     if (data['className'] == 'UserDevice') {
       return deserialize<_i19.UserDevice>(data['data']);
     }
+    if (data['className'] == 'UserInvitation') {
+      return deserialize<_i20.UserInvitation>(data['data']);
+    }
     if (data['className'] == 'UserType') {
-      return deserialize<_i20.UserType>(data['data']);
+      return deserialize<_i21.UserType>(data['data']);
     }
     if (data['className'].startsWith('serverpod.')) {
       data['className'] = data['className'].substring(10);
@@ -1539,6 +1634,8 @@ class Protocol extends _i1.SerializationManagerServer {
         return _i18.User.t;
       case _i19.UserDevice:
         return _i19.UserDevice.t;
+      case _i20.UserInvitation:
+        return _i20.UserInvitation.t;
     }
     return null;
   }
