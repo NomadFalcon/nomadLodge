@@ -30,10 +30,18 @@ class SmoobuIntegration {
       for (var apartment in data) {
         int apartmentId = apartment['id'];
         var location = await Location.db.findFirstRow(session,
-              where: (t) => t.externalId.equals('$apartmentId'),
+              where: (t) => t.externalId.equals('$apartmentId',),
+              include: Location.include(team: LocationTeam.include()),
         );
         print("getApartments location: $location");
         if(location != null) {
+          if(location.team == null) {
+            final locationTeam = LocationTeam(name: 'Team - ${apartment['name']}', description: "Default team fro location", users: [], invitations: [], locationId: location.id!);
+            final newLocationTeam = await LocationTeam.db.insertRow(session, locationTeam);
+            location.teamId = newLocationTeam.id!;
+            final newLocationFinal = await Location.db.updateRow(session, location);
+            print("getApartments newLocation: $newLocationFinal");
+          }
           locations.add(location);
         } else {
           final apartmentResponse = await http.get(
@@ -53,10 +61,15 @@ class SmoobuIntegration {
             final city = apartmentData['location']['city'] ?? '';
             var geoAddressRow = GeoAddress(latitude: lat, longitude: lng, shortAddress: city, longAddress: streetName);
             final geoAddress = await GeoAddress.db.insertRow(session, geoAddressRow);
-            final location = Location(externalId: "${apartment['id']}", name: apartment['name'], longDescription: "", shortDescription: '', rooms: apartmentData['rooms']['bedrooms'], userId: userId, geoAddressId: geoAddress.id!, teamId: 0);
+            
+            final location = Location(externalId: "${apartment['id']}", name: apartment['name'], longDescription: "", shortDescription: '', rooms: apartmentData['rooms']['bedrooms'], userId: userId, geoAddressId: geoAddress.id!,);
             final newLocation = await Location.db.insertRow(session, location);
-            print("getApartments newLocation: $newLocation");
-            locations.add(newLocation);
+            final locationTeam = LocationTeam(name: 'Team - ${apartment['name']}', description: "Default team fro location", users: [], invitations: [], locationId: newLocation.id!);
+            final newLocationTeam = await LocationTeam.db.insertRow(session, locationTeam);
+            newLocation.teamId = newLocationTeam.id!;
+            final newLocationFinal =await Location.db.updateRow(session, newLocation);
+            print("getApartments newLocation: $newLocationFinal");
+            locations.add(newLocationFinal);
           }
         }
       }
@@ -79,12 +92,17 @@ class SmoobuIntegration {
       //print("smoobu data: $bookingData");
       for (var booking in bookingData) {
         int apartmentId = booking['apartment']['id'] as int;
+        int bookingId = booking['id'] as int;
+
+         var existingBooking = await Booking.db.findFirstRow(session,
+              where: (t) => t.externalId.equals('$bookingId'),
+        );        
         var location = await Location.db.findFirstRow(session,
               where: (t) => t.externalId.equals('$apartmentId'),
         );
         
-        if (location != null) {
-          int bookingId = booking['id'] as int;
+        if (location != null && existingBooking == null) {
+          
           String platform = booking['channel']['name'] as String;
           String startDate = booking['arrival'] as String;
           String endDate = booking['departure'] as String;

@@ -3,8 +3,8 @@ table: location_team
 fields:
   name: String
   description: String
-  users: List<User>? relation
-  invitations: List<UserInvitation>? relation
+  users: List<User>? relation(optional)
+  invitations: List<UserInvitation>? relation(optional)
   location: Location?, relation
 indexes:
   locationteam_location_unique_idx:

@@ -11,7 +11,7 @@ import 'package:serverpod/serverpod.dart';
 // `serverpod generate` to update the server and client code.
 class LocationEndpoint extends Endpoint {
   Future<List<Location>> getAll(Session session, User user) async {
-    final locations = await Location.db.find(session, where: (t) => t.userId.equals(user.id));
+    final locations = await Location.db.find(session, where: (t) => t.userId.equals(user.id), include: Location.include(user: User.include(), geoAddress: GeoAddress.include(), team: LocationTeam.include()));
     return locations;
   }
 
