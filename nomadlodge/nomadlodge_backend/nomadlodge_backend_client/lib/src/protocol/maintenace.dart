@@ -19,6 +19,7 @@ abstract class Maintenance implements _i1.SerializableModel {
     required this.start,
     this.end,
     required this.description,
+    bool? completed,
     this.tasks,
     this.userId,
     this.user,
@@ -28,7 +29,7 @@ abstract class Maintenance implements _i1.SerializableModel {
     this.location,
     this.bookingId,
     this.booking,
-  });
+  }) : completed = completed ?? false;
 
   factory Maintenance({
     int? id,
@@ -36,6 +37,7 @@ abstract class Maintenance implements _i1.SerializableModel {
     required DateTime start,
     DateTime? end,
     required String description,
+    bool? completed,
     List<_i2.Task>? tasks,
     int? userId,
     _i2.User? user,
@@ -57,6 +59,7 @@ abstract class Maintenance implements _i1.SerializableModel {
           ? null
           : _i1.DateTimeJsonExtension.fromJson(jsonSerialization['end']),
       description: jsonSerialization['description'] as String,
+      completed: jsonSerialization['completed'] as bool,
       tasks: (jsonSerialization['tasks'] as List?)
           ?.map((e) => _i2.Task.fromJson((e as Map<String, dynamic>)))
           .toList(),
@@ -96,6 +99,8 @@ abstract class Maintenance implements _i1.SerializableModel {
 
   String description;
 
+  bool completed;
+
   List<_i2.Task>? tasks;
 
   int? userId;
@@ -120,6 +125,7 @@ abstract class Maintenance implements _i1.SerializableModel {
     DateTime? start,
     DateTime? end,
     String? description,
+    bool? completed,
     List<_i2.Task>? tasks,
     int? userId,
     _i2.User? user,
@@ -138,6 +144,7 @@ abstract class Maintenance implements _i1.SerializableModel {
       'start': start.toJson(),
       if (end != null) 'end': end?.toJson(),
       'description': description,
+      'completed': completed,
       if (tasks != null) 'tasks': tasks?.toJson(valueToJson: (v) => v.toJson()),
       if (userId != null) 'userId': userId,
       if (user != null) 'user': user?.toJson(),
@@ -165,6 +172,7 @@ class _MaintenanceImpl extends Maintenance {
     required DateTime start,
     DateTime? end,
     required String description,
+    bool? completed,
     List<_i2.Task>? tasks,
     int? userId,
     _i2.User? user,
@@ -180,6 +188,7 @@ class _MaintenanceImpl extends Maintenance {
           start: start,
           end: end,
           description: description,
+          completed: completed,
           tasks: tasks,
           userId: userId,
           user: user,
@@ -198,6 +207,7 @@ class _MaintenanceImpl extends Maintenance {
     DateTime? start,
     Object? end = _Undefined,
     String? description,
+    bool? completed,
     Object? tasks = _Undefined,
     Object? userId = _Undefined,
     Object? user = _Undefined,
@@ -214,6 +224,7 @@ class _MaintenanceImpl extends Maintenance {
       start: start ?? this.start,
       end: end is DateTime? ? end : this.end,
       description: description ?? this.description,
+      completed: completed ?? this.completed,
       tasks: tasks is List<_i2.Task>?
           ? tasks
           : this.tasks?.map((e0) => e0.copyWith()).toList(),

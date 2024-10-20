@@ -5,6 +5,7 @@ fields:
   start: DateTime
   end: DateTime?
   description: String
+  completed: bool, default=false
   tasks: List<Task>?, relation
   user: User?, relation(optional)
   fee: Fee?, relation(optional)
