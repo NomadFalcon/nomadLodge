@@ -26,6 +26,8 @@ abstract class Location implements _i1.SerializableModel {
     this.user,
     required this.geoAddressId,
     this.geoAddress,
+    this.teamId,
+    this.team,
   });
 
   factory Location({
@@ -41,6 +43,8 @@ abstract class Location implements _i1.SerializableModel {
     _i2.User? user,
     required int geoAddressId,
     _i2.GeoAddress? geoAddress,
+    int? teamId,
+    _i2.LocationTeam? team,
   }) = _LocationImpl;
 
   factory Location.fromJson(Map<String, dynamic> jsonSerialization) {
@@ -65,6 +69,11 @@ abstract class Location implements _i1.SerializableModel {
           ? null
           : _i2.GeoAddress.fromJson(
               (jsonSerialization['geoAddress'] as Map<String, dynamic>)),
+      teamId: jsonSerialization['teamId'] as int?,
+      team: jsonSerialization['team'] == null
+          ? null
+          : _i2.LocationTeam.fromJson(
+              (jsonSerialization['team'] as Map<String, dynamic>)),
     );
   }
 
@@ -95,6 +104,10 @@ abstract class Location implements _i1.SerializableModel {
 
   _i2.GeoAddress? geoAddress;
 
+  int? teamId;
+
+  _i2.LocationTeam? team;
+
   Location copyWith({
     int? id,
     String? name,
@@ -108,6 +121,8 @@ abstract class Location implements _i1.SerializableModel {
     _i2.User? user,
     int? geoAddressId,
     _i2.GeoAddress? geoAddress,
+    int? teamId,
+    _i2.LocationTeam? team,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -125,6 +140,8 @@ abstract class Location implements _i1.SerializableModel {
       if (user != null) 'user': user?.toJson(),
       'geoAddressId': geoAddressId,
       if (geoAddress != null) 'geoAddress': geoAddress?.toJson(),
+      if (teamId != null) 'teamId': teamId,
+      if (team != null) 'team': team?.toJson(),
     };
   }
 
@@ -150,6 +167,8 @@ class _LocationImpl extends Location {
     _i2.User? user,
     required int geoAddressId,
     _i2.GeoAddress? geoAddress,
+    int? teamId,
+    _i2.LocationTeam? team,
   }) : super._(
           id: id,
           name: name,
@@ -163,6 +182,8 @@ class _LocationImpl extends Location {
           user: user,
           geoAddressId: geoAddressId,
           geoAddress: geoAddress,
+          teamId: teamId,
+          team: team,
         );
 
   @override
@@ -179,6 +200,8 @@ class _LocationImpl extends Location {
     Object? user = _Undefined,
     int? geoAddressId,
     Object? geoAddress = _Undefined,
+    Object? teamId = _Undefined,
+    Object? team = _Undefined,
   }) {
     return Location(
       id: id is int? ? id : this.id,
@@ -197,6 +220,8 @@ class _LocationImpl extends Location {
       geoAddress: geoAddress is _i2.GeoAddress?
           ? geoAddress
           : this.geoAddress?.copyWith(),
+      teamId: teamId is int? ? teamId : this.teamId,
+      team: team is _i2.LocationTeam? ? team : this.team?.copyWith(),
     );
   }
 }

@@ -430,6 +430,12 @@ class Protocol extends _i1.SerializationManagerServer {
           isNullable: false,
           dartType: 'int',
         ),
+        _i2.ColumnDefinition(
+          name: 'teamId',
+          columnType: _i2.ColumnType.bigint,
+          isNullable: true,
+          dartType: 'int?',
+        ),
       ],
       foreignKeys: [
         _i2.ForeignKeyDefinition(
@@ -446,6 +452,16 @@ class Protocol extends _i1.SerializationManagerServer {
           constraintName: 'location_fk_1',
           columns: ['geoAddressId'],
           referenceTable: 'geoaddress',
+          referenceTableSchema: 'public',
+          referenceColumns: ['id'],
+          onUpdate: _i2.ForeignKeyAction.noAction,
+          onDelete: _i2.ForeignKeyAction.noAction,
+          matchType: null,
+        ),
+        _i2.ForeignKeyDefinition(
+          constraintName: 'location_fk_2',
+          columns: ['teamId'],
+          referenceTable: 'location_team',
           referenceTableSchema: 'public',
           referenceColumns: ['id'],
           onUpdate: _i2.ForeignKeyAction.noAction,
@@ -493,6 +509,19 @@ class Protocol extends _i1.SerializationManagerServer {
           isUnique: true,
           isPrimary: false,
         ),
+        _i2.IndexDefinition(
+          indexName: 'location_team_unique_idx',
+          tableSpace: null,
+          elements: [
+            _i2.IndexElementDefinition(
+              type: _i2.IndexElementDefinitionType.column,
+              definition: 'teamId',
+            )
+          ],
+          type: 'btree',
+          isUnique: false,
+          isPrimary: false,
+        ),
       ],
       managed: true,
     ),
@@ -524,8 +553,14 @@ class Protocol extends _i1.SerializationManagerServer {
         _i2.ColumnDefinition(
           name: 'users',
           columnType: _i2.ColumnType.json,
-          isNullable: true,
-          dartType: 'List<protocol:User>?',
+          isNullable: false,
+          dartType: 'List<protocol:User>',
+        ),
+        _i2.ColumnDefinition(
+          name: 'invitations',
+          columnType: _i2.ColumnType.json,
+          isNullable: false,
+          dartType: 'List<protocol:UserInvitation>',
         ),
         _i2.ColumnDefinition(
           name: 'locationId',
@@ -1404,10 +1439,14 @@ class Protocol extends _i1.SerializationManagerServer {
           ? (data as List).map((e) => deserialize<_i22.Media>(e)).toList()
           : null) as dynamic;
     }
-    if (t == _i1.getType<List<_i22.User>?>()) {
-      return (data != null
-          ? (data as List).map((e) => deserialize<_i22.User>(e)).toList()
-          : null) as dynamic;
+    if (t == List<_i22.User>) {
+      return (data as List).map((e) => deserialize<_i22.User>(e)).toList()
+          as dynamic;
+    }
+    if (t == List<_i22.UserInvitation>) {
+      return (data as List)
+          .map((e) => deserialize<_i22.UserInvitation>(e))
+          .toList() as dynamic;
     }
     if (t == _i1.getType<List<_i22.Task>?>()) {
       return (data != null

@@ -17,7 +17,8 @@ abstract class LocationTeam implements _i1.SerializableModel {
     this.id,
     required this.name,
     required this.description,
-    this.users,
+    required this.users,
+    required this.invitations,
     required this.locationId,
     this.location,
   });
@@ -26,7 +27,8 @@ abstract class LocationTeam implements _i1.SerializableModel {
     int? id,
     required String name,
     required String description,
-    List<_i2.User>? users,
+    required List<_i2.User> users,
+    required List<_i2.UserInvitation> invitations,
     required int locationId,
     _i2.Location? location,
   }) = _LocationTeamImpl;
@@ -36,8 +38,11 @@ abstract class LocationTeam implements _i1.SerializableModel {
       id: jsonSerialization['id'] as int?,
       name: jsonSerialization['name'] as String,
       description: jsonSerialization['description'] as String,
-      users: (jsonSerialization['users'] as List?)
-          ?.map((e) => _i2.User.fromJson((e as Map<String, dynamic>)))
+      users: (jsonSerialization['users'] as List)
+          .map((e) => _i2.User.fromJson((e as Map<String, dynamic>)))
+          .toList(),
+      invitations: (jsonSerialization['invitations'] as List)
+          .map((e) => _i2.UserInvitation.fromJson((e as Map<String, dynamic>)))
           .toList(),
       locationId: jsonSerialization['locationId'] as int,
       location: jsonSerialization['location'] == null
@@ -56,7 +61,9 @@ abstract class LocationTeam implements _i1.SerializableModel {
 
   String description;
 
-  List<_i2.User>? users;
+  List<_i2.User> users;
+
+  List<_i2.UserInvitation> invitations;
 
   int locationId;
 
@@ -67,6 +74,7 @@ abstract class LocationTeam implements _i1.SerializableModel {
     String? name,
     String? description,
     List<_i2.User>? users,
+    List<_i2.UserInvitation>? invitations,
     int? locationId,
     _i2.Location? location,
   });
@@ -76,7 +84,8 @@ abstract class LocationTeam implements _i1.SerializableModel {
       if (id != null) 'id': id,
       'name': name,
       'description': description,
-      if (users != null) 'users': users?.toJson(valueToJson: (v) => v.toJson()),
+      'users': users.toJson(valueToJson: (v) => v.toJson()),
+      'invitations': invitations.toJson(valueToJson: (v) => v.toJson()),
       'locationId': locationId,
       if (location != null) 'location': location?.toJson(),
     };
@@ -95,7 +104,8 @@ class _LocationTeamImpl extends LocationTeam {
     int? id,
     required String name,
     required String description,
-    List<_i2.User>? users,
+    required List<_i2.User> users,
+    required List<_i2.UserInvitation> invitations,
     required int locationId,
     _i2.Location? location,
   }) : super._(
@@ -103,6 +113,7 @@ class _LocationTeamImpl extends LocationTeam {
           name: name,
           description: description,
           users: users,
+          invitations: invitations,
           locationId: locationId,
           location: location,
         );
@@ -112,7 +123,8 @@ class _LocationTeamImpl extends LocationTeam {
     Object? id = _Undefined,
     String? name,
     String? description,
-    Object? users = _Undefined,
+    List<_i2.User>? users,
+    List<_i2.UserInvitation>? invitations,
     int? locationId,
     Object? location = _Undefined,
   }) {
@@ -120,9 +132,9 @@ class _LocationTeamImpl extends LocationTeam {
       id: id is int? ? id : this.id,
       name: name ?? this.name,
       description: description ?? this.description,
-      users: users is List<_i2.User>?
-          ? users
-          : this.users?.map((e0) => e0.copyWith()).toList(),
+      users: users ?? this.users.map((e0) => e0.copyWith()).toList(),
+      invitations:
+          invitations ?? this.invitations.map((e0) => e0.copyWith()).toList(),
       locationId: locationId ?? this.locationId,
       location:
           location is _i2.Location? ? location : this.location?.copyWith(),

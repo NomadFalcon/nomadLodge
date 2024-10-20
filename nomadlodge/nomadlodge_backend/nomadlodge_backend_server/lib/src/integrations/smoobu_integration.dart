@@ -53,7 +53,7 @@ class SmoobuIntegration {
             final city = apartmentData['location']['city'] ?? '';
             var geoAddressRow = GeoAddress(latitude: lat, longitude: lng, shortAddress: city, longAddress: streetName);
             final geoAddress = await GeoAddress.db.insertRow(session, geoAddressRow);
-            final location = Location(externalId: "${apartment['id']}", name: apartment['name'], longDescription: "", shortDescription: '', rooms: apartmentData['rooms']['bedrooms'], userId: userId, geoAddressId: geoAddress.id!);
+            final location = Location(externalId: "${apartment['id']}", name: apartment['name'], longDescription: "", shortDescription: '', rooms: apartmentData['rooms']['bedrooms'], userId: userId, geoAddressId: geoAddress.id!, teamId: 0);
             final newLocation = await Location.db.insertRow(session, location);
             print("getApartments newLocation: $newLocation");
             locations.add(newLocation);

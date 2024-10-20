@@ -185,10 +185,14 @@ class Protocol extends _i1.SerializationManager {
           ? (data as List).map((e) => deserialize<_i20.Media>(e)).toList()
           : null) as dynamic;
     }
-    if (t == _i1.getType<List<_i20.User>?>()) {
-      return (data != null
-          ? (data as List).map((e) => deserialize<_i20.User>(e)).toList()
-          : null) as dynamic;
+    if (t == List<_i20.User>) {
+      return (data as List).map((e) => deserialize<_i20.User>(e)).toList()
+          as dynamic;
+    }
+    if (t == List<_i20.UserInvitation>) {
+      return (data as List)
+          .map((e) => deserialize<_i20.UserInvitation>(e))
+          .toList() as dynamic;
     }
     if (t == _i1.getType<List<_i20.Task>?>()) {
       return (data != null

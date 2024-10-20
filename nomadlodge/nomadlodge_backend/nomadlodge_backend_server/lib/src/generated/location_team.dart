@@ -17,7 +17,8 @@ abstract class LocationTeam implements _i1.TableRow, _i1.ProtocolSerialization {
     this.id,
     required this.name,
     required this.description,
-    this.users,
+    required this.users,
+    required this.invitations,
     required this.locationId,
     this.location,
   });
@@ -26,7 +27,8 @@ abstract class LocationTeam implements _i1.TableRow, _i1.ProtocolSerialization {
     int? id,
     required String name,
     required String description,
-    List<_i2.User>? users,
+    required List<_i2.User> users,
+    required List<_i2.UserInvitation> invitations,
     required int locationId,
     _i2.Location? location,
   }) = _LocationTeamImpl;
@@ -36,8 +38,11 @@ abstract class LocationTeam implements _i1.TableRow, _i1.ProtocolSerialization {
       id: jsonSerialization['id'] as int?,
       name: jsonSerialization['name'] as String,
       description: jsonSerialization['description'] as String,
-      users: (jsonSerialization['users'] as List?)
-          ?.map((e) => _i2.User.fromJson((e as Map<String, dynamic>)))
+      users: (jsonSerialization['users'] as List)
+          .map((e) => _i2.User.fromJson((e as Map<String, dynamic>)))
+          .toList(),
+      invitations: (jsonSerialization['invitations'] as List)
+          .map((e) => _i2.UserInvitation.fromJson((e as Map<String, dynamic>)))
           .toList(),
       locationId: jsonSerialization['locationId'] as int,
       location: jsonSerialization['location'] == null
@@ -58,7 +63,9 @@ abstract class LocationTeam implements _i1.TableRow, _i1.ProtocolSerialization {
 
   String description;
 
-  List<_i2.User>? users;
+  List<_i2.User> users;
+
+  List<_i2.UserInvitation> invitations;
 
   int locationId;
 
@@ -72,6 +79,7 @@ abstract class LocationTeam implements _i1.TableRow, _i1.ProtocolSerialization {
     String? name,
     String? description,
     List<_i2.User>? users,
+    List<_i2.UserInvitation>? invitations,
     int? locationId,
     _i2.Location? location,
   });
@@ -81,7 +89,8 @@ abstract class LocationTeam implements _i1.TableRow, _i1.ProtocolSerialization {
       if (id != null) 'id': id,
       'name': name,
       'description': description,
-      if (users != null) 'users': users?.toJson(valueToJson: (v) => v.toJson()),
+      'users': users.toJson(valueToJson: (v) => v.toJson()),
+      'invitations': invitations.toJson(valueToJson: (v) => v.toJson()),
       'locationId': locationId,
       if (location != null) 'location': location?.toJson(),
     };
@@ -93,8 +102,9 @@ abstract class LocationTeam implements _i1.TableRow, _i1.ProtocolSerialization {
       if (id != null) 'id': id,
       'name': name,
       'description': description,
-      if (users != null)
-        'users': users?.toJson(valueToJson: (v) => v.toJsonForProtocol()),
+      'users': users.toJson(valueToJson: (v) => v.toJsonForProtocol()),
+      'invitations':
+          invitations.toJson(valueToJson: (v) => v.toJsonForProtocol()),
       'locationId': locationId,
       if (location != null) 'location': location?.toJsonForProtocol(),
     };
@@ -137,7 +147,8 @@ class _LocationTeamImpl extends LocationTeam {
     int? id,
     required String name,
     required String description,
-    List<_i2.User>? users,
+    required List<_i2.User> users,
+    required List<_i2.UserInvitation> invitations,
     required int locationId,
     _i2.Location? location,
   }) : super._(
@@ -145,6 +156,7 @@ class _LocationTeamImpl extends LocationTeam {
           name: name,
           description: description,
           users: users,
+          invitations: invitations,
           locationId: locationId,
           location: location,
         );
@@ -154,7 +166,8 @@ class _LocationTeamImpl extends LocationTeam {
     Object? id = _Undefined,
     String? name,
     String? description,
-    Object? users = _Undefined,
+    List<_i2.User>? users,
+    List<_i2.UserInvitation>? invitations,
     int? locationId,
     Object? location = _Undefined,
   }) {
@@ -162,9 +175,9 @@ class _LocationTeamImpl extends LocationTeam {
       id: id is int? ? id : this.id,
       name: name ?? this.name,
       description: description ?? this.description,
-      users: users is List<_i2.User>?
-          ? users
-          : this.users?.map((e0) => e0.copyWith()).toList(),
+      users: users ?? this.users.map((e0) => e0.copyWith()).toList(),
+      invitations:
+          invitations ?? this.invitations.map((e0) => e0.copyWith()).toList(),
       locationId: locationId ?? this.locationId,
       location:
           location is _i2.Location? ? location : this.location?.copyWith(),
@@ -186,6 +199,10 @@ class LocationTeamTable extends _i1.Table {
       'users',
       this,
     );
+    invitations = _i1.ColumnSerializable(
+      'invitations',
+      this,
+    );
     locationId = _i1.ColumnInt(
       'locationId',
       this,
@@ -197,6 +214,8 @@ class LocationTeamTable extends _i1.Table {
   late final _i1.ColumnString description;
 
   late final _i1.ColumnSerializable users;
+
+  late final _i1.ColumnSerializable invitations;
 
   late final _i1.ColumnInt locationId;
 
@@ -221,6 +240,7 @@ class LocationTeamTable extends _i1.Table {
         name,
         description,
         users,
+        invitations,
         locationId,
       ];
 

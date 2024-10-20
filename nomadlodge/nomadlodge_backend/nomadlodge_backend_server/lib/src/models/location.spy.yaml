@@ -10,6 +10,7 @@ fields:
   medias: List<Media>?, relation
   user: User?, relation
   geoAddress: GeoAddress?, relation
+  team: LocationTeam?, relation(optional)
 indexes:
   location_user_unique_idx:
     fields: userId
@@ -17,3 +18,6 @@ indexes:
   location_geoaddress_idx:
     fields: geoAddressId
     unique: true
+  location_team_unique_idx:
+    fields: teamId
+    unique: false

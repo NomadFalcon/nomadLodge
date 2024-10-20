@@ -26,6 +26,8 @@ abstract class Location implements _i1.TableRow, _i1.ProtocolSerialization {
     this.user,
     required this.geoAddressId,
     this.geoAddress,
+    this.teamId,
+    this.team,
   });
 
   factory Location({
@@ -41,6 +43,8 @@ abstract class Location implements _i1.TableRow, _i1.ProtocolSerialization {
     _i2.User? user,
     required int geoAddressId,
     _i2.GeoAddress? geoAddress,
+    int? teamId,
+    _i2.LocationTeam? team,
   }) = _LocationImpl;
 
   factory Location.fromJson(Map<String, dynamic> jsonSerialization) {
@@ -65,6 +69,11 @@ abstract class Location implements _i1.TableRow, _i1.ProtocolSerialization {
           ? null
           : _i2.GeoAddress.fromJson(
               (jsonSerialization['geoAddress'] as Map<String, dynamic>)),
+      teamId: jsonSerialization['teamId'] as int?,
+      team: jsonSerialization['team'] == null
+          ? null
+          : _i2.LocationTeam.fromJson(
+              (jsonSerialization['team'] as Map<String, dynamic>)),
     );
   }
 
@@ -97,6 +106,10 @@ abstract class Location implements _i1.TableRow, _i1.ProtocolSerialization {
 
   _i2.GeoAddress? geoAddress;
 
+  int? teamId;
+
+  _i2.LocationTeam? team;
+
   @override
   _i1.Table get table => t;
 
@@ -113,6 +126,8 @@ abstract class Location implements _i1.TableRow, _i1.ProtocolSerialization {
     _i2.User? user,
     int? geoAddressId,
     _i2.GeoAddress? geoAddress,
+    int? teamId,
+    _i2.LocationTeam? team,
   });
   @override
   Map<String, dynamic> toJson() {
@@ -130,6 +145,8 @@ abstract class Location implements _i1.TableRow, _i1.ProtocolSerialization {
       if (user != null) 'user': user?.toJson(),
       'geoAddressId': geoAddressId,
       if (geoAddress != null) 'geoAddress': geoAddress?.toJson(),
+      if (teamId != null) 'teamId': teamId,
+      if (team != null) 'team': team?.toJson(),
     };
   }
 
@@ -149,6 +166,8 @@ abstract class Location implements _i1.TableRow, _i1.ProtocolSerialization {
       if (user != null) 'user': user?.toJsonForProtocol(),
       'geoAddressId': geoAddressId,
       if (geoAddress != null) 'geoAddress': geoAddress?.toJsonForProtocol(),
+      if (teamId != null) 'teamId': teamId,
+      if (team != null) 'team': team?.toJsonForProtocol(),
     };
   }
 
@@ -156,11 +175,13 @@ abstract class Location implements _i1.TableRow, _i1.ProtocolSerialization {
     _i2.MediaIncludeList? medias,
     _i2.UserInclude? user,
     _i2.GeoAddressInclude? geoAddress,
+    _i2.LocationTeamInclude? team,
   }) {
     return LocationInclude._(
       medias: medias,
       user: user,
       geoAddress: geoAddress,
+      team: team,
     );
   }
 
@@ -206,6 +227,8 @@ class _LocationImpl extends Location {
     _i2.User? user,
     required int geoAddressId,
     _i2.GeoAddress? geoAddress,
+    int? teamId,
+    _i2.LocationTeam? team,
   }) : super._(
           id: id,
           name: name,
@@ -219,6 +242,8 @@ class _LocationImpl extends Location {
           user: user,
           geoAddressId: geoAddressId,
           geoAddress: geoAddress,
+          teamId: teamId,
+          team: team,
         );
 
   @override
@@ -235,6 +260,8 @@ class _LocationImpl extends Location {
     Object? user = _Undefined,
     int? geoAddressId,
     Object? geoAddress = _Undefined,
+    Object? teamId = _Undefined,
+    Object? team = _Undefined,
   }) {
     return Location(
       id: id is int? ? id : this.id,
@@ -253,6 +280,8 @@ class _LocationImpl extends Location {
       geoAddress: geoAddress is _i2.GeoAddress?
           ? geoAddress
           : this.geoAddress?.copyWith(),
+      teamId: teamId is int? ? teamId : this.teamId,
+      team: team is _i2.LocationTeam? ? team : this.team?.copyWith(),
     );
   }
 }
@@ -291,6 +320,10 @@ class LocationTable extends _i1.Table {
       'geoAddressId',
       this,
     );
+    teamId = _i1.ColumnInt(
+      'teamId',
+      this,
+    );
   }
 
   late final _i1.ColumnString name;
@@ -316,6 +349,10 @@ class LocationTable extends _i1.Table {
   late final _i1.ColumnInt geoAddressId;
 
   _i2.GeoAddressTable? _geoAddress;
+
+  late final _i1.ColumnInt teamId;
+
+  _i2.LocationTeamTable? _team;
 
   _i2.MediaTable get __medias {
     if (___medias != null) return ___medias!;
@@ -356,6 +393,19 @@ class LocationTable extends _i1.Table {
     return _geoAddress!;
   }
 
+  _i2.LocationTeamTable get team {
+    if (_team != null) return _team!;
+    _team = _i1.createRelationTable(
+      relationFieldName: 'team',
+      field: Location.t.teamId,
+      foreignField: _i2.LocationTeam.t.id,
+      tableRelation: tableRelation,
+      createTable: (foreignTableRelation) =>
+          _i2.LocationTeamTable(tableRelation: foreignTableRelation),
+    );
+    return _team!;
+  }
+
   _i1.ManyRelation<_i2.MediaTable> get medias {
     if (_medias != null) return _medias!;
     var relationTable = _i1.createRelationTable(
@@ -385,6 +435,7 @@ class LocationTable extends _i1.Table {
         rooms,
         userId,
         geoAddressId,
+        teamId,
       ];
 
   @override
@@ -398,6 +449,9 @@ class LocationTable extends _i1.Table {
     if (relationField == 'geoAddress') {
       return geoAddress;
     }
+    if (relationField == 'team') {
+      return team;
+    }
     return null;
   }
 }
@@ -407,10 +461,12 @@ class LocationInclude extends _i1.IncludeObject {
     _i2.MediaIncludeList? medias,
     _i2.UserInclude? user,
     _i2.GeoAddressInclude? geoAddress,
+    _i2.LocationTeamInclude? team,
   }) {
     _medias = medias;
     _user = user;
     _geoAddress = geoAddress;
+    _team = team;
   }
 
   _i2.MediaIncludeList? _medias;
@@ -419,11 +475,14 @@ class LocationInclude extends _i1.IncludeObject {
 
   _i2.GeoAddressInclude? _geoAddress;
 
+  _i2.LocationTeamInclude? _team;
+
   @override
   Map<String, _i1.Include?> get includes => {
         'medias': _medias,
         'user': _user,
         'geoAddress': _geoAddress,
+        'team': _team,
       };
 
   @override
@@ -688,6 +747,27 @@ class LocationAttachRowRepository {
     );
   }
 
+  Future<void> team(
+    _i1.DatabaseAccessor databaseAccessor,
+    Location location,
+    _i2.LocationTeam team, {
+    _i1.Transaction? transaction,
+  }) async {
+    if (location.id == null) {
+      throw ArgumentError.notNull('location.id');
+    }
+    if (team.id == null) {
+      throw ArgumentError.notNull('team.id');
+    }
+
+    var $location = location.copyWith(teamId: team.id);
+    await databaseAccessor.db.updateRow<Location>(
+      $location,
+      columns: [Location.t.teamId],
+      transaction: transaction ?? databaseAccessor.transaction,
+    );
+  }
+
   Future<void> medias(
     _i1.DatabaseAccessor databaseAccessor,
     Location location,
@@ -741,6 +821,23 @@ class LocationDetachRepository {
 
 class LocationDetachRowRepository {
   const LocationDetachRowRepository._();
+
+  Future<void> team(
+    _i1.DatabaseAccessor databaseAccessor,
+    Location location, {
+    _i1.Transaction? transaction,
+  }) async {
+    if (location.id == null) {
+      throw ArgumentError.notNull('location.id');
+    }
+
+    var $location = location.copyWith(teamId: null);
+    await databaseAccessor.db.updateRow<Location>(
+      $location,
+      columns: [Location.t.teamId],
+      transaction: transaction ?? databaseAccessor.transaction,
+    );
+  }
 
   Future<void> medias(
     _i1.DatabaseAccessor databaseAccessor,
