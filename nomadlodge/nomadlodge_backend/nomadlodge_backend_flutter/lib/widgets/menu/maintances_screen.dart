@@ -9,7 +9,7 @@ import '../../external_ui/external_ui_components.dart';
 
 
 class MaintenancesScreen extends StatefulWidget {
-
+  
   const MaintenancesScreen(
       {Key? key, required this.currentUser})
       : super(key: key);
@@ -36,7 +36,6 @@ class _MaintenancesScreenState extends State<MaintenancesScreen> {
         maintenaces = value;
       });
     });
-    
   }
 
   

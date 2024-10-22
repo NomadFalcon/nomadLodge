@@ -5,6 +5,7 @@ import 'package:nomadlodge_backend_client/nomadlodge_backend_client.dart';
 import 'reservations_screen.dart';
 import 'locations_screen.dart.dart';
 import 'products_screen.dart';
+import '../details/maintenance_calendar_page.dart';
 import '../account_page.dart';
 import '../../messaging_service.dart';
 
@@ -70,6 +71,11 @@ class _DashboardPage extends State<DashboardPage>
     }
     if (index == SideBarItem.maintenances.index) {
       return MaintenancesScreen(
+          currentUser: widget.currentUser
+        );
+    }
+    if (index == SideBarItem.maintenancesCalendar.index) {
+      return MaintenanceCalendarPage(
           currentUser: widget.currentUser
         );
     }
