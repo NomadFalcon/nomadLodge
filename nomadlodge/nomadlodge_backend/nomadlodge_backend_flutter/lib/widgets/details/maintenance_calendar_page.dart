@@ -15,8 +15,9 @@ class MaintenanceCalendarPage extends StatefulWidget {
 
 class _MaintenanceCalendarPageState extends State<MaintenanceCalendarPage> {
   Map<DateTime, List<Maintenance>> _maintenanceEvents = {};
-  List<Maintenance> _selectedMaintenances =List.empty();
+  List<Maintenance> _selectedMaintenances = List.empty();
   List<Maintenance> maintenances = [];
+  DateTime _selectedDate = DateTime.now();
 
   void getMaintenaces() {
     client.cleaning.getAllByUsersLocations(widget.currentUser.id!).then((value) {
@@ -43,7 +44,9 @@ class _MaintenanceCalendarPageState extends State<MaintenanceCalendarPage> {
   }
 
   void _onDaySelected(DateTime day, DateTime focusedDay) {
+
     setState(() {
+      _selectedDate = day;
       _selectedMaintenances = _maintenanceEvents[day] ?? [];
     });
   }
@@ -55,7 +58,7 @@ class _MaintenanceCalendarPageState extends State<MaintenanceCalendarPage> {
           TableCalendar(
             firstDay: DateTime.utc(2020, 1, 1),
             lastDay: DateTime.utc(2030, 12, 31),
-            focusedDay: DateTime.now(),
+            focusedDay: _selectedDate,
             selectedDayPredicate: (day) {
               return _selectedMaintenances.isNotEmpty && _selectedMaintenances.any((maintenance) => isSameDay(maintenance.start, day));
             },
@@ -76,9 +79,14 @@ class _MaintenanceCalendarPageState extends State<MaintenanceCalendarPage> {
               },
             ),
           ),
-          ..._selectedMaintenances.map((maintenance) => ListTile(
-                title: Text(maintenance.description),
-              )),
+          ..._selectedMaintenances.map((maintenance) => InkWell(child: ListTile(
+                title: Text("${maintenance.maintenancetype.name} for ${maintenance.location?.name ?? "Unknown"}"),
+                subtitle: Text("By: ${maintenance.user?.name ?? "Still unknown"}"),
+              ),
+              onTap: () {
+                // Open maintenance details
+              },
+              ),) ,
         ],
       );
   }
