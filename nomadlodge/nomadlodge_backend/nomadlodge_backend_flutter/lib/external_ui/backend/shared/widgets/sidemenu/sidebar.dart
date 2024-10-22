@@ -13,7 +13,7 @@ import 'menu_tile.dart';
 
 import '../../../../../constants/text_constants.dart';
 
-enum SideBarItem { locations, reservationsTitle, reservations, maintenancesTitle, maintenances, maintenancesCalendar, products, account }
+enum SideBarItem { locations, reservationsTitle, reservations, reservationsCalendar, maintenancesTitle, maintenances, maintenancesCalendar, products, account }
 
 class Sidebar extends StatelessWidget {
   const Sidebar({
@@ -102,15 +102,14 @@ class Sidebar extends StatelessWidget {
                             onChanged.call(SideBarItem.reservations.index);
                           },
                         ),
-                        for (var location in locations)
-                          MenuTile(
-                            isActive: selectedIndex == SideBarItem.reservations.index,
-                            isSubmenu: true,
-                            title: location.name,
-                            onPressed: () {
-                              onChangedWithLocation.call(SideBarItem.reservations.index, location);
-                            },
-                          ),
+                        MenuTile(
+                          isActive: selectedIndex == SideBarItem.reservationsCalendar.index,
+                          isSubmenu: true,
+                          title: "Calendar",
+                          onPressed: () {
+                            onChanged.call(SideBarItem.reservationsCalendar.index);
+                          },
+                        ),
                       ],
                     ),
                     // Customers

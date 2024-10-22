@@ -4,47 +4,46 @@ import 'package:table_calendar/table_calendar.dart';
 import '../../serverpod_client.dart';
 
 
-class MaintenanceCalendarPage extends StatefulWidget {
+class ReservationCalendarPage extends StatefulWidget {
   final User currentUser;
 
-  MaintenanceCalendarPage({required this.currentUser});
+  ReservationCalendarPage({required this.currentUser});
 
   @override
-  _MaintenanceCalendarPageState createState() => _MaintenanceCalendarPageState();
+  _ReservationCalendarPageState createState() => _ReservationCalendarPageState();
 }
 
-class _MaintenanceCalendarPageState extends State<MaintenanceCalendarPage> {
-  Map<DateTime, List<Maintenance>> _maintenanceEvents = {};
-  List<Maintenance> _selectedMaintenances =List.empty();
-  List<Maintenance> maintenances = [];
+class _ReservationCalendarPageState extends State<ReservationCalendarPage> {
+  Map<DateTime, List<Booking>> _reservationEvents = {};
+  List<Booking> _selectedReservations = [];
+  List<Booking> reservations = [];
 
-  void getMaintenaces() {
-    client.cleaning.getAllByUsersLocations(widget.currentUser.id!).then((value) {
-      Map<DateTime, List<Maintenance>> newMaintenanceEvents = {};
-      for (var maintenance in value) {
-        if (newMaintenanceEvents[maintenance.start] == null) {
-          newMaintenanceEvents[maintenance.start] = [];
+  void getReservations() {
+    client.booking.getAll(widget.currentUser).then((value) {
+       Map<DateTime, List<Booking>> newReservationsEvents = {};
+      for (var reservation in value) {
+        if (newReservationsEvents[reservation.start] == null) {
+          newReservationsEvents[reservation.start] = [];
         }
-        newMaintenanceEvents[maintenance.start]!.add(maintenance);
+        newReservationsEvents[reservation.start]!.add(reservation);
       }
       setState(() {
-        _maintenanceEvents = newMaintenanceEvents;
-        maintenances = value;
-        _selectedMaintenances = [];
+        _reservationEvents = newReservationsEvents;
+        reservations = value;
+        _selectedReservations = [];
       });
     });
   }
-
   @override
   void initState() {
     super.initState();
-    getMaintenaces();
-    
+    getReservations();
+
   }
 
   void _onDaySelected(DateTime day, DateTime focusedDay) {
     setState(() {
-      _selectedMaintenances = _maintenanceEvents[day] ?? [];
+      _selectedReservations = _reservationEvents[day] ?? [];
     });
   }
 
@@ -57,11 +56,11 @@ class _MaintenanceCalendarPageState extends State<MaintenanceCalendarPage> {
             lastDay: DateTime.utc(2030, 12, 31),
             focusedDay: DateTime.now(),
             selectedDayPredicate: (day) {
-              return _selectedMaintenances.isNotEmpty && _selectedMaintenances.any((maintenance) => isSameDay(maintenance.start, day));
+              return _selectedReservations.isNotEmpty && _selectedReservations.any((reservation) => isSameDay(reservation.start, day));
             },
             onDaySelected: _onDaySelected,
             eventLoader: (day) {
-              return _maintenanceEvents[day] ?? [];
+              return _reservationEvents[day] ?? [];
             },
             calendarBuilders: CalendarBuilders(
               markerBuilder: (context, date, events) {
@@ -76,8 +75,8 @@ class _MaintenanceCalendarPageState extends State<MaintenanceCalendarPage> {
               },
             ),
           ),
-          ..._selectedMaintenances.map((maintenance) => ListTile(
-                title: Text(maintenance.description),
+          ..._selectedReservations.map((booking) => ListTile(
+                title: Text(booking.platform),
               )),
         ],
       );

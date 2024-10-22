@@ -6,6 +6,7 @@ import 'reservations_screen.dart';
 import 'locations_screen.dart.dart';
 import 'products_screen.dart';
 import '../details/maintenance_calendar_page.dart';
+import '../details/reservation_calendar_page.dart';
 import '../account_page.dart';
 import '../../messaging_service.dart';
 
@@ -69,6 +70,11 @@ class _DashboardPage extends State<DashboardPage>
           currentUser: widget.currentUser
         );
     }
+    if (index == SideBarItem.reservationsCalendar.index) {
+      return ReservationCalendarPage(
+          currentUser: widget.currentUser
+        );
+    }
     if (index == SideBarItem.maintenances.index) {
       return MaintenancesScreen(
           currentUser: widget.currentUser
@@ -103,6 +109,15 @@ String getHeaderTitle(int index) {
     }
     if (index == SideBarItem.reservations.index) {
       return TextConstants.reservationsTitleTab;
+    }
+    if (index == SideBarItem.reservationsCalendar.index) {
+      return TextConstants.reservationsTitleTab;
+    }
+    if (index == SideBarItem.maintenances.index) {
+       return TextConstants.maintenacesTitleTab;
+    }
+    if (index == SideBarItem.maintenancesCalendar.index) {
+       return TextConstants.maintenacesTitleTab;
     }
     if (index == SideBarItem.maintenances.index) {
        return TextConstants.maintenacesTitleTab;
