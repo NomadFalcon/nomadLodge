@@ -80,8 +80,6 @@ class Sidebar extends StatelessWidget {
                         ? MenuTile(
                             isActive: selectedIndex == SideBarItem.locations.index,
                             title: TextConstants.locationsTitleTab,
-                            activeIconSrc: "assets/icons/home_filled.svg",
-                            inactiveIconSrc: "assets/icons/home_light.svg",
                             onPressed: () {
                               onChanged.call(SideBarItem.locations.index);
                             },
