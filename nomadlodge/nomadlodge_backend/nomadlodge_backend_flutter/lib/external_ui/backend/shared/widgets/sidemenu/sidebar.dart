@@ -31,6 +31,8 @@ class Sidebar extends StatelessWidget {
   final User currentUser;
   final List<Location> locations;
 
+  
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -74,16 +76,19 @@ class Sidebar extends StatelessWidget {
                 child: ListView(
                   children: [
                     //Locations
-                    MenuTile(
-                      isActive: selectedIndex == SideBarItem.locations.index,
-                      title: TextConstants.locationsTitleTab,
-                      activeIconSrc: "assets/icons/home_filled.svg",
-                      inactiveIconSrc: "assets/icons/home_light.svg",
-                      onPressed: () {
-                        onChanged.call(SideBarItem.locations.index);
-                      },
-                    ),
-                    // Mainten
+                    (currentUser.userType == UserType.admin)
+                        ? MenuTile(
+                            isActive: selectedIndex == SideBarItem.locations.index,
+                            title: TextConstants.locationsTitleTab,
+                            activeIconSrc: "assets/icons/home_filled.svg",
+                            inactiveIconSrc: "assets/icons/home_light.svg",
+                            onPressed: () {
+                              onChanged.call(SideBarItem.locations.index);
+                            },
+                          )
+                        : const SizedBox.shrink(),
+                    
+                    (currentUser.userType == UserType.admin) ?
                     ExpansionTile(
                       initiallyExpanded: selectedIndex == SideBarItem.reservationsTitle.index ,
                       title: Text(
@@ -111,7 +116,8 @@ class Sidebar extends StatelessWidget {
                           },
                         ),
                       ],
-                    ),
+                    )
+                    : const SizedBox.shrink(),
                     // Customers
                     ExpansionTile(
                       initiallyExpanded:

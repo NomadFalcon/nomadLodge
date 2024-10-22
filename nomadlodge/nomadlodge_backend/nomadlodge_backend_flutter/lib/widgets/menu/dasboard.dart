@@ -53,6 +53,7 @@ class _DashboardPage extends State<DashboardPage>
   }
 
   Widget getCurrentWidget(int index) {
+    toggleDrawer();
     if(_selectedLocation != null) {
       return LocationDetailsPage(location: _selectedLocation!, inviteNewUser: (p0, p1) {
           getLocations();
@@ -130,6 +131,13 @@ String getHeaderTitle(int index) {
     }
     return "";
 }
+toggleDrawer()  {
+  if (_drawerKey.currentState!.isDrawerOpen) {
+    _drawerKey.currentState!.openDrawer();
+  } else {
+    _drawerKey.currentState!.openEndDrawer();
+  }
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -151,6 +159,7 @@ String getHeaderTitle(int index) {
               },
               selectedIndex: _selectedIndex,
               onChanged: (i) {
+                
                 setState(() {
                   _selectedIndex = i;
                   _selectedLocation = null;
