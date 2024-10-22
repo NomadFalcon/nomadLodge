@@ -3,6 +3,7 @@ import 'package:nomadlodge_backend_client/nomadlodge_backend_client.dart';
 import '../../constants/text_constants.dart';
 import '../screen_body.dart';
 import '../../serverpod_client.dart';
+import '../details/locations_details_page.dart';
 
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
@@ -30,10 +31,16 @@ class _LocationScreenState extends State<LocationScreen> {
 
   void getLocations() {
     client.location.getAll(widget.currentUser).then((value) {
+      print("got locations");
+      print(value[1]);
       setState(() {
         locations = value;
       });
     });
+  }
+
+  void inviteNewUser(User user, Location location) async {
+    getLocations();
   }
 
   
@@ -62,6 +69,15 @@ class _LocationScreenState extends State<LocationScreen> {
                       onPressed: () {
                         // Add your reload logic here
                         print('Reload button pressed');
+                        Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => LocationDetailsPage(
+                                    location: location,
+                                    inviteNewUser: (user, location) {
+                                      // Add your invite logic here
+                                      print('Invite button pressed');
+                                      inviteNewUser(user, location);
+                                    },
+                                  )));
                       },
                       child: const Text('See more'),
                     ),

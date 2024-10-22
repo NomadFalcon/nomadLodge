@@ -24,11 +24,25 @@ class UserEndpoint extends Endpoint {
     var values = List<int>.generate(len, (i) =>  random.nextInt(255));
     return base64UrlEncode(values);
   }
-  Future<User> createUser(Session session, User user) async {
+  Future<User?> createUser(Session session, User user, Location? location) async {
+    var existingUser = await User.db.findFirstRow(session,  where: (t) => t.email.equals(user.email),);
+    if(existingUser != null) {
+      return null;
+    }
+    print("creating user with $user");
     var newUser = await User.db.insertRow(session, user);
+     print("id creating user with $user");
     if(newUser.authUserIdentifier == null) {
       final invitation = UserInvitation(code: getRandString(6), url: "www.nomadlodge.com", userId: newUser.id!, email: newUser.email);
-      await UserInvitation.db.insertRow(session, invitation);
+      
+      final createdInvitation =  await UserInvitation.db.insertRow(session, invitation);
+      if(location != null && location.team != null) {
+        LocationTeam  team = location.team!;
+        team.invitations.add(createdInvitation);
+        team.users.add(newUser);
+        LocationTeam.db.updateRow(session, team);
+      }
+      print("creating userinvitation with $createdInvitation");
       //TODO: Send email with invitation code
     }
 

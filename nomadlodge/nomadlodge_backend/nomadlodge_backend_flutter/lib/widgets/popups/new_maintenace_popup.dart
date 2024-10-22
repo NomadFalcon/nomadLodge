@@ -2,8 +2,8 @@ import 'package:nomadlodge_backend_flutter/external_ui/external_ui_components.da
 import 'package:flutter/material.dart';
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
-class GrindOrRejectModalPage {
-  GrindOrRejectModalPage._();
+class NewMaintenanceModalPage {
+  NewMaintenanceModalPage._();
 
   static WoltModalSheetPage build({
     required VoidCallback onSelectCreateCleaningForAllBookingsTapped,

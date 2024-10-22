@@ -5,7 +5,7 @@ import '../serverpod_client.dart';
 import '../messaging_service.dart';
 import 'sign_in_page.dart';
 import 'menu/dasboard.dart';
-import 'user_creation.dart';
+import 'creation/user_creation.dart';
 
 import 'package:device_info_plus/device_info_plus.dart';
 
@@ -101,7 +101,7 @@ class EntryPageState extends State<EntryPage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: sessionManager.isSignedIn ?  (currentUser == null)  ? UserCreationPage() : DashboardPage(key: ValueKey(DashboardPage), currentUser: currentUser!, messagingService: widget.messagingService) : const SignInPage(),);
+      body: sessionManager.isSignedIn ?  (currentUser == null)  ? UserCreationPage(onUserCreated: null, availableUserType: null, isUserForAdditionalUser: false,) : DashboardPage(key: ValueKey(DashboardPage), currentUser: currentUser!, messagingService: widget.messagingService) : const SignInPage(),);
   }
 }
 

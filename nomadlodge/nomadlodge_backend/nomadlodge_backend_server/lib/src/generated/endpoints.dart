@@ -21,9 +21,10 @@ import '../endpoints/user_endpoint.dart' as _i9;
 import 'package:nomadlodge_backend_server/src/generated/user.dart' as _i10;
 import 'package:nomadlodge_backend_server/src/generated/integration.dart'
     as _i11;
+import 'package:nomadlodge_backend_server/src/generated/location.dart' as _i12;
 import 'package:nomadlodge_backend_server/src/generated/user_device.dart'
-    as _i12;
-import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i13;
+    as _i13;
+import 'package:serverpod_auth_server/serverpod_auth_server.dart' as _i14;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
@@ -548,7 +549,12 @@ class Endpoints extends _i1.EndpointDispatch {
               name: 'user',
               type: _i1.getType<_i10.User>(),
               nullable: false,
-            )
+            ),
+            'location': _i1.ParameterDescription(
+              name: 'location',
+              type: _i1.getType<_i12.Location?>(),
+              nullable: true,
+            ),
           },
           call: (
             _i1.Session session,
@@ -557,6 +563,7 @@ class Endpoints extends _i1.EndpointDispatch {
               (endpoints['user'] as _i9.UserEndpoint).createUser(
             session,
             params['user'],
+            params['location'],
           ),
         ),
         'associateUserFromInvitation': _i1.MethodConnector(
@@ -589,7 +596,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'userDevice': _i1.ParameterDescription(
               name: 'userDevice',
-              type: _i1.getType<_i12.UserDevice>(),
+              type: _i1.getType<_i13.UserDevice>(),
               nullable: false,
             )
           },
@@ -622,6 +629,6 @@ class Endpoints extends _i1.EndpointDispatch {
         ),
       },
     );
-    modules['serverpod_auth'] = _i13.Endpoints()..initializeEndpoints(server);
+    modules['serverpod_auth'] = _i14.Endpoints()..initializeEndpoints(server);
   }
 }

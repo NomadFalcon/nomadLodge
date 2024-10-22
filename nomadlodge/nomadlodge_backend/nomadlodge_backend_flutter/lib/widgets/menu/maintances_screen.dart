@@ -88,7 +88,7 @@ class _MaintenancesScreenState extends State<MaintenancesScreen> {
                       return WoltModalType.dialog();
                     },
                     pageListBuilder: (bottomSheetContext) => [
-                      GrindOrRejectModalPage.build(
+                      NewMaintenanceModalPage.build(
                         onSelectCreateCleaningForAllBookingsTapped: () {
                           client.cleaning.createCleaningMaintenancesforEachBookingInUsersLocations(widget.currentUser.id!).then((value) {
                             Navigator.pop(context);

@@ -28,4 +28,6 @@ class LocationEndpoint extends Endpoint {
     final bookings = await Booking.db.find(session, where: (t) => t.locationId.equals(locationId));
     return bookings;
   }
+
+  
 }
