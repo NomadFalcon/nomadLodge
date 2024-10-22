@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:nomadlodge_backend_client/nomadlodge_backend_client.dart';
 
 import '../../../pages/dashboard/widgets/theme_tabs.dart';
 import '../../../responsive.dart';
@@ -10,15 +11,25 @@ import '../../constants/ghaps.dart';
 import 'customer_info.dart';
 import 'menu_tile.dart';
 
+import '../../../../../constants/text_constants.dart';
+
+enum SideBarItem { locations, reservationsTitle, reservations, maintenancesTitle, maintenances, maintenancesCalendar, products, account }
+
 class Sidebar extends StatelessWidget {
   const Sidebar({
     super.key,
     required this.selectedIndex,
     required this.onChanged,
+    required this.onChangedWithLocation,
+    required this.currentUser,
+    required this.locations,
   });
 
   final int selectedIndex;
   final void Function(int) onChanged;
+  final void Function(int, Location) onChangedWithLocation;
+  final User currentUser;
+  final List<Location> locations;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +52,7 @@ class Sidebar extends StatelessWidget {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      icon: SvgPicture.asset('assets/icons/close_filled.svg'),
+                      icon: SvgPicture.asset('../assets/icons/close_filled.svg'),
                     ),
                   ),
                 Padding(
@@ -62,28 +73,21 @@ class Sidebar extends StatelessWidget {
                 ),
                 child: ListView(
                   children: [
-                    //Home
+                    //Locations
                     MenuTile(
-                      isActive: selectedIndex == 0,
-                      title: "Home",
+                      isActive: selectedIndex == SideBarItem.locations.index,
+                      title: TextConstants.locationsTitleTab,
                       activeIconSrc: "assets/icons/home_filled.svg",
                       inactiveIconSrc: "assets/icons/home_light.svg",
                       onPressed: () {
-                        onChanged.call(0);
+                        onChanged.call(SideBarItem.locations.index);
                       },
                     ),
-                    // Products
+                    // Mainten
                     ExpansionTile(
-                      initiallyExpanded: selectedIndex == 1 ||
-                          selectedIndex == 2 ||
-                          selectedIndex == 3,
-                      leading: SvgPicture.asset(selectedIndex == 1 ||
-                              selectedIndex == 2 ||
-                              selectedIndex == 3
-                          ? "assets/icons/diamond_filled.svg"
-                          : "assets/icons/diamond_light.svg"),
+                      initiallyExpanded: selectedIndex == SideBarItem.reservationsTitle.index ,
                       title: Text(
-                        "Products",
+                        TextConstants.reservationsTitleTab,
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
                           color: Theme.of(context).textTheme.bodyMedium!.color,
@@ -91,43 +95,30 @@ class Sidebar extends StatelessWidget {
                       ),
                       children: [
                         MenuTile(
-                          isActive: selectedIndex == 1,
+                          isActive: selectedIndex == SideBarItem.reservations.index,
                           isSubmenu: true,
                           title: "Dashboard",
                           onPressed: () {
-                            onChanged.call(1);
+                            onChanged.call(SideBarItem.reservations.index);
                           },
                         ),
-                        MenuTile(
-                          isActive: selectedIndex == 2,
-                          isSubmenu: true,
-                          title: "Draft",
-                          count: 16,
-                          onPressed: () {
-                            onChanged.call(2);
-                          },
-                        ),
-                        MenuTile(
-                          isActive: selectedIndex == 3,
-                          isSubmenu: true,
-                          title: "Add Product",
-                          onPressed: () {
-                            onChanged.call(3);
-                          },
-                        ),
+                        for (var location in locations)
+                          MenuTile(
+                            isActive: selectedIndex == SideBarItem.reservations.index,
+                            isSubmenu: true,
+                            title: location.name,
+                            onPressed: () {
+                              onChangedWithLocation.call(SideBarItem.reservations.index, location);
+                            },
+                          ),
                       ],
                     ),
                     // Customers
                     ExpansionTile(
                       initiallyExpanded:
-                          selectedIndex == 4 || selectedIndex == 5,
-                      leading: SvgPicture.asset(
-                        selectedIndex == 4 || selectedIndex == 5
-                            ? "assets/icons/profile_circled_filled.svg"
-                            : "assets/icons/profile_circled_light.svg",
-                      ),
+                          selectedIndex == SideBarItem.maintenancesTitle.index,
                       title: Text(
-                        "Customers",
+                        TextConstants.maintenacesTitleTab,
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
                           color: Theme.of(context).textTheme.bodyMedium!.color,
@@ -135,100 +126,25 @@ class Sidebar extends StatelessWidget {
                       ),
                       children: [
                         MenuTile(
-                          isActive: selectedIndex == 4,
+                          isActive: selectedIndex == SideBarItem.maintenances.index,
                           isSubmenu: true,
                           title: "Overview",
-                          onPressed: () {
-                            onChanged.call(4);
-                          },
-                        ),
-                        MenuTile(
-                          isActive: selectedIndex == 5,
-                          isSubmenu: true,
-                          title: "Customer list",
                           count: 16,
                           onPressed: () {
-                            onChanged.call(5);
+                            onChanged.call(SideBarItem.maintenances.index);
+                          },
+                        ),
+                        MenuTile(
+                          isActive: selectedIndex == SideBarItem.maintenancesCalendar.index,
+                          isSubmenu: true,
+                          title: "Maintenance Calendar",
+                          onPressed: () {
+
+                            onChanged.call(SideBarItem.maintenancesCalendar.index);
                           },
                         ),
                       ],
-                    ),
-                    // Shop
-                    MenuTile(
-                      isActive: selectedIndex == 6,
-                      title: "Shop",
-                      activeIconSrc: "assets/icons/store_light.svg",
-                      inactiveIconSrc: "assets/icons/store_filled.svg",
-                      onPressed: () {
-                        onChanged.call(6);
-                      },
-                    ),
-                    // Income
-                    ExpansionTile(
-                      initiallyExpanded: selectedIndex == 7 ||
-                          selectedIndex == 8 ||
-                          selectedIndex == 9 ||
-                          selectedIndex == 10,
-                      leading: SvgPicture.asset(
-                        selectedIndex == 7 ||
-                                selectedIndex == 8 ||
-                                selectedIndex == 9 ||
-                                selectedIndex == 10
-                            ? "assets/icons/pie_chart_filled.svg"
-                            : "assets/icons/pie_chart_light.svg",
-                      ),
-                      title: Text(
-                        "Income",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          color: Theme.of(context).textTheme.bodyMedium!.color,
-                        ),
-                      ),
-                      children: [
-                        MenuTile(
-                          isActive: selectedIndex == 7,
-                          isSubmenu: true,
-                          title: "Earning",
-                          onPressed: () {
-                            onChanged.call(7);
-                          },
-                        ),
-                        MenuTile(
-                          isActive: selectedIndex == 8,
-                          isSubmenu: true,
-                          title: "Refunds",
-                          onPressed: () {
-                            onChanged.call(8);
-                          },
-                        ),
-                        MenuTile(
-                          isActive: selectedIndex == 9,
-                          isSubmenu: true,
-                          title: "Payouts",
-                          onPressed: () {
-                            onChanged.call(9);
-                          },
-                        ),
-                        MenuTile(
-                          isActive: selectedIndex == 10,
-                          isSubmenu: true,
-                          title: "Statements",
-                          onPressed: () {
-                            onChanged.call(10);
-                          },
-                        ),
-                      ],
-                    ),
-                    MenuTile(
-                      isActive: selectedIndex == 11,
-                      title: "Promote",
-                      activeIconSrc: "assets/icons/promotion_filled.svg",
-                      inactiveIconSrc: "assets/icons/promotion_light.svg",
-                      onPressed: () {
-                        onChanged.call(11);
-                      },
-                    ),
-                  ],
+                    ),],
                 ),
               ),
             ),
@@ -237,52 +153,17 @@ class Sidebar extends StatelessWidget {
               child: Column(
                 children: [
                   if (Responsive.isMobile(context))
-                    const CustomerInfo(
-                      name: 'Tran Mau Tri Tam',
-                      designation: 'Visual Designer',
+                     CustomerInfo(
+                      onCancelPressed: () {
+                        onChanged.call(SideBarItem.account.index);
+                      },
+                      name: currentUser.name,
+                      designation: currentUser.userType.toString(),
                       imageSrc:
                           'https://cdn.create.vista.com/api/media/small/339818716/stock-photo-doubtful-hispanic-man-looking-with-disbelief-expression',
                     ),
                   gapH8,
-                  const Divider(),
-                  gapH8,
-                  Row(
-                    children: [
-                      SvgPicture.asset(
-                        'assets/icons/help_light.svg',
-                        height: 24,
-                        width: 24,
-                        colorFilter: const ColorFilter.mode(
-                          AppColors.textLight,
-                          BlendMode.srcIn,
-                        ),
-                      ),
-                      gapW8,
-                      Text(
-                        'Help & getting started',
-                        style: Theme.of(context)
-                            .textTheme
-                            .labelMedium
-                            ?.copyWith(fontWeight: FontWeight.w600),
-                      ),
-                      const Spacer(),
-                      Chip(
-                        backgroundColor: AppColors.secondaryLavender,
-                        side: BorderSide.none,
-                        padding: const EdgeInsets.symmetric(horizontal: 0.5),
-                        label: Text(
-                          "8",
-                          style: Theme.of(context)
-                              .textTheme
-                              .labelMedium!
-                              .copyWith(fontWeight: FontWeight.w700),
-                        ),
-                      ),
-                    ],
-                  ),
-                  gapH20,
-                  const ThemeTabs(),
-                  gapH8,
+                  
                 ],
               ),
             ),

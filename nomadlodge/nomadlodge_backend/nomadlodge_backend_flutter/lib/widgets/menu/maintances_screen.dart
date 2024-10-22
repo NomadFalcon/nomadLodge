@@ -5,6 +5,7 @@ import 'package:nomadlodge_backend_client/nomadlodge_backend_client.dart';
 import '../popups/new_maintenace_popup.dart';
 import '../creation/maintenance_creation_page.dart';
 import 'package:intl/intl.dart';
+import '../../external_ui/external_ui_components.dart';
 
 
 class MaintenancesScreen extends StatefulWidget {
@@ -40,49 +41,15 @@ class _MaintenancesScreenState extends State<MaintenancesScreen> {
 
   
 
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.indigo.shade400,
-        body: Container(
-          decoration: const BoxDecoration(
-            color: Colors.white,
-          ),
-          height: MediaQuery.of(context).size.height * 0.8,
-          width: MediaQuery.of(context).size.width,
-          padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 0.0),
-          child: (maintenaces.isNotEmpty) ? ListView(
-            children: [
-              for (var maintenace in maintenaces)
-                Card(
-                  color: (maintenace.maintenancetype == MaintenanceType.cleaning) ? Colors.lightBlue : Colors.lightGreen,
-                  child: ListTile(
-                    contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                    title: Text("${maintenace.maintenancetype.name} for ${maintenace.location?.name ?? "Unknown"}"),
-                    subtitle: Text("Date: ${DateFormat('dd-MM-yyyy').format(maintenace.start) }"),
-                    textColor: Colors.white,
-                    trailing: ElevatedButton(
+    return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+               ElevatedButton(
                       onPressed: () {
                         // Add your reload logic here
-                        print('Reload button pressed');
-                      },
-                      child: const Text('See more'),
-                    ),
-                  ),
-                ),
-            ],
-          ) : Text("There is no maintenaces to show"),
-          
-        ),
-        floatingActionButton: FloatingActionButton(
-                backgroundColor: Colors.indigo,
-                child: const Icon(
-                  Icons.add,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  WoltModalSheet.show(
+                        WoltModalSheet.show(
                     context: context,
                     modalTypeBuilder: (context) {
                       return WoltModalType.dialog();
@@ -103,17 +70,33 @@ class _MaintenancesScreenState extends State<MaintenancesScreen> {
                     ),
                 ],
               );
-            },
-              )
-            );
+            
+                      },
+                      child: const Text('Add new maintenance'),
+                    ),
+              gapH16,
+              Divider(),
+              for (var maintenace in maintenaces)
+                Card(
+                  color: (maintenace.maintenancetype == MaintenanceType.cleaning) ? Colors.lightBlue : Colors.lightGreen,
+                  child: ListTile(
+                    contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                    title: Text("${maintenace.maintenancetype.name} for ${maintenace.location?.name ?? "Unknown"}"),
+                    subtitle: Text("Date: ${DateFormat('dd-MM-yyyy').format(maintenace.start) }"),
+                    textColor: Colors.white,
+                    trailing: ElevatedButton(
+                      onPressed: () {
+                        // Add your reload logic here
+                        print('Reload button pressed');
+                      },
+                      child: const Text('See more'),
+                    ),
+                  ),
+                ),
+                (maintenaces.isEmpty) ?  Text("There are no maintenaces to show") : gapH16,
+          ], 
+        );
   }
-
-
-  void getPopup(){
-    
-  }
-
-
 }
 
 

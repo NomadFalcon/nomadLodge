@@ -3,6 +3,7 @@ import '../../serverpod_client.dart';
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 import 'package:nomadlodge_backend_client/nomadlodge_backend_client.dart';
 import 'package:intl/intl.dart';
+import '../../external_ui/external_ui_components.dart';
 
 class ReservationsScreen extends StatefulWidget {
 
@@ -35,48 +36,15 @@ class _ReservationsScreenState extends State<ReservationsScreen> {
 
   
 
-
-  @override
+@override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.indigo.shade400,
-        body: Container(
-          decoration: const BoxDecoration(
-            color: Colors.white,
-          ),
-          height: MediaQuery.of(context).size.height * 0.8,
-          width: MediaQuery.of(context).size.width,
-          padding: const EdgeInsets.all(20),
-          child: (reservations.isNotEmpty) ? ListView(
-            children: [
-              for (var reservation in reservations)
-                Card(
-                  color: (reservation.platform == "Booking.com") ? Colors.lightBlue : (reservation.platform == "Airbnb") ? Colors.red : Colors.lightGreen,
-                  child: ListTile(
-                    contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                    textColor: Colors.white,
-                    title: Text(reservation.user?.name ?? "Unknown"),
-                    subtitle: Text("${reservation.platform}\n${DateFormat('dd-MM-yyyy').format(reservation.start)} to ${DateFormat('dd-MM-yyyy').format(reservation.end)}"),
-                    trailing: ElevatedButton(
+    return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+               ElevatedButton(
                       onPressed: () {
                         // Add your reload logic here
-                        print('Reload button pressed');
-                      },
-                      child: const Text('See more'),
-                    ),
-                  ),
-                ),
-            ],
-          ) : Text("There is no reservations to show"),
-        ),
-        floatingActionButton: FloatingActionButton(
-                backgroundColor: Colors.indigo,
-                child: const Icon(
-                  Icons.add,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  WoltModalSheet.show(
+                       WoltModalSheet.show(
                     context: context,
                     modalTypeBuilder: (context) {
                       return WoltModalType.dialog();
@@ -96,9 +64,33 @@ class _ReservationsScreenState extends State<ReservationsScreen> {
                   )
                 ],
               );
-            },
-              )
-            );
+            
+            
+                      },
+                      child: const Text('Add new reservation'),
+                    ),
+              gapH16,
+              Divider(),
+              for (var reservation in reservations)
+                Card(
+                  color: (reservation.platform == "Booking.com") ? Colors.lightBlue : (reservation.platform == "Airbnb") ? Colors.red : Colors.lightGreen,
+                  child: ListTile(
+                    contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                    textColor: Colors.white,
+                    title: Text(reservation.user?.name ?? "Unknown"),
+                    subtitle: Text("${reservation.platform}\n${DateFormat('dd-MM-yyyy').format(reservation.start)} to ${DateFormat('dd-MM-yyyy').format(reservation.end)}"),
+                    trailing: ElevatedButton(
+                      onPressed: () {
+                        // Add your reload logic here
+                        print('Reload button pressed');
+                      },
+                      child: const Text('See more'),
+                    ),
+                  ),
+                ),(reservations.isEmpty) ?  Text("There are no reservations to show") : gapH16,
+          ], 
+        );
   }
-}
+
+ }
 

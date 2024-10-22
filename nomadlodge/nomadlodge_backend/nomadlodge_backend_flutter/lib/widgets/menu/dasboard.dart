@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:nomadlodge_backend_flutter/widgets/details/locations_details_page.dart';
 import 'package:nomadlodge_backend_flutter/widgets/menu/maintances_screen.dart';
 import 'package:nomadlodge_backend_client/nomadlodge_backend_client.dart';
 import 'reservations_screen.dart';
 import 'locations_screen.dart.dart';
 import 'products_screen.dart';
 import '../account_page.dart';
-import '../../constants/text_constants.dart';
 import '../../messaging_service.dart';
 
+import '../../external_ui/external_ui_components.dart';
+import '../../constants/text_constants.dart';
+import '../../serverpod_client.dart';
 
+
+final GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
 
 
 class DashboardPage extends StatefulWidget {
@@ -23,83 +28,165 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPage extends State<DashboardPage>
     with SingleTickerProviderStateMixin {
-  late TabController tabController;
+
   bool needsToSetupUser = false;
+
+  int _selectedIndex = 0;
+  Location? _selectedLocation;
+  List<Location> locations = [];
 
   @override
   void initState() {
-    tabController = TabController(length: 4, vsync: this);
-    tabController.addListener(() {
-      setState(() {});
-    });
-
+   getLocations();
     super.initState();
   }
-
-  String getTabTitle(int index) {
-    switch (index) {
-      case 0:
-        return TextConstants.locationsTitleTab;
-      case 1:
-        return TextConstants.reservationsTitleTab;
-      case 2:
-        return TextConstants.maintenacesTitleTab;
-      case 3:
-        return TextConstants.accountTitleTab;
-      default:
-        return "";
-    }
-
+   void getLocations() {
+    client.location.getAll(widget.currentUser).then((value) {
+      print("got locations");
+      print(value[1]);
+      setState(() {
+        locations = value;
+      });
+    });
   }
 
+  Widget getCurrentWidget(int index) {
+    if(_selectedLocation != null) {
+      return LocationDetailsPage(location: _selectedLocation!, inviteNewUser: (p0, p1) {
+          getLocations();
+      },);
+    }
+    if (index == SideBarItem.locations.index) {
+      return LocationScreen(
+        locations: locations,
+        currentUser: widget.currentUser,
+        getLocations: () => getLocations(),
+      );
+    }
+    if (index == SideBarItem.reservations.index) {
+      return ReservationsScreen(
+          currentUser: widget.currentUser
+        );
+    }
+    if (index == SideBarItem.maintenances.index) {
+      return MaintenancesScreen(
+          currentUser: widget.currentUser
+        );
+    }
+    if (index == SideBarItem.products.index) {
+      return ProductScreen(
+          currentUser: widget.currentUser
+        );
+    }
+    if (index == SideBarItem.account.index) {
+      return AccountPage(key:ValueKey(AccountPage), currentUser: widget.currentUser, messagingService: widget.messagingService);
+    }
+
+     return LocationScreen(
+          locations: locations,
+          currentUser: widget.currentUser,
+          getLocations: () => getLocations(),
+        );
+
+       
+  }
+
+String getHeaderTitle(int index) {
+    if (index == SideBarItem.locations.index) {
+      return TextConstants.locationsTitleTab;
+    }
+    if (index == SideBarItem.reservations.index) {
+      return TextConstants.reservationsTitleTab;
+    }
+    if (index == SideBarItem.maintenances.index) {
+       return TextConstants.maintenacesTitleTab;
+    }
+    if (index == SideBarItem.products.index) {
+     return TextConstants.productsTitleTab;
+    }
+    if (index == SideBarItem.account.index) {
+     return TextConstants.accountTitleTab;
+    }
+    return "";
+}
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         //tabcontroller.index can be used to get the name of current index value of the tabview.
-        title: Text(getTabTitle(tabController.index)),
-        bottom: TabBar(controller: tabController, tabs: [
-          Tab(
-            text: TextConstants.locationsTitleTab,
-            icon: Icon(
-              Icons.home,
-              color: Colors.indigo.shade500,
-            ),
-          ),
-          Tab(
-              text: TextConstants.reservationsTitleTab,
-              icon: Icon(
-                Icons.contact_mail,
-                color: Colors.indigo.shade500,
-              )),
-          Tab(
-              text: TextConstants.maintenacesTitleTab,
-              icon: Icon(
-                Icons.cleaning_services,
-                color: Colors.indigo.shade500,
-              )),
-              Tab(
-              text: TextConstants.accountTitleTab,
-              icon: Icon(
-                Icons.account_circle,
-                color: Colors.indigo.shade500,
-              )),
-        ]),
+        title: Text(getHeaderTitle(_selectedIndex)),
       ),
-      body: TabBarView(controller: tabController, children: [
-        LocationScreen(
-          currentUser: widget.currentUser
-        ),
-        ReservationsScreen(
-          currentUser: widget.currentUser
-        ),
-        MaintenancesScreen(
-          currentUser: widget.currentUser
-        ),
-        AccountPage(key:ValueKey(AccountPage), currentUser: widget.currentUser, messagingService: widget.messagingService),
-      ]),
+      key: _drawerKey,
+      drawer: Responsive.isMobile(context)
+          ? Sidebar(
+              currentUser: widget.currentUser,
+              locations: locations,
+              onChangedWithLocation: (i, l) {
+                setState(() {
+                  _selectedIndex = i;
+                  _selectedLocation = l;
+                });
+              },
+              selectedIndex: _selectedIndex,
+              onChanged: (i) {
+                setState(() {
+                  _selectedIndex = i;
+                  _selectedLocation = null;
+                });
+              },
+            )
+          : null,
+      body: Row(
+        children: [
+          if (Responsive.isDesktop(context))
+            Sidebar(
+              currentUser: widget.currentUser,
+              locations: locations,
+              onChangedWithLocation: (i, l) {
+                setState(() {
+                  _selectedIndex = i;
+                  _selectedLocation = l;
+                });
+              },
+              selectedIndex: _selectedIndex,
+              onChanged: (i) => setState(() => _selectedIndex = i),
+            ),
+          if (Responsive.isTablet(context))
+            TabSidebar(
+              selectedIndex: _selectedIndex,
+              onChanged: (i) => setState(() => _selectedIndex = i),
+            ),
+          Expanded(
+            child: Column(
+              children: [
+                //Header(drawerKey: _drawerKey),
+                Expanded(
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 1360),
+                    child: ListView(
+                      padding: EdgeInsets.zero,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: AppDefaults.padding *
+                                (Responsive.isMobile(context) ? 1 : 1.5),
+                          ),
+                          child: SafeArea(
+                            child: getCurrentWidget(_selectedIndex),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 }
+
+

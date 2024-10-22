@@ -6,6 +6,8 @@ import '../serverpod_client.dart';
 import '../messaging_service.dart';
 import '../widgets/creation/integration_creation_page.dart';
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
+import '../../external_ui/external_ui_components.dart';
+
 
 
 
@@ -47,11 +49,14 @@ class AccountPageState extends State<AccountPage> {
     }
     sessionManager.signOut();
   }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.indigo.shade400,
-        body: Container(
+    return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+               
+             Container(
           decoration: const BoxDecoration(
             color: Colors.white,
           ),
@@ -84,6 +89,25 @@ class AccountPageState extends State<AccountPage> {
           contentPadding:
               const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
           title: const Text('Integrations'),
+          trailing: ElevatedButton(
+            onPressed: () {
+                         WoltModalSheet.show(
+                    context: context,
+                    modalTypeBuilder: (context) {
+                      return WoltModalType.dialog();
+                    },
+                    pageListBuilder: (bottomSheetContext) => [
+                      NonScrollingWoltModalSheetPage(
+                        child: IntegrationCreationPage(currentUser: widget.currentUser,onIntegrationCreated: (){
+                          Navigator.of(bottomSheetContext).pop();
+                          getIntegration();
+                        },),
+                      ),
+                ],
+              );
+            },
+            child: const Text('+'),
+          ),
         ),
         for (var integration in integrations)
           Card(
@@ -108,33 +132,8 @@ class AccountPageState extends State<AccountPage> {
     ),
           
         ),
-        floatingActionButton: FloatingActionButton(
-                backgroundColor: Colors.indigo,
-                child: const Icon(
-                  Icons.add,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  WoltModalSheet.show(
-                    context: context,
-                    modalTypeBuilder: (context) {
-                      return WoltModalType.dialog();
-                    },
-                    pageListBuilder: (bottomSheetContext) => [
-                      NonScrollingWoltModalSheetPage(
-                        child: IntegrationCreationPage(currentUser: widget.currentUser,onIntegrationCreated: (){
-                          Navigator.of(bottomSheetContext).pop();
-                          getIntegration();
-                        },),
-                      ),
-                ],
-              );
-            },
-              )
-            );
+        
+          ], 
+        );
   }
-
-
 }
-
-

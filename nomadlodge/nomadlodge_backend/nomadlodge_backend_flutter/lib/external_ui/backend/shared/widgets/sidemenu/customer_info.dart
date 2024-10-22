@@ -26,7 +26,8 @@ class CustomerInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Hero(
       tag: 'customer_info',
-      child: Container(
+      child: InkWell( 
+        child: Container(
         padding: const EdgeInsets.all(AppDefaults.padding * 0.75),
         decoration: BoxDecoration(
           color: AppColors.bgLight,
@@ -68,31 +69,15 @@ class CustomerInfo extends StatelessWidget {
                 ],
               ),
             ),
-            gapW16,
-            showCancel
-                ? IconButton(
-                    onPressed: onCancelPressed,
-                    icon: const Icon(
-                      Icons.close,
-                      color: AppColors.textLight,
-                    ),
-                  )
-                : AppPopupMenu(
-                    child: Icon(
-                      Icons.keyboard_arrow_down_rounded,
-                      key: GlobalKey(debugLabel: 'ArrowDown'),
-                      color: AppColors.textLight,
-                    ),
-                    popUpBuilder: (context, position, size) {
-                      return ProfileActionsPopup(
-                        position: position,
-                        size: size,
-                      );
-                    },
-                  ),
+                
           ],
         ),
       ),
-    );
+      onTap: () {
+        onCancelPressed?.call();
+      }
+      ),
+      
+       );
   }
 }

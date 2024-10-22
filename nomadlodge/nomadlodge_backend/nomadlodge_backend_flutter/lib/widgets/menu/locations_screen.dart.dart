@@ -6,14 +6,17 @@ import '../../serverpod_client.dart';
 import '../details/locations_details_page.dart';
 
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
+import '../../external_ui/external_ui_components.dart';
 
 
 class LocationScreen extends StatefulWidget {
 
   const LocationScreen(
-      {Key? key, required this.currentUser})
+      {Key? key, required this.currentUser, required this.locations, required this.getLocations})
       : super(key: key);
   final User currentUser;
+  final List<Location> locations;
+  final Function() getLocations;
   @override
   State<LocationScreen> createState() => _LocationScreenState();
 }
@@ -21,26 +24,18 @@ class LocationScreen extends StatefulWidget {
 class _LocationScreenState extends State<LocationScreen> {
   bool isExpanded = false;
 
-  List<Location> locations = [];
+
 
   @override
   void initState() {
-    getLocations();
+ 
     super.initState();
   }
 
-  void getLocations() {
-    client.location.getAll(widget.currentUser).then((value) {
-      print("got locations");
-      print(value[1]);
-      setState(() {
-        locations = value;
-      });
-    });
-  }
+ 
 
   void inviteNewUser(User user, Location location) async {
-    getLocations();
+    widget.getLocations();
   }
 
   
@@ -48,18 +43,10 @@ class _LocationScreenState extends State<LocationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.indigo.shade400,
-        body: Container(
-          decoration: const BoxDecoration(
-            color: Colors.white,
-          ),
-          height: MediaQuery.of(context).size.height * 0.8,
-          width: MediaQuery.of(context).size.width,
-          padding: const EdgeInsets.all(20),
-          child: (locations.isNotEmpty) ? 
-          ListView(children: [
-            for (var location in locations)
+    return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+              for (var location in widget.locations)
                 Card(
                   child: ListTile(
                     contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
@@ -82,40 +69,9 @@ class _LocationScreenState extends State<LocationScreen> {
                       child: const Text('See more'),
                     ),
                   ),
-                ),
-          ],) : Text("There are no locations to show"),
-          
-          
-        ),
-        floatingActionButton: FloatingActionButton(
-                backgroundColor: Colors.indigo,
-                child: const Icon(
-                  Icons.add,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  WoltModalSheet.show(
-                    context: context,
-                    modalTypeBuilder: (context) {
-                      return WoltModalType.dialog();
-                    },
-                    pageListBuilder: (bottomSheetContext) => [
-                      SliverWoltModalSheetPage(
-                        mainContentSliversBuilder: (context) => [
-                          SliverList.builder(
-                            itemBuilder: (context, index) {
-                              return ListTile(
-                                title: Text('Index is $index'),
-                                onTap: Navigator.of(bottomSheetContext).pop,
-                          );
-                        },
-                      ),
-                    ],
-                  )
-                ],
-              );
-            },
-              )
-            );
+                ), 
+                (widget.locations.isEmpty) ?  Text("There are no locations to show") : gapH16,
+          ], 
+        );
   }
 }
